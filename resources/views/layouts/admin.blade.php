@@ -34,12 +34,12 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/summernote/summernote-bs4.min.css') }}">
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed text-sm layout-top-nav sidebar-collapse" style="height:auto">
+{{-- <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed text-sm layout-top-nav sidebar-collapse" style="height:auto"> --}}
+<body class="hold-transition layout-top-nav layout-fixed layout-navbar-fixed text-sm " style="height:auto">
     <div class="wrapper">
         @include('partials.admin.header')
-
         <section class="content">
-            <div class="container-fluid">
+            <div class="container">
                 {{-- content --}}
                 @yield('content')
                 {{-- end content --}}
