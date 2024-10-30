@@ -13,8 +13,8 @@
           <li class="nav-item dropdown">
               <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Inventaris</a>
               <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow" style="left: 0px; right: inherit;">
-                  <li><a href="#" class="dropdown-item">Aset TIK</a></li>
-                  <li><a href="#" class="dropdown-item">Aset Rumah Tangga</a></li>
+                  <li><a href="{{route('admin.asettik')}}" class="dropdown-item">Aset TIK</a></li>
+                  <li><a href="{{route('admin.asetrt')}}" class="dropdown-item">Aset Rumah Tangga</a></li>
 
                   <li class="dropdown-divider"></li>
 
@@ -22,8 +22,8 @@
                   <li class="dropdown-submenu dropdown-hover">
                       <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Setting</a>
                       <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                          <li><a tabindex="-1" href="#" class="dropdown-item">Atribut Aset TIK</a></li>
-                          <li><a href="#" class="dropdown-item">Atribut Aset Rumah Tangga</a></li>
+                          <li><a tabindex="-1" href="{{route('admin.setting_attr_asettik')}}" class="dropdown-item">Atribut Aset TIK</a></li>
+                          <li><a href="{{route('admin.setting_attr_asetrt')}}" class="dropdown-item">Atribut Aset Rumah Tangga</a></li>
                           <!-- Level three dropdown-->
                           {{-- <li class="dropdown-submenu">
                               <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">level 2</a>
@@ -154,7 +154,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="index3.html" class="brand-link">
-          <img src="ppl-icon.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+          <img src="{{ asset('ppl-icon.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
           <span class="brand-text font-weight-light">Asset Management</span>
       </a>
 

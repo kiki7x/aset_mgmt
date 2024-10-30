@@ -36,14 +36,14 @@
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed text-sm layout-top-nav sidebar-collapse" style="height:auto">
     <div class="wrapper">
-        @include('layouts.admin.header')
+        @include('partials.admin.header')
 
         <section class="content">
             <div class="container-fluid">
                 {{-- content --}}
                 @yield('content')
                 {{-- end content --}}
-                @include('layouts.admin.footer')
+                @include('partials.admin.footer')
             </div>
         </section>
     </div>

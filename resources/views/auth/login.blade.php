@@ -1,4 +1,4 @@
-@extends('layouts.auth.app', ['title' => 'Login - Asset Management PPL'])
+@extends('layouts.auth', ['title' => 'Login - Asset Management PPL'])
 
 @section('content')
     <div class="col-md-6 text-center">
