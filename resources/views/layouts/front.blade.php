@@ -290,7 +290,7 @@
             </div>
 
         </section><!-- /Skills Section -->
-
+        
         <!-- Services Section -->
         <section id="services" class="services section light-background">
 
@@ -299,14 +299,14 @@
                 <h2>Layanan</h2>
                 <p>Beberapa cakupan fitur yang terdapat dalam aplikasi ini sebagai berikut</p>
             </div><!-- End Section Title -->
-
+            
             <div class="container">
-
+                
                 <div class="row gy-4">
-
+                    
                     <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="50">
                         <div class="service-item position-relative">
-                            <div class="icon"><i class="bi bi-activity icon"></i></div>
+                            <div class="icon"><i class="bi bi-clipboard2-plus icon"></i></div>
                             <h4><a href="" class="stretched-link">Pendataan Aset</a></h4>
                             <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
                         </div>
@@ -314,27 +314,28 @@
 
                     <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="50">
                         <div class="service-item position-relative">
-                            <div class="icon"><i class="bi bi-bounding-box-circles icon"></i></div>
-                            <h4><a href="" class="stretched-link">Aset Tetap</a></h4>
+                            <div class="icon"><i class="bi bi-tools icon"></i></div>
+                            <h4><a href="" class="stretched-link">Pemeliharaan</a></h4>
+                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+                        </div>
+                    </div><!-- End Service Item -->
+
+                    <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="50">
+                        <div class="service-item position-relative">
+                            <div class="icon"><i class="bi bi-journal-check icon"></i></div>
+                            <h4><a href="" class="stretched-link">Peminjaman Ruangan</a></h4>
                             <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
                         </div>
                     </div><!-- End Service Item -->
 
                     <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="50">
                         <div class="service-item position-relative">
-                            <div class="icon"><i class="bi bi-calendar4-week icon"></i></div>
-                            <h4><a href="" class="stretched-link">Aset Bergerak</a></h4>
+                            <div class="icon"><i class="bi bi-telephone icon"></i></div>
+                            <h4><a href="" class="stretched-link">Helpdesk Sarana & Prasarana berbasis Tiket</a></h4>
                             <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
                         </div>
                     </div><!-- End Service Item -->
 
-                    <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="50">
-                        <div class="service-item position-relative">
-                            <div class="icon"><i class="bi bi-broadcast icon"></i></div>
-                            <h4><a href="" class="stretched-link">Maintenance</a></h4>
-                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
-                        </div>
-                    </div><!-- End Service Item -->
 
                 </div>
 

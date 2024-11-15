@@ -131,7 +131,7 @@
 
               <li class="nav-item dropdown user user-menu">
                   <a href="#" class="nav-link" data-toggle="dropdown">
-                      <img src="adminlte/dist/img/user2-160x160.jpg" class="user-image img-size-10 img-circle" alt="User Image">
+                      <img src="{{ asset('adminlte/dist/img/user2-160x160.jpg') }}" class="user-image img-size-10 img-circle" alt="User Image">
                       <span class="hidden-xs"><i class="caret"></i></span>
                   </a>
                   <ul class="dropdown-menu">
