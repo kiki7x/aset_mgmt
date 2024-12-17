@@ -16,7 +16,7 @@
 
           <div class="collapse navbar-collapse order-3" id="navbarCollapse">
               <!-- Left navbar links -->
-              <ul class="navbar-nav">
+              <ul class="navbar-nav mr-auto">
                   <li class="nav-item dropdown">
                       <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><i class="nav-icon fas fa-tachometer-alt"></i> Inventaris</a>
                       <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
@@ -68,7 +68,7 @@
                   <li class="nav-item">
                       <a href="#" class="nav-link">
                         <i class="fa-solid fa-users nav-icon"></i>
-                        User Manajemen</a>
+                        Users</a>
                   </li>
                   <li class="nav-item">
                       <a href="#" class="nav-link">
@@ -162,9 +162,9 @@
       <!-- Content Header (Page header) -->
       <div class="content-header">
           <div class="container">
-              <div class="row mb-2">
+              <div class="row mb-2 mt-2">
                   <div class="col-sm-6">
-                      <h1 class="m-0">Dashboard</h1>
+                      <h4 class="m-0">@yield('title')</h4>
                   </div><!-- /.col -->
                   <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">

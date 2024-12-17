@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('type', 10); // type column (VARCHAR 10)
+            $table->unsignedInteger('roleid'); // roleid column (integer)
+            $table->unsignedInteger('clientid'); // clientid column (integer)
+            $table->string('title', 64); // title column (VARCHAR 64)
+            $table->string('mobile', 64); // mobile column (VARCHAR 64)
+            $table->boolean('ticketsnotification')->default(0); // ticketsnotification column (integer as boolean, default 0)
+            $table->binary('avatar'); // avatar column (MEDIUMBLOB)
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
