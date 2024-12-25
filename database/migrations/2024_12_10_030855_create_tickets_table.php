@@ -11,24 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tickets', function (Blueprint $table) {
-            $table->id(); // id column (AUTO_INCREMENT and PRIMARY KEY)
-            $table->unsignedInteger('ticket'); // ticket column (integer)
-            $table->unsignedInteger('department_id'); // departmentid column (integer)
-            $table->unsignedInteger('client_id'); // clientid column (integer)
-            $table->unsignedInteger('user_id'); // userid column (integer)
-            $table->unsignedInteger('admin_id'); // adminid column (integer)
-            $table->unsignedInteger('asset_id'); // assetid column (integer)
-            $table->unsignedInteger('project_id'); // projectid column (integer)
-            $table->string('email', 128); // email column (VARCHAR 128)
-            $table->string('subject', 500); // subject column (VARCHAR 500)
-            $table->string('status', 50); // status column (VARCHAR 50)
-            $table->string('priority', 50); // priority column (VARCHAR 50)
-            $table->longText('notes'); // notes column (LONGTEXT)
-            $table->string('ccs', 255); // ccs column (VARCHAR 255)
-            $table->unsignedInteger('timespent'); // timespent column (integer)
-            $table->timestamps(); // created_at and updated_at columns
-        });
         Schema::create('tickets_departments', function (Blueprint $table) {
             $table->id(); // id column (AUTO_INCREMENT and PRIMARY KEY)
             $table->string('name', 255); // name column (VARCHAR 255)
@@ -65,6 +47,24 @@ return new class extends Migration
             $table->text('reply'); // reply column (TEXT)
             $table->timestamps(); // created_at and updated_at columns
         });
+        Schema::create('tickets', function (Blueprint $table) {
+            $table->id(); // id column (AUTO_INCREMENT and PRIMARY KEY)
+            $table->unsignedInteger('ticket'); // ticket column (integer)
+            $table->unsignedInteger('department_id'); // departmentid column (integer)
+            $table->unsignedInteger('client_id'); // clientid column (integer)
+            $table->unsignedInteger('user_id'); // userid column (integer)
+            $table->unsignedInteger('admin_id'); // adminid column (integer)
+            $table->unsignedInteger('asset_id'); // assetid column (integer)
+            $table->unsignedInteger('project_id'); // projectid column (integer)
+            $table->string('email', 128); // email column (VARCHAR 128)
+            $table->string('subject', 500); // subject column (VARCHAR 500)
+            $table->string('status', 50); // status column (VARCHAR 50)
+            $table->string('priority', 50); // priority column (VARCHAR 50)
+            $table->longText('notes'); // notes column (LONGTEXT)
+            $table->string('ccs', 255); // ccs column (VARCHAR 255)
+            $table->unsignedInteger('timespent'); // timespent column (integer)
+            $table->timestamps(); // created_at and updated_at columns
+        });
     }
 
     /**
@@ -72,10 +72,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tickets');
         Schema::dropIfExists('tickets_departments');
         Schema::dropIfExists('tickets_predefine_reply');
         Schema::dropIfExists('tickets_replies');
         Schema::dropIfExists('tickets_rules');
+        Schema::dropIfExists('tickets');
     }
 };

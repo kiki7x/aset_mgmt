@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('labels', function (Blueprint $table) {
-            $table->id(); // id column (AUTO_INCREMENT and PRIMARY KEY)
-            $table->string('name', 255); // name column (VARCHAR 255)
-            $table->string('color', 7); // color column (VARCHAR 7)
-            $table->timestamps(); // created_at and updated_at columns
+            $table->id();
+            $table->string('name', 255);
+            $table->string('color', 7);
+            $table->timestamps();
         });
     }
 

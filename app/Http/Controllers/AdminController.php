@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//import return type redirectResponse
+use Illuminate\Http\RedirectResponse;
 
 class AdminController extends Controller
 {
@@ -17,11 +19,12 @@ class AdminController extends Controller
         return view('admin.asettik');
         
     }
-    public function asettik_create()
+    public function asettik_store(Request $request): RedirectResponse
     {
-        return view('admin.asettik_create');
+        // return view('admin.asettik_simpan');
         
     }
+
     public function asettik_show($id)
     {
         return view('admin.asettik_show');

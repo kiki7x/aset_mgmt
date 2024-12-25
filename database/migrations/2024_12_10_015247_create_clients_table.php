@@ -13,16 +13,17 @@ return new class extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id(); // id column (AUTO_INCREMENT)
-            $table->string('name', 255); // name column (VARCHAR 255)
-            $table->string('asset_tag_prefix', 255); // asset_tag_prefix column (VARCHAR 255)
-            $table->string('license_tag_prefix', 255); // license_tag_prefix column (VARCHAR 255)
-            $table->longText('notes'); // notes column (LONGTEXT)
+            $table->string('name', 255);
+            $table->string('assettik_tag_prefix', 10);
+            $table->string('assetrt_tag_prefix', 10);
+            $table->string('license_tag_prefix', 10);
+            $table->longText('notes')->nullable(); // notes column (LONGTEXT)
             $table->timestamps(); // created_at and updated_at columns
         });
         Schema::create('clients_admins', function (Blueprint $table) {
             $table->id(); // id column (AUTO_INCREMENT)
-            $table->unsignedInteger('admin_id'); // adminid column (integer)
-            $table->unsignedInteger('client_id'); // clientid column (integer)
+            $table->unsignedInteger('admin_id');
+            $table->unsignedInteger('client_id');
             $table->timestamps(); // created_at and updated_at columns
         });
     }

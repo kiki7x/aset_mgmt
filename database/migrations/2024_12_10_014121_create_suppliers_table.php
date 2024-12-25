@@ -13,14 +13,13 @@ return new class extends Migration
     {
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id(); // id column
-            $table->string('name', 255); // name column
-            $table->text('address'); // address column
-            $table->string('contactname', 255); // contactname column
-            $table->string('phone', 255); // phone column
-            $table->string('email', 255); // email column
-            $table->string('web', 255); // web column
-            $table->longText('notes'); // notes column
-            $table->timestamps(); // created_at and updated_at
+            $table->string('name', 255);
+            $table->text('address');
+            $table->string('contactname', 100);
+            $table->string('phone', 30);
+            $table->string('email', 50);
+            $table->longText('notes')->nullable();
+            $table->timestamps();
         });
     }
 

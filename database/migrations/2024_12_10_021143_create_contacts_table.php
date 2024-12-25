@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('contacts', function (Blueprint $table) {
-            $table->id(); // id column (AUTO_INCREMENT and PRIMARY KEY)
-            $table->string('name', 255); // name column (VARCHAR 255)
-            $table->string('email', 255); // email column (VARCHAR 255)
-            $table->string('phone', 32); // phone column (VARCHAR 32)
-            $table->text('address'); // address column (TEXT)
-            $table->text('webaddress'); // webaddress column (TEXT)
-            $table->longText('notes'); // notes column (LONGTEXT)
-            $table->timestamps(); // created_at and updated_at columns
+            $table->id();
+            $table->string('name', 100);
+            $table->string('email', 100);
+            $table->string('phone', 32);
+            $table->text('address')->nullable();
+            $table->text('webaddress')->nullable();
+            $table->longText('notes')->nullable();
+            $table->timestamps();
         });
     }
 

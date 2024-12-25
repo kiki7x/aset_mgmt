@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/summernote/summernote-bs4.min.css') }}">
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="{{ asset('adminlte\plugins\jquery-ui\jquery-ui.css')}}">
     {{-- script-head --}}
     @yield('script-head')
     {{-- ./script-head --}}

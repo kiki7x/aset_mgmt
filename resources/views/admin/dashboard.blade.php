@@ -18,7 +18,7 @@
                 <div class="icon">
                     <i class="fas fa-computer"></i>
                 </div>
-                <a href="#" class="small-box-footer">
+                <a href="{{ route('admin.asettik') }}" class="small-box-footer">
                     Selengkapnya <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
