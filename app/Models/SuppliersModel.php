@@ -9,13 +9,10 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 class SuppliersModel extends Model
 {
     use HasFactory;
-    protected $table = 'models';
+    protected $table = 'suppliers';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id',
         'name',
-        'created_at',
-        'updated_at'
     ];
 
 }

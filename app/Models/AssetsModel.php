@@ -7,33 +7,44 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class AsettikModel extends Model
+class AssetsModel extends Model
 {
     use HasFactory;
 
     protected $table = 'assets';
+    protected $primaryKey = 'id';
     protected $fillable = [
-        'category',
-        'admin',
-        'client',
-        'user',
-        'manufacturer',
-        'model',
-        'supplier',
-        'status',
+        'classification_id',
+        'category_id',
+        'admin_id',
+        'client_id',
+        'user_id',
+        'manufacturer_id',
+        'model_id',
+        'supplier_id',
+        'status_id',
         'purchase_date',
         'warranty_months',
         'tag',
         'name',
         'serial',
         'notes',
-        'location',
+        'location_id',
         'customfields',
         'qrvalue',
-        'created_at',
-        'updated_at',
     ];
 
+    public function scopeSearch($query, $value)
+    {
+        $query->where('name', 'LIKE', "%{$value}%")
+        ->orWhere('serial', 'LIKE', "%{$value}%");
+    }
+
+
+    public function classification(): BelongsTo
+    {
+        return $this->belongsTo(AssetclassificationsModel::class);
+    }
     // relasi ke model assetcategories
     public function category(): BelongsTo
     {
@@ -47,7 +58,7 @@ class AsettikModel extends Model
 
     public function client(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(ClientsModel::class);
     }
 
     public function user(): BelongsTo
@@ -65,10 +76,19 @@ class AsettikModel extends Model
         return $this->belongsTo(ModelsModel::class);
     }
 
-    protected function image(): Attribute
+    public function supplier(): BelongsTo
     {
-        return Attribute::make(
-            get: fn ($image) => asset('storage/asettik/' . $image),
-        );
+        return $this->belongsTo(SuppliersModel::class);
     }
+
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(LabelsModel::class, 'status_id', 'id');
+    }
+
+    public function location(): BelongsTo
+    {
+        return $this->belongsTo(LocationsModel::class);
+    }
+
 }

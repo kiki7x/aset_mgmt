@@ -12,11 +12,8 @@ class LocationsModel extends Model
     protected $table = 'locations';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id',
         'client_id',
         'name',
-        'created_at',
-        'updated_at'
     ];
 
 }

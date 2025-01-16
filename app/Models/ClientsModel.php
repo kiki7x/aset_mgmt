@@ -11,12 +11,9 @@ class ClientsModel extends Model
     protected $table = 'clients';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id',
         'name',
         'asset_tag_prefix',
         'license_tag_prefix',
         'notes',
-        'created_at',
-        'updated_at'
     ];
 }

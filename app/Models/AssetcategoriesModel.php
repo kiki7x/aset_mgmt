@@ -6,17 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
-class Assetcategories extends Model
+class AssetcategoriesModel extends Model
 {
     use HasFactory;
     protected $table = 'assetcategories';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id',
         'name',
         'color',
-        'created_at',
-        'updated_at',
     ];
+
+    public function assettiks()
+    {
+        return $this->hasMany(AsettiksModel::class);
+    }
 
 }

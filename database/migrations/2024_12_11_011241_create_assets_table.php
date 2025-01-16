@@ -68,7 +68,7 @@ return new class extends Migration
             $table->unsignedBigInteger('warranty_months');
             $table->string('tag', 255)->unique();
             $table->string('name', 255);
-            $table->string('serial', 255);
+            $table->string('serial', 255)->unique();
             $table->text('notes')->nullable();
             $table->text('customfields')->nullable();
             $table->text('qrvalue')->nullable();

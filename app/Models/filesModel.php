@@ -11,13 +11,10 @@ class filesModel extends Model
     protected $table = 'files';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id',
         'client_id',
         'asset_id',
         'ticketreply_id',
         'name',
         'file',
-        'created_at',
-        'updated_at'
     ];
 }

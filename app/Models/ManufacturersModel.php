@@ -11,9 +11,6 @@ class ManufacturersModel extends Model
     protected $table = 'manufacturers';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id',
         'name',
-        'created_at',
-        'updated_at',
     ];
 }

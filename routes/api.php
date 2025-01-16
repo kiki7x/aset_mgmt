@@ -9,5 +9,6 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 //asettiks
-Route::apiResource('/asettik', App\Http\Controllers\Api\AsettikController::class);
-Route::apiResource('/categories', App\Http\Controllers\Api\AssetcategoriesController::class);
+Route::apiResource('/asettiks', App\Http\Controllers\Api\AsettiksController::class);
+Route::apiResource('/assetclassifications', App\Http\Controllers\Api\AssetclassificationsController::class);
+Route::apiResource('/assetcategories', App\Http\Controllers\Api\AssetcategoriesController::class);

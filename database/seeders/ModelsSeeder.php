@@ -15,8 +15,8 @@ class ModelsSeeder extends Seeder
         DB::table('models')->insert([
             ['name' => 'AIO 200 G3'],
             ['name' => 'ProBook 430 G3'],
-            ['name' => 'Poweredge R220'],
-            ['name' => 'Optiplex 3020 MT'],
+            ['name' => 'Genset 40Kva'],
+            ['name' => 'Daikin 1/2 PK'],
             ['name' => 'Zephyrus M16'],
             ['name' => 'Spectre X360'],
         ]);

@@ -11,10 +11,7 @@ class Clients_adminsModel extends Model
     protected $table = 'clients_admin';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id',
         'admin_id',
-        'client_id',
-        'created_at',
-        'updated_at'
+        'client_id'
     ];
 }

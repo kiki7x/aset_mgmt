@@ -12,11 +12,8 @@ class LabelsModel extends Model
     protected $table = 'labels';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id',
         'name',
         'color',
-        'created_at',
-        'updated_at'
     ];
 
 }

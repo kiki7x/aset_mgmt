@@ -16,7 +16,7 @@ class AssetcategoriesController extends Controller
         $categories = AssetcategoriesModel::with('assets_tiks')->get();
 
         //return collection of assets_tiks as a resource
-        return new ApiResource(true, 'Data Category', $categories);
+        return new AssetcategoriesResource(true, 'Data Category', $categories);
 
     }
 

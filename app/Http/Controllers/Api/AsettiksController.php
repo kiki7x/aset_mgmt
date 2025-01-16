@@ -2,40 +2,74 @@
 
 namespace App\Http\Controllers\Api;
 
-//import model AsettikModel
-use App\Models\AsettikModel;
 use App\Http\Controllers\Controller;
-//import resource ApiResource
-use App\Http\Resources\ApiResource;
+use Illuminate\Http\Request;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
-class AsettikController extends Controller
+
+// import request
+use App\Http\Requests\AsettiksRequest;
+
+//import model
+use App\Models\AsettiksModel;
+use App\Models\AssetcategoriesModel;
+use App\Models\AssetclassificationsModel;
+
+//import api resource
+use App\Http\Resources\AsettiksResource;
+use App\Http\Resources\AssetcategoriesResource;
+use App\Http\Resources\AssetclassificationsResource;
+
+
+
+class AsettiksController extends Controller
 {    
-    /**
-     * index
-     *
-     * @return void
-     */
     // tampilkan semua data asettiks
     public function index()
     {
-        //get all assets_tiks from table
-        $asettiks = AsettikModel::latest()->paginate();
-
-        //return collection of assets_tiks as a resource
-        return new ApiResource(true, 'List Data Asettik', $asettiks);
+        try {
+            //get all assets_tiks from table
+            $asettiks = AsettiksModel::latest()->paginate(5);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'List Data Aset TIK',
+                'data' => AsettiksResource::collection($asettiks),
+                'meta' => [
+                    'current_page' => $asettiks->currentPage(),
+                    'from' => $asettiks->firstItem(),
+                    'last_page' => $asettiks->lastPage(),
+                    'per_page' => $asettiks->perPage(),
+                    'to' => $asettiks->lastItem(),
+                    'total' => $asettiks->total(),
+                ],
+                'links' => [
+                    'first' => $asettiks->url(1),
+                    'last' => $asettiks->url($asettiks->lastPage()),
+                    'prev' => $asettiks->previousPageUrl(),
+                    'next' => $asettiks->nextPageUrl(),
+                ],
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to get data: '. $e->getMessage(),
+            ], 500);
+        }
     }
 
     // tampilkan 1 data berdasarkan ID
     public function show($id)
     {
         $asettiks = AsettikModel::findOrFail($id);
-        return new ApiResource(true, 'Detail Data Asettik', $asettiks);
+        return new ApiResource(true, 'Detail Data Aset TIK', $asettiks);
     }
 
     // tambah data
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'classification_id' => 'required|integer',
             'category_id' => 'required|integer',
             'admin_id' => 'required|integer',
             'client_id' => 'required|integer',

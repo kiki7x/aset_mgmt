@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Selamat Datang')
+<x-slot:title>{{$title}}</x-slot:title>
 
 @section('content')
 
