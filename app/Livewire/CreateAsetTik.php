@@ -58,7 +58,7 @@ class CreateAsetTik extends Component
         'warranty_months' => 'required',
         'tag' => 'required',
         'name' => 'required',
-        'serial' => 'required',
+        'serial' => 'required|unique:assets,serial',
         'notes' => 'nullable',
         'location' => 'required',
         'customfields' => 'nullable',
@@ -143,16 +143,39 @@ class CreateAsetTik extends Component
 
     public function store()
     {
+        // validasi input
+        $this->validate($this->rules);
         
         // cek kondisi inputan supplier baru
         $ceksupplier = \App\Models\SuppliersModel::find($this->supplier);
         if(!$ceksupplier) {
-            $ceksupplier = \App\Models\SuppliersModel::create(['name' => $this->supplier]);
-            $this->supplier = "$ceksupplier->id";
+            $newsupplier = \App\Models\SuppliersModel::create([
+                'name' => $this->supplier
+        ]);
+            // Gunakan ID supplier baru
+            $this->supplier = "$newsupplier->id";
         }
 
-        // validasi input
-        $this->validate($this->rules);
+        // Cek kondisi inputan manufacturer baru
+        $cekmanufacturer = \App\Models\ManufacturersModel::find($this->manufacturer);
+        if (!$cekmanufacturer) {
+            $newmanufacturer = \App\Models\ManufacturersModel::create([
+                'name' => $this->manufacturer
+        ]);
+            // Gunakan ID manufacturer baru
+            $this->manufacturer = $newmanufacturer->id;
+        }
+
+        // Cek kondisi inputan model/tipe baru
+        $cekmodel = \App\Models\ModelsModel::find($this->model);
+        if (!$cekmodel) {
+            $newmodel = \App\Models\ModelsModel::create([
+                'name' => $this->model,
+            ]);
+            // Gunakan ID model baru
+            $this->model = $newmodel->id;
+        }
+
 
         // himpun data input dan cocokkan ke database
         $data = [
@@ -185,4 +208,5 @@ class CreateAsetTik extends Component
 
         return redirect()->route('admin.asettik');
     }
+
 }

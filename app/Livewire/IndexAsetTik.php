@@ -35,6 +35,7 @@ class IndexAsetTik extends Component
 
     public function mount()
     {
+
     }
 
     public function render()
@@ -55,6 +56,12 @@ class IndexAsetTik extends Component
         'locations' => \App\Models\LocationsModel::all(),
         ]);
     }
+
+    public function edit($id)
+    {
+        $this->dispatch('edit', $id);    
+    }
+
     #[On('confirmDelete')] 
     public function confirmDelete($id)
     {

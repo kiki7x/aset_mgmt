@@ -114,13 +114,13 @@
 
               <li class="nav-item dropdown user user-menu">
                   <a href="#" class="nav-link" data-toggle="dropdown">
-                      <img src="{{ asset('adminlte/dist/img/user2-160x160.jpg') }}" class="user-image img-size-10 img-circle" alt="User Image">
+                      <img src="{{ asset('assets/dist/img/user1-128x128.jpg') }}" class="user-image img-size-10 img-circle" alt="User Image">
                       <span class="hidden-xs"><i class="caret"></i></span>
                   </a>
                   <ul class="dropdown-menu">
                       <!-- User image -->
                       <li class="user-header">
-                          <img src="https://www.gravatar.com/avatar/d109cfe0d6b0e9de42ac8a7eb90d4e04?d=mm&amp;s=128" class="img-circle">
+                          <img src="{{ asset('assets/dist/img/user1-128x128.jpg') }}" class="img-circle">
                           <p>
                               superadmin - <small>kiki@ppl.ac.id</small>
                           </p>
@@ -131,8 +131,13 @@
                               <a href="#" class="btn btn-default btn-flat">Profile</a>
                           </div>
                           <div class="float-right">
-                              <a href="{{ route('logout') }}" class="btn btn-default btn-flat">Sign Out</a>
-                          </div>
+                              <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">Sign Out</a>
+                              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+
+                            </div>
                       </li>
                   </ul>
               </li>

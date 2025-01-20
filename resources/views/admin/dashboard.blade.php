@@ -6,6 +6,7 @@
 
     {{-- Rangkum Aset TIK --}}
     <h2>Aset TIK</h2>
+    {{-- Selamat Datang <strong>{{ auth()->user()->name }}</strong> --}}
     <div class="row">
         <div class="col-lg-3 col-6">
             <!-- small card -->
@@ -234,13 +235,13 @@
                         </li>
                     </ul>
                     <script>
-                        $(function() {
-                            $(".presort li").sort(sort_li).appendTo('.presort');
+                        // $(function() {
+                        //     $(".presort li").sort(sort_li).appendTo('.presort');
 
-                            function sort_li(a, b) {
-                                return ($(b).data('date')) < ($(a).data('date')) ? -1 : 1;
-                            }
-                        });
+                        //     function sort_li(a, b) {
+                        //         return ($(b).data('date')) < ($(a).data('date')) ? -1 : 1;
+                        //     }
+                        // });
                     </script>
                 </div>
                 <!-- /.card-body -->
