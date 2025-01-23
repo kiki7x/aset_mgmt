@@ -7,11 +7,10 @@
     <section class="content-header">
         <div class="d-flex justify-content-end mb-1">
             <a href="{{ route('admin.asettik.create') }}" role="button" class="btn btn-primary">+Tambah Data</a>
-            {{-- <button wire:click="$dispatchTo('openModal', { component: 'create-aset-tik-modal' })" type="button" class="btn btn-primary">Tambah Data ke komponen modal</button> --}}
         </div>
-        {{-- <div class="d-flex justify-content-end mb-1">
-            <button wire:click="$dispatchTo('openModal', { component: 'create-aset-tik-modal' })" type="button" class="btn btn-primary">Tambah Data ke komponen modal</button>
-        </div> --}}
+        <div class="d-flex justify-content-end mb-1">
+            <button wire:click="$dispatch('openModalCreate', { component: 'modal.create-aset-tik' })" type="button" class="btn btn-primary">Tambah Data ke komponen modal</button>
+        </div>
     </section>
 
 
@@ -58,10 +57,10 @@
                                         <tr wire:key="{{ $asset->id }}" class="odd">
                                             <td><a href="#">{{ $asset->tag }}</a></td>
                                             <td><a href="?route=inventory/assets/manage&amp;id=1">{{ $asset->name }}</a></td>
-                                            <td><span class="badge" style="background-color:#FFF;color:{{ $asset->category->color}};border:1px solid {{ $asset->category->color}}">{{ $asset->category->name }}</span></td>
+                                            <td><span class="badge" style="background-color:#FFF;color:{{ $asset->category->color }};border:1px solid {{ $asset->category->color }}">{{ $asset->category->name }}</span></td>
                                             <td>{{ $asset->model->name }}</td>
-                                            <td>{{ $asset['serial'] }}</td>
-                                            <td><span class="badge" style="background-color: {{$asset->status->color}}; color: white;">{{ $asset->status->name }}</span></td>
+                                            <td>{{ $asset->serial }}</td>
+                                            <td><span class="badge" style="background-color: {{ $asset->status->color }}; color: white;">{{ $asset->status->name }}</span></td>
                                             <td>
                                                 <div class="">
                                                     <div class="btn-group">
@@ -113,7 +112,7 @@
                                             Apakah Anda yakin ingin menghapus data ini?
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" wire:click="closeModal">Batal</button>
+                                            <button type="button" class="btn btn-secondary" wire:click.prevent="closeModal">Batal</button>
                                             <button type="button" class="btn btn-danger" wire:click.prevent="delete">Ya</button>
                                         </div>
                                     </div>
@@ -125,7 +124,10 @@
                                     {{ $assets->links('vendor.livewire.bootstrap') }}
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="dt-buttons btn-group"><a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="dataTablesFull" href="#"><span>Copy</span></a><a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="dataTablesFull" href="#"><span>CSV</span></a><a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="dataTablesFull" href="#"><span>Excel</span></a><a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="dataTablesFull" href="#"><span>PDF</span></a><a class="btn btn-default buttons-print" tabindex="0" aria-controls="dataTablesFull" href="#"><span>Print</span></a>
+                                    <div class="dt-buttons btn-group"><a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="dataTablesFull" href="#"><span>Copy</span></a><a class="btn btn-default buttons-csv buttons-html5"
+                                           tabindex="0" aria-controls="dataTablesFull" href="#"><span>CSV</span></a><a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="dataTablesFull"
+                                           href="#"><span>Excel</span></a><a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="dataTablesFull" href="#"><span>PDF</span></a><a class="btn btn-default buttons-print"
+                                           tabindex="0" aria-controls="dataTablesFull" href="#"><span>Print</span></a>
                                     </div>
                                 </div>
                             </div>
@@ -136,6 +138,8 @@
         </div>
     </section>
 
+    {{-- Komponen Modal/CreateAsetTik --}}
+    @livewire('modal.create-aset-tik')
     <!-- Komponen EditAsetTik -->
     @livewire('edit-aset-tik')
 </div>
@@ -163,13 +167,31 @@
     </script>
 
     <script>
+        // Event untuk membuka modalCreate
+        window.addEventListener('showModalCreate', () => {
+            const modal = new bootstrap.Modal(document.getElementById('modalCreate'));
+            modal.show();
+        });
+    </script>
+
+    
+    <script>
+        // Event untuk menutup modalCreate
+        window.addEventListener('hideModalCreate', () => {
+            const modal = document.getElementById('modalCreate');
+            modal.style.display = 'none';
+            $('.modal-backdrop').fadeOut(250);
+
+        });
+    </script>
+
+    <script>
         // Event untuk membuka modal
         window.addEventListener('showModalDelete', () => {
             const modal = new bootstrap.Modal(document.getElementById('modalDelete'));
             modal.show();
         });
-    </script>
-    <script>
+
         // Even untuk menutup modal
         window.addEventListener('closeModalDelete', () => {
             $('#modalDelete').modal('hide');

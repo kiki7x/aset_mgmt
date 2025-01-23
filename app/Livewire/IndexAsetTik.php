@@ -37,10 +37,10 @@ class IndexAsetTik extends Component
     {
 
     }
-
+    #[On('refresh')]
     public function render()
     {
-        return view('livewire.index-aset-tik',[
+        return view('livewire.index-aset-tik')->with([
         'assets' => \App\Models\AssetsModel::search($this->search)
         ->latest()
         ->paginate($this->per_page),
@@ -55,6 +55,18 @@ class IndexAsetTik extends Component
         'statuses' => \App\Models\LabelsModel::all(), 
         'locations' => \App\Models\LocationsModel::all(),
         ]);
+    }
+
+    #[On('openModalCreate')]
+    public function openModalCreate()
+    {
+        $this->dispatch('showModalCreate');
+    }
+    
+    #[On('closeModalCreate')]
+    public function closeModalCreate()
+    {
+        $this->dispatch('hideModalCreate');
     }
 
     public function edit($id)
