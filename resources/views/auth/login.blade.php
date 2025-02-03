@@ -14,7 +14,7 @@
                 <form action="{{ route('login') }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        {{-- <label class="font-weight-bold text-uppercase">Email address</label> --}}
+                        <label class="font-weight-bold text-uppercase">Email address</label>
                         <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" placeholder="Masukkan Alamat Email">
                         @error('email')
                             <div class="alert alert-danger mt-2">
@@ -23,7 +23,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        {{-- <label class="font-weight-bold text-uppercase">Password</label> --}}
+                        <label class="font-weight-bold text-uppercase">Password</label>
                         <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukkan Password">
                         @error('password')
                             <div class="alert alert-danger mt-2">

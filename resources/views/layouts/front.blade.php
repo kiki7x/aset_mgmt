@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Sistem Manajemen Aset PPL</title>
+    <title>Sistem Aplikasi Pengelolaan Aset PPL</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -18,7 +18,7 @@
     <!-- Vendor CSS Files -->
     <link href="{{ asset('arsha/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('arsha/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-    <link href="{{ asset('arsha/assets/vendor/aos/aos.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('arsha/assets/vendor/aos/aos.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('arsha/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
     <link href="{{ asset('arsha/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
     <!-- Template Main CSS File -->
@@ -41,7 +41,7 @@
             <a href="{{ url('/') }}" class="logo d-flex align-items-center me-auto">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
                 <!-- <img src="assets/img/logo.png" alt=""> -->
-                <h1 class="sitename">Aset Manajemen</h1>
+                <h1 class="sitename">SAPA PPL</h1>
             </a>
 
             <nav id="navmenu" class="navmenu">
@@ -67,28 +67,27 @@
             <div class="container">
                 <div class="row gy-4">
                     <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="zoom-out">
-                        <h1>Sistem Pengelolaan Aset Poltekpar Lombok</h1>
-                        <p>Layanan pengelolaan aset bertujuan untuk mempermudah melacak pemanfaatan aset dan penjadwalan untuk pemeliharaan aset serta
-                            mempermudah penanganan gangguan dalam bidang Teknologi Informasi dan
-                            Komunikasi dan Peralatan Rumah Tangga.</p>
+                        <h1>Sistem Aplikasi Pengelolaan Aset Poltekpar Lombok</h1>
+                        <p>Layanan SAPA PPL bertujuan untuk mempermudah melacak pemanfaatan aset, penjadwalan pemeliharaan aset serta
+                            mempermudah penanganan laporan gangguan sarana dan prasarana bidang TIK dan Peralatan Rumah Tangga.</p>
                         <div class="d-flex">
                             <a href="{{ route('login') }}" class="btn-get-started">Mulai</a>
-                            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Tonton Video</span></a>
+                            <a href="https://www.youtube.com/watch?v=92mqKMU2vuo&pp=ygUQcG9sdGVrcGFyIGxvbWJvaw%3D%3D" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Tonton Video</span></a>
                         </div>
                     </div>
                     <div id="carouselDepan" class="carousel slide col-lg-6 order-1 order-lg-2" data-bs-ride="carousel" data-aos="zoom-out" data-aos-delay="200">
                         <div class="carousel-inner rounded">
                             <div class="carousel-item active">
-                                <img class="d-block w-100 rounded img-fluid animated" src="{{ asset('assets/gambar/rektorat-DJI_0769.jpg') }}" alt="First slide">
+                                <img class="rounded img-fluid animated" loading="lazy" src="{{ asset('assets/gambar/rektorat-DJI_0769.webp') }}" alt="First slide">
                             </div>
                             <div class="carousel-item">
-                                <img class="d-block w-100 rounded img-fluid animated" src="{{ asset('assets/gambar/gedung_kuliah_1-DJI_0752.jpg') }}" alt="Second slide">
+                                <img class="rounded img-fluid animated" loading="lazy" src="{{ asset('assets/gambar/gedung_kuliah_1-DJI_0752.webp') }}" alt="Second slide">
                             </div>
                             <div class="carousel-item">
-                                <img class="d-block w-100 rounded img-fluid animated" src="{{ asset('assets/gambar/gedung_kuliah_2-DJI_0757.jpg') }}" alt="Third slide">
+                                <img class="rounded img-fluid animated" loading="lazy" src="{{ asset('assets/gambar/gedung_kuliah_2-DJI_0757.webp') }}" alt="Third slide">
                             </div>
                             <div class="carousel-item">
-                                <img class="d-block w-100 rounded img-fluid animated" src="{{ asset('assets/gambar/gkt_lab_hospitality.jpg') }}" alt="Fourth slide">
+                                <img class="rounded img-fluid animated" loading="lazy" src="{{ asset('assets/gambar/gkt_lab_hospitality.webp') }}" alt="Fourth slide">
                             </div>
                         </div>
                         <a class="carousel-control-prev" data-bs-target="#carouselDepan" role="button" data-bs-slide="prev">
@@ -194,7 +193,7 @@
             <div class="container" data-aos="fade-up" data-aos-delay="100">
                 <div class="row">
                     <div class="col-lg-6 d-flex align-items-center">
-                        <img src="{{ asset('assets/gambar/siklus-pengelolaan-bmn-bmd.png') }}" class="img-fluid" alt="">
+                        <img src="{{ asset('assets/gambar/siklus-pengelolaan-bmn-bmd.webp') }}" class="img-fluid" alt="">
                     </div>
                     <div class="col-lg-6 pt-4 pt-lg-0 content">
                         <h3>Data Statistik</h3>
@@ -203,27 +202,27 @@
                         </p>
                         <div class="skills-content skills-animation">
                             <div class="progress">
-                                <span class="skill"><span>HTML</span> <i class="val">100%</i></span>
-                                <div class="progress-bar-wrap">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div><!-- End Skills Item -->
-                            <div class="progress">
-                                <span class="skill"><span>CSS</span> <i class="val">90%</i></span>
-                                <div class="progress-bar-wrap">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div><!-- End Skills Item -->
-                            <div class="progress">
-                                <span class="skill"><span>JavaScript</span> <i class="val">75%</i></span>
+                                <span class="skill"><span>Aset dalam kondisi baik</span> <i class="val">75%</i></span>
                                 <div class="progress-bar-wrap">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div><!-- End Skills Item -->
                             <div class="progress">
-                                <span class="skill"><span>Photoshop</span> <i class="val">55%</i></span>
+                                <span class="skill"><span>Aset Rusak</span> <i class="val">23%</i></span>
                                 <div class="progress-bar-wrap">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div><!-- End Skills Item -->
+                            <div class="progress">
+                                <span class="skill"><span>Aset dalam pemeliharaan</span> <i class="val">15%</i></span>
+                                <div class="progress-bar-wrap">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div><!-- End Skills Item -->
+                            <div class="progress">
+                                <span class="skill"><span>Pendataan Aset</span> <i class="val">10%</i></span>
+                                <div class="progress-bar-wrap">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div><!-- End Skills Item -->
                         </div>
@@ -299,10 +298,10 @@
 
                     <div class="col-lg-6" data-aos="fade-up">
                         <div class="team-member d-flex align-items-start">
-                            <div class="pic"><img src="{{ asset('arsha/assets/img/team/team-1.jpg') }}" class="img-fluid" alt=""></div>
+                            <div class="pic"><img src="{{ asset('assets/gambar/wawan.jpg') }}" class="img-fluid" alt=""></div>
                             <div class="member-info">
-                                <h4>Walter White</h4>
-                                <span>Chief Executive Officer</span>
+                                <h4>Wawan Apriandi, S.Si.</h4>
+                                <span>Koordinator BMN</span>
                                 <p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
                                 <div class="social">
                                     <a href=""><i class="bi bi-twitter-x"></i></a>
@@ -316,10 +315,10 @@
 
                     <div class="col-lg-6" data-aos="fade-up">
                         <div class="team-member d-flex align-items-start">
-                            <div class="pic"><img src="arsha/assets/img/team/team-2.jpg" class="img-fluid" alt=""></div>
+                            <div class="pic"><img src="{{ asset('assets/gambar/kadek.jpg') }}" class="img-fluid" alt=""></div>
                             <div class="member-info">
-                                <h4>Sarah Jhonson</h4>
-                                <span>Product Manager</span>
+                                <h4>I Kadek Surianta, S.Sos.H., M.IKom.</h4>
+                                <span>Koordinator Rumah Tangga</span>
                                 <p>Aut maiores voluptates amet et quis praesentium qui senda para</p>
                                 <div class="social">
                                     <a href=""><i class="bi bi-twitter-x"></i></a>
@@ -333,10 +332,10 @@
 
                     <div class="col-lg-6" data-aos="fade-up">
                         <div class="team-member d-flex align-items-start">
-                            <div class="pic"><img src="arsha/assets/img/team/team-3.jpg" class="img-fluid" alt=""></div>
+                            <div class="pic"><img src="{{ asset('assets/gambar/kiki.jpg') }}" class="img-fluid" alt=""></div>
                             <div class="member-info">
-                                <h4>William Anderson</h4>
-                                <span>CTO</span>
+                                <h4>Selamet Kiki Pranoto, S.Kom.</h4>
+                                <span>Koordinator TIK</span>
                                 <p>Quisquam facilis cum velit laborum corrupti fuga rerum quia</p>
                                 <div class="social">
                                     <a href=""><i class="bi bi-twitter-x"></i></a>
@@ -350,10 +349,10 @@
 
                     <div class="col-lg-6" data-aos="fade-up">
                         <div class="team-member d-flex align-items-start">
-                            <div class="pic"><img src="arsha/assets/img/team/team-4.jpg" class="img-fluid" alt=""></div>
+                            <div class="pic"><img src="{{ asset('assets/gambar/didik.jpg') }}" class="img-fluid" alt=""></div>
                             <div class="member-info">
-                                <h4>Amanda Jepson</h4>
-                                <span>Accountant</span>
+                                <h4>Didi Irawan, A.Md.</h4>
+                                <span>Tim BMN</span>
                                 <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
                                 <div class="social">
                                     <a href=""><i class="bi bi-twitter-x"></i></a>
@@ -364,129 +363,9 @@
                             </div>
                         </div>
                     </div><!-- End Team Member -->
-
                 </div>
-
             </div>
-
         </section><!-- /Team Section -->
-
-        <!-- Testimonials Section -->
-        {{-- <section id="testimonials" class="testimonials section">
-
-            <!-- Section Title -->
-            <div class="container section-title" data-aos="fade-up">
-                <h2>Testimoni</h2>
-                <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-            </div><!-- End Section Title -->
-
-            <div class="container" data-aos="fade-up">
-
-                <div class="swiper init-swiper">
-                    <script type="application/json" class="swiper-config">
-              {
-                "loop": true,
-                "speed": 600,
-                "autoplay": {
-                  "delay": 2000
-                },
-                "slidesPerView": "auto",
-                "pagination": {
-                  "el": ".swiper-pagination",
-                  "type": "bullets",
-                  "clickable": true
-                }
-              }
-            </script>
-                    <div class="swiper-wrapper">
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <img src="arsha/assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                                <h3>Saul Goodman</h3>
-                                <h4>Ceo &amp; Founder</h4>
-                                <div class="stars">
-                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                                </div>
-                                <p>
-                                    <i class="bi bi-quote quote-icon-left"></i>
-                                    <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
-                                    <i class="bi bi-quote quote-icon-right"></i>
-                                </p>
-                            </div>
-                        </div><!-- End testimonial item -->
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <img src="arsha/assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                                <h3>Sara Wilsson</h3>
-                                <h4>Designer</h4>
-                                <div class="stars">
-                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                                </div>
-                                <p>
-                                    <i class="bi bi-quote quote-icon-left"></i>
-                                    <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
-                                    <i class="bi bi-quote quote-icon-right"></i>
-                                </p>
-                            </div>
-                        </div><!-- End testimonial item -->
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <img src="arsha/assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                                <h3>Jena Karlis</h3>
-                                <h4>Store Owner</h4>
-                                <div class="stars">
-                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                                </div>
-                                <p>
-                                    <i class="bi bi-quote quote-icon-left"></i>
-                                    <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
-                                    <i class="bi bi-quote quote-icon-right"></i>
-                                </p>
-                            </div>
-                        </div><!-- End testimonial item -->
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <img src="arsha/assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                                <h3>Matt Brandon</h3>
-                                <h4>Freelancer</h4>
-                                <div class="stars">
-                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                                </div>
-                                <p>
-                                    <i class="bi bi-quote quote-icon-left"></i>
-                                    <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
-                                    <i class="bi bi-quote quote-icon-right"></i>
-                                </p>
-                            </div>
-                        </div><!-- End testimonial item -->
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <img src="arsha/assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                                <h3>John Larson</h3>
-                                <h4>Entrepreneur</h4>
-                                <div class="stars">
-                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                                </div>
-                                <p>
-                                    <i class="bi bi-quote quote-icon-left"></i>
-                                    <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
-                                    <i class="bi bi-quote quote-icon-right"></i>
-                                </p>
-                            </div>
-                        </div><!-- End testimonial item -->
-
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-
-            </div>
-
-        </section><!-- /Testimonials Section --> --}}
 
         <!-- Faq 2 Section -->
         <section id="faq-2" class="faq-2 section light-background">
@@ -564,7 +443,7 @@
 
     <footer id="footer" class="footer">
         <div class="container footer-top">
-            <div class="row gy-4">
+            <div class="row gy-0">
                 <div class="col-lg-4 col-md-6 footer-about">
                     <a href="{{ url('/') }}" class="d-flex align-items-center">
                         <span class="sitename">Aset Manajemen PPL</span>
@@ -579,8 +458,8 @@
                 <div class="col-lg-3 col-md-2 footer-links">
                     <h4>Link Terkait</h4>
                     <ul>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="{{ url('https://kemenpar.go.id') }}">Kemenpar RI</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="{{ url('https://ppl.ac.id') }}">Poltekpar Lombok</a></li>
                         <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
                         <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
                     </ul>
@@ -589,22 +468,22 @@
                 <div class="col-lg-3 col-md-2 footer-links">
                     <h4>Layanan</h4>
                     <ul>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="#">Pendataan Aset</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="#">Pemeliharaan</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="#">Melacak Aset</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="#">Helpdesk Sarana & Prasarana berbasis Tiket</a></li>
                     </ul>
                 </div>
 
                 <div class="col-lg-2 col-md-2">
                     <h4>Pengaduan</h4>
-                    <a href="https://wa.me/6281907777723" target="_blank"><img src="{{ asset('assets/gambar/halo_adum-hitam.jpg') }}" class="img-fluid" alt="halo adum"></a>
+                    <a href="https://wa.me/6281907777723" target="_blank"><img src="{{ asset('assets/gambar/halo_adum-hitam.png') }}" class="img-fluid" alt="halo adum"></a>
                 </div>
 
             </div>
         </div>
 
-        <div class="container copyright text-center mt-4">
+        <div class="container copyright text-center mt-0">
             <p>© <span>Copyright</span> <strong class="px-1 sitename">Unit TIK Poltekpar Lombok</strong> <span>All Rights Reserved</span></p>
             <div class="credits">
                 <!-- All the links in the footer should remain intact. -->

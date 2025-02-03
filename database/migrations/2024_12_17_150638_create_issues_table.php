@@ -13,11 +13,26 @@ return new class extends Migration
     {
         Schema::create('issues', function (Blueprint $table) {
             $table->id(); // Primary Key, AUTO_INCREMENT
-            $table->unsignedInteger('client_id');
-            $table->unsignedInteger('asset_id');
-            $table->unsignedInteger('project_id');
-            $table->unsignedInteger('admin_id');
-            $table->unsignedInteger('milestone_id');
+            $table->foreignId('client_id')->constrained(
+                table: 'users',
+                indexName: 'issues_client_id'
+            );
+            $table->foreignId('asset_id')->constrained(
+                table: 'assets',
+                indexName: 'issues_asset_id'
+            );
+            $table->foreignId('project_id')->constrained(
+                table: 'projects',
+                indexName: 'issues_project_id'
+            );
+            $table->foreignId('admin_id')->constrained(
+                table: 'users',
+                indexName: 'issues_admin_id'
+            );
+            $table->foreignId('milestone_id')->constrained(
+                table: 'milestones',
+                indexName: 'issues_milestone_id'
+            );
             $table->string('issuetype', 15);
             $table->string('priority', 60);
             $table->string('status', 60);

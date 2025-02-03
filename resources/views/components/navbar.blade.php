@@ -1,14 +1,14 @@
   <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
+  {{-- <div class="preloader flex-column justify-content-center align-items-center">
       <img class="animation__shake" src="{{ asset('ppl-icon.png') }}" alt="logo-ppl" height="100" width="100">
-  </div>
+  </div> --}}
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand-md navbar-dark">
       <div class="container">
           <a href="{{ route('admin.index') }}" class="navbar-brand">
               <img src="{{ asset('ppl-icon.png') }}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-              <span class="brand-text font-weight-medium">Aset MGMT PPL</span>
+              <span class="brand-text font-weight-medium">SAPA PPL</span>
           </a>
           <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -41,7 +41,7 @@
                       <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow" style="left: 0px; right: inherit;">
                           <li><a href="#" class="dropdown-item">Proyek</a></li>
                           <li><a href="#" class="dropdown-item">Tiket</a></li>
-                          <li><a href="#" class="dropdown-item">Issue</a></li>
+                          <li><a href="{{ route('admin.issues') }}" class="dropdown-item">Issue</a></li>
                       </ul>
                   </li>
                   <li class="nav-item" title="Knowledge Base"><x-nav-link href="#" :active="request()->is('admin/knowledge_base')" class="nav-link"><i class="nav-icon fa fa-book"></i> </x-nav-link></li> {{--knowledge base--}}

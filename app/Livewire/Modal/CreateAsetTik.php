@@ -4,67 +4,40 @@ namespace App\Livewire\Modal;
 
 use Livewire\Component;
 use App\Models\AssetsModel;
-use App\Livewire\Forms\CreateAsetTikForm;
+use App\Livewire\Forms\AsetForm;
+use Livewire\Attributes\On;
 
 class CreateAsetTik extends Component
 {
-    // bawa relasi
-    public $form_classifications;
-    public $form_categories;
-    public $form_admins;
-    public $form_clients;
-    public $form_users;
-    public $form_manufacturers;
-    public $form_models;
-    public $form_suppliers;
-    public $form_statuses;
-    public $form_locations;
+    public AsetForm $form;
 
-    public CreateAsetTikForm $form;
+    // bawa relasi
+    public $classifications;
+    public $categories;
+    public $admins;
+    public $clients;
+    public $users;
+    public $manufacturers;
+    public $models;
+    public $suppliers;
+    public $statuses;
+    public $locations;
 
     public function mount()
     {
-        $this->form_classifications = \App\Models\AssetclassificationsModel::all();
-        $this->form_categories = \App\Models\AssetcategoriesModel::all();
-        $this->form_users = \App\Models\User::all();
-        $this->form_manufacturers = \App\Models\ManufacturersModel::all();
-        $this->form_models = \App\Models\ModelsModel::all();
-        $this->form_suppliers = \App\Models\SuppliersModel::all();
-        $this->form_locations = \App\Models\LocationsModel::all();
-        $this->form_statuses = \App\Models\LabelsModel::all();
-        $this->form_locations = \App\Models\LocationsModel::all();
-
-    }
-
-    public function updateDate($purchase_date)
-    {
-        $this->form->purchase_date = $purchase_date;
-    }
-
-    public function resetInput()
-    {
-        $this->form_category = "";
-        $this->form_adminaset = "";
-        $this->form_useraset = "";
-        $this->form_manufacturer = "";
-        $this->form_model = "";
-        $this->form_supplier = "";
-        $this->form_status = "";
-        $this->form_purchase_date = "";
-        $this->form_warranty_months = "";
-        $this->form_tag = "";
-        $this->form_name = "";
-        $this->form_serial = "";
-        $this->form_notes = "";
-        $this->form_location = "";
-        $this->form_customfields = "";
-        $this->form_qrvalue = "";
+        $this->classifications = \App\Models\AssetclassificationsModel::all();
+        $this->categories = \App\Models\AssetcategoriesModel::all();
+        $this->users = \App\Models\User::all();
+        $this->manufacturers = \App\Models\ManufacturersModel::all();
+        $this->models = \App\Models\ModelsModel::all();
+        $this->suppliers = \App\Models\SuppliersModel::all();
+        $this->locations = \App\Models\LocationsModel::all();
+        $this->statuses = \App\Models\LabelsModel::all();
+        $this->locations = \App\Models\LocationsModel::all();
     }
 
     public function store()
     {
-        $this->reset();
-        dd('null');
         // validasi input
         $this->form->validate();
         
@@ -120,14 +93,27 @@ class CreateAsetTik extends Component
                 'customfields' => $this->form->customfields,
                 'qrvalue' => $this->form->qrvalue,
         ];
-        // dd($data);
         AssetsModel::Create($data);
         // tutup modal
         $this->dispatch('hideModalCreate');
         // Kirim alert toastr
         $this->dispatchToastr('success','Data berhasil disimpan');
+        // reset form
+        $this->resetInput();
         // refresh index
         $this->dispatch('refresh');
+    }
+
+    #[On('openModalCreate')]
+    public function openModalCreate()
+    {
+        $this->dispatch('showModalCreate');
+    }
+
+    #[On('closeModalCreate')]
+    public function closeModalCreate()
+    {
+        $this->dispatch('hideModalCreate');
     }
 
     public function dispatchToastr(string $type, string $message)
@@ -136,6 +122,16 @@ class CreateAsetTik extends Component
             'type' => $type,
             'message' => $message,
         ]);
+    }
+
+    public function updateDate($purchase_date)
+    {
+        $this->form->purchase_date = $purchase_date;
+    }
+
+    public function resetInput()
+    {
+        $this->form->reset();
     }
 
     public function render()

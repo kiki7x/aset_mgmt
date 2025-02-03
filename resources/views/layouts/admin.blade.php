@@ -27,10 +27,10 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- jQuery UI -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/jquery-ui/jquery-ui.css') }}">
-    @livewireStyles
     {{-- script-head --}}
     @yield('script-head')
     {{-- ./script-head --}}
+    @livewireStyles
 </head>
 
 {{-- <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed text-sm layout-top-nav sidebar-collapse" style="height:auto"> --}}

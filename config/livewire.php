@@ -50,7 +50,7 @@ return [
     |
     */
 
-    'lazy_placeholder' => null,
+    'lazy_placeholder' => 'null',
 
     /*
     |---------------------------------------------------------------------------
@@ -114,7 +114,7 @@ return [
     |
     */
 
-    'inject_assets' => true,
+    'inject_assets' => false,
 
     /*
     |---------------------------------------------------------------------------
@@ -156,5 +156,5 @@ return [
     |
     */
 
-    'pagination_theme' => 'tailwind',
+    'pagination_theme' => 'bootstrap',
 ];

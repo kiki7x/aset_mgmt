@@ -15,14 +15,25 @@ class UsersSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'admin',
+            'name' => 'admintik',
             'type' => 'admin',
             'role_id' => '1',
             'client_id' => '1',
-            'title' => 'admin',
+            'title' => 'admintik',
             'mobile' => '087765977700',
             'password' => '$2y$12$O..QepZ/rF.BFUeMOk3i4.iOfRQgEMiv4V7XKQmylG0uTp08BNt6C',
-            'email' => 'admin@ppl.ac.id',
-        ]);
+            'email' => 'kiki@ppl.ac.id',
+        ],
+        [
+            'name' => 'adminrt',
+            'type' => 'admin',
+            'role_id' => '1',
+            'client_id' => '1',
+            'title' => 'adminrt',
+            'mobile' => '087777777777',
+            'password' => '$2y$12$O..QepZ/rF.BFUeMOk3i4.iOfRQgEMiv4V7XKQmylG0uTp08BNt6C',
+            'email' => 'kadek@ppl.ac.id',
+        ]
+        );
     }
 }
