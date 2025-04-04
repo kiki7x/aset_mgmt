@@ -21,6 +21,10 @@ use App\Livewire\Assets\IndexAsetKlasifikasi;
 use App\Livewire\Assets\ShowKlasifikasi;
 use App\Livewire\Assets\EditKlasifikasi;
 
+use App\Livewire\Assets\IndexAsetKategori;
+use App\Livewire\Assets\ShowKategori;
+use App\Livewire\Assets\EditKategori;
+
 use App\Livewire\Assets\IndexAsetRt;
 use App\Livewire\Assets\ShowAsetRt;
 use App\Livewire\Assets\EditAsetRt;
@@ -56,7 +60,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/setting_attr/klasifikasi/edit/{id}/{section?}', EditKlasifikasi::class)->name('admin.setting_attr.klasifikasi.edit')->middleware('auth');
 
     // Route Setting Kategori
-    Route::get('/setting_attr/kategori', [SetatributController::class, 'kategori'])->name('admin.setting_attr.kategori')->middleware('auth');
+    Route::get('/setting_attr/kategori', IndexAsetKategori::class)->name('admin.setting_attr.kategori')->middleware('auth');
+    Route::get('/setting_attr/kategori/show/{id}/{section?}', ShowKategori::class)->name('admin.setting_attr.kategori.show')->middleware('auth');
+    Route::get('/setting_attr/kategori/edit/{id}/{section?}', EditKategori::class)->name('admin.setting_attr.kategori.edit')->middleware('auth');
+
 
     // Route Setting Merk
     Route::get('/setting_attr/merk', [SetatributController::class, 'merk'])->name('admin.setting_attr.merk')->middleware('auth');

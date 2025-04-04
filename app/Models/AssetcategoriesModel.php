@@ -22,4 +22,14 @@ class AssetcategoriesModel extends Model
         return $this->hasMany(AssetsModel::class);
     }
 
+    public function scopeSearch($query, $value)
+    {
+       $query->where('name', 'LIKE', "%{$value}%");
+    }
+
+    public function classification()
+    {
+        return $this->belongsTo(AssetclassificationsModel::class, 'classification_id');
+    }
+
 }
