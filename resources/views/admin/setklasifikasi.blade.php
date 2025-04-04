@@ -20,7 +20,7 @@
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h3 class="card-title">Master Data Klasifikasi <i class="fa-solid fa-database"></i></h3>
                             <button wire:click="$dispatch('openModalCreate', { component: 'modal.create-aset-tik' })" type="button" class="btn btn-primary" style="margin-left: auto;">
-                                <i class="fas fa-square-plus"></i> 
+                                <i class="fas fa-square-plus"></i>
                                 Tambah Data
                             </button>
                         </div>
@@ -87,15 +87,16 @@
                                         </tr>
                                     @endforelse
                                 </tbody>
+                                @foreach ($klasifikasis as $klasifikasi)
                                 <tfoot>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Nama Klasifikasi</th>
-                                        <th>Aktivitas terakhir</th>
+                                        <th>{{ $klasifikasi->name}}</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </tfoot>
                             </table>
+                            @endforeach
                             <!-- Modal Konfirmasi -->
                             <div class="modal fade" data-backdrop="static" role="dialog" id="modalDelete">
                                 <div class="modal-dialog">
@@ -108,7 +109,7 @@
                                         </div>
                                         <div class="modal-body">
                                             {{-- Apakah Anda yakin ingin menghapus data ini? {{ $deleteId }} --}}
-                                            Apakah Anda yakin ingin menghapus data ini? 
+                                            Apakah Anda yakin ingin menghapus data ini?
                                         </div>
                                         <div class="modal-footer">
                                             <button wire:click="$dispatch('closeModalDelete')" type="button" class="btn btn-secondary">Batal</button>
