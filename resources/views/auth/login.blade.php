@@ -11,7 +11,7 @@
                 @endif
                 <h4 class="font-weight-bold">FORM LOGIN</h4>
                 <hr>
-                <form action="{{ route('login') }}" method="POST">
+                <form action="{{ route('login.post') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label class="font-weight-bold text-uppercase">Email address</label>
@@ -35,7 +35,7 @@
                     <hr>
                     <a href="/forgot-password">Lupa Password ?</a>
                     <div class="register mt-3 text-center">
-                        <p>Belum punya akun ? Daftar <a href="/register">Disini</a></p>
+                        <p>Belum punya akun ? Daftar <a href="{{ route('register') }}">Disini</a></p>
                     </div>
                 </form>
             </div>

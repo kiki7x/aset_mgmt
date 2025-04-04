@@ -10,16 +10,9 @@
             <form wire:submit.prevent="store">
                 <div class="modal-body">
                     <div class="row form-group">
-                        <div class="form-group col-md-4">
-                            <label for="tag">Tag Aset *</label>
-                            <input wire:model="form.tag" type="text" name="tag" class="form-control @error('form.tag') is-invalid @enderror" id="tag" placeholder="Asset Tag">
-                            @error('form.tag')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
                         <!-- Asset Name -->
                         <div class="form-group col-md-8">
-                            <label for="name">Nama Aset *</label>
+                            <label for="name">Nama Aset <span class="text-danger">*</span></label>
                             <input wire:model="form.name" type="text" name="name" class="form-control @error('form.name') is-invalid @enderror" id="name" placeholder="Asset Name">
                             @error('form.name')
                                 <span class="text-danger">{{ $message }}</span>
@@ -37,15 +30,67 @@
                                     });
                                 },
                             }" x-init="initCategory()">
-                                <label for="category">Kategori *</label>
+                                <label for="category">Kategori <span class="text-danger">*</span></label>
                                 <select wire:model="form.category" x-ref="selectcategory" name="category" id="category" class="form-control select2 @error('form.category') is-invalid @enderror" for="category">
-                                    <option name="category" value="">Pilih...</option>
+                                    <option name="category" value="">None</option>
                                     @foreach ($categories as $cat)
                                         <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             @error('form.category')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <!-- Manufacturer -->
+                        <div class="form-group col-md-4">
+                            <div x-data="{
+                                selectedManufacturer: @entangle('form.manufacturer'),
+                                initManufacturer() {
+                                    $(this.$refs.select2manufacturer).on('change', (e) => {
+                                        // singkronisasi perubahan ke alpinejs
+                                        this.selectedManufacturer = $(e.target).val() ? $(e.target).val()[0] : null;
+                                    });
+                                },
+                            }" x-init="initManufacturer()">
+                                <label for="manufacturer">Merk/Pabrikan <span class="text-danger">*</span></label>
+                                <select wire:model="form.manufacturer" x-ref="select2manufacturer" name="manufacturer" id="manufacturer" class="form-control select2tag @error('form.manufacturer') is-invalid @enderror" for="manufacturer" data-placeholder="Pilih.../tambahkan" multiple="multiple">
+                                    @foreach ($manufacturers as $manufacturer)
+                                        <option value="{{ $manufacturer->id }}">{{ $manufacturer->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @error('form.manufacturer')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <!-- Model/Tipe -->
+                        <div class="form-group col-md-4">
+                            <div x-data="{
+                                selectedModel: @entangle('form.model'),
+                                initModel() {
+                                    $(this.$refs.select2model).on('change', (e) => {
+                                        // singkronisasi perubahan ke alpinejs
+                                        this.selectedModel = $(e.target).val() ? $(e.target).val()[0] : null;
+                                    });
+                                },
+                            }" x-init="initModel()">
+                                <label for="model">Tipe/Model <span class="text-danger">*</span></label>
+                                <select wire:model="form.model" x-ref="select2model" name="model" id="model" class="form-control select2tag @error('form.model') is-invalid @enderror" for="model" data-placeholder="Pilih.../tambahkan" multiple="multiple">
+                                    @foreach ($models as $model)
+                                        <option value="{{ $model->id }}">{{ $model->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @error('form.model')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <!-- Serial Number -->
+                        <div class="form-group col-md-4">
+                            <label for="serial">Serial Number <span class="text-danger">*</span></label>
+                            <input wire:model="form.serial" name="serial" type="text" class="form-control @error('form.serial') is-invalid @enderror" id="serial" placeholder="Serial Number">
+                            @error('form.serial')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -61,8 +106,8 @@
                                     });
                                 }
                             }" x-init="initSupplier()">
-                                <label for="supplier">Supplier *</label>
-                                <select wire:model="form.supplier" x-ref="select2supplier" name="supplier" id="supplier" class="form-control select2tag @error('form.supplier') is-invalid @enderror" multiple="multiple">
+                                <label for="supplier">Supplier <span class="text-danger">*</span></label>
+                                <select wire:model="form.supplier" x-ref="select2supplier" name="supplier" id="supplier" class="form-control select2tag @error('form.supplier') is-invalid @enderror" data-placeholder="Pilih.../tambahkan" multiple="multiple">
                                     @foreach ($suppliers as $sup)
                                         <option value="{{ $sup->id }}">{{ $sup->name }}</option>
                                     @endforeach
@@ -84,67 +129,15 @@
                                     });
                                 }
                             }" x-init="initLocation()">
-                                <label for="location">Lokasi *</label>
+                                <label for="location">Penempatan <span class="text-danger">*</span></label>
                                 <select wire:model="form.location" x-ref="selectlocation" name="location" id="location" class="form-control select2 @error('form.location') is-invalid @enderror" for="location">
-                                    <option name="location" id="location" value="">Pilih...</option>
+                                    <option name="location" id="location" value="">None</option>
                                     @foreach ($locations as $loc)
                                         <option value="{{ $loc->id }}">{{ $loc->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             @error('form.location')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <!-- Manufacturer -->
-                        <div class="form-group col-md-4">
-                            <div x-data="{
-                                selectedManufacturer: @entangle('form.manufacturer'),
-                                initManufacturer() {
-                                    $(this.$refs.select2manufacturer).on('change', (e) => {
-                                        // singkronisasi perubahan ke alpinejs
-                                        this.selectedManufacturer = $(e.target).val() ? $(e.target).val()[0] : null;
-                                    });
-                                },
-                            }" x-init="initManufacturer()">
-                                <label for="manufacturer">Pabrikan/Merk *</label>
-                                <select wire:model="form.manufacturer" x-ref="select2manufacturer" name="manufacturer" id="manufacturer" class="form-control select2tag @error('form.manufacturer') is-invalid @enderror" for="manufacturer" multiple="multiple">
-                                    @foreach ($manufacturers as $manufacturer)
-                                        <option value="{{ $manufacturer->id }}">{{ $manufacturer->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            @error('form.manufacturer')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <!-- Model/Tipe -->
-                        <div class="form-group col-md-4">
-                            <div x-data="{
-                                selectedModel: @entangle('form.model'),
-                                initModel() {
-                                    $(this.$refs.select2model).on('change', (e) => {
-                                        // singkronisasi perubahan ke alpinejs
-                                        this.selectedModel = $(e.target).val() ? $(e.target).val()[0] : null;
-                                    });
-                                },
-                            }" x-init="initModel()">
-                                <label for="model">Model/Tipe *</label>
-                                <select wire:model="form.model" x-ref="select2model" name="model" id="model" class="form-control select2tag @error('form.model') is-invalid @enderror" for="model" data-placeholder="Pilih.../tambahkan" multiple="multiple">
-                                    @foreach ($models as $model)
-                                        <option value="{{ $model->id }}">{{ $model->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            @error('form.model')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <!-- Serial Number -->
-                        <div class="form-group col-md-4">
-                            <label for="serial">Serial Number *</label>
-                            <input wire:model="form.serial" name="serial" type="text" class="form-control @error('form.serial') is-invalid @enderror" id="serial" placeholder="Serial Number">
-                            @error('form.serial')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -160,9 +153,9 @@
                                     });
                                 }
                             }" x-init="initStatus()">
-                                <label for="status">Status *</label>
+                                <label for="status">Status <span class="text-danger">*</span></label>
                                 <select wire:model="form.status" x-ref="selectstatus" name="status" id="status" class="form-control select2 @error('form.status') is-invalid @enderror" for="status">
-                                    <option name="status" id="status" value="">Pilih...</option>
+                                    <option name="status" id="status" value="">None</option>
                                     @foreach ($statuses as $status)
                                         <option value="{{ $status->id }}">{{ $status->name }}</option>
                                     @endforeach
@@ -172,32 +165,8 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <!-- Asset User -->
-                        <div class="form-group col-md-4">
-                            <div x-data="{
-                                selectedUseraset: @entangle('form.useraset'),
-                                initUseraset() {
-                                    // Inisialisasi Select2 menggunakan ID
-                                    $(this.$refs.selectuseraset).on('change', (e) => {
-                                        // singkronisasi perubahan ke alpinejs
-                                        this.selectedUseraset = $(e.target).val();
-                                    });
-                                }
-                            }" x-init="initUseraset()">
-                                <label for="useraset">User Aset *</label>
-                                <select wire:model="form.useraset" x-ref="selectuseraset" name="useraset" id="useraset" class="form-control select2 @error('form.useraset') is-invalid @enderror">
-                                    <option name="useraset" id="useraset" value="">Pilih...</option>
-                                    @foreach ($users as $user)
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            @error('form.useraset')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
                         <!-- Asset Admin -->
-                        <div class="form-group col-md-4">
+                        {{-- <div class="form-group col-md-4">
                             <div x-data="{
                                 selectedAdminaset: @entangle('form.adminaset'),
                                 initAdminaset() {
@@ -219,10 +188,34 @@
                             @error('form.adminaset')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
+                        </div> --}}
+                        <!-- Asset User -->
+                        <div class="form-group col-md-4">
+                            <div x-data="{
+                                selectedUseraset: @entangle('form.useraset'),
+                                initUseraset() {
+                                    // Inisialisasi Select2 menggunakan ID
+                                    $(this.$refs.selectuseraset).on('change', (e) => {
+                                        // singkronisasi perubahan ke alpinejs
+                                        this.selectedUseraset = $(e.target).val();
+                                    });
+                                }
+                            }" x-init="initUseraset()">
+                                <label for="useraset">Pengguna Aset <span class="text-danger">*</span></label>
+                                <select wire:model="form.useraset" x-ref="selectuseraset" name="useraset" id="useraset" class="form-control select2 @error('form.useraset') is-invalid @enderror">
+                                    <option name="useraset" id="useraset" value="">None</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @error('form.useraset')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <!-- Tanggal Perolehan -->
-                        <div class="form-group col-md-6">
-                            <label for="purchaseDateInput">Tanggal Perolehan *</label>
+                        <div class="form-group col-md-4">
+                            <label for="purchaseDateInput">Tanggal Perolehan <span class="text-danger">*</span></label>
                             <div wire:ignore>
                                 <x-flatpickr wire:model="form.purchase_date" name="purchase_date" id="purchaseDateInput" placeholder="Select date"/>
                             </div>
@@ -231,8 +224,8 @@
                             @enderror
                         </div>
                         <!-- Garansi -->
-                        <div class="form-group col-md-6">
-                            <label for="warranty_months">Garansi *</label>
+                        <div class="form-group col-md-4">
+                            <label for="warranty_months">Garansi <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <input wire:model="form.warranty_months" name="warranty_months" type="number" class="form-control @error('form.warranty_months') is-invalid @enderror" id="warranty_months">
                                 <div class="input-group-append">
@@ -252,10 +245,10 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                    <span>tanda (<span class="text-danger">*</span>) wajib diisi</span>
                 </div>
                 <div class="modal-footer">
                     <!-- Submit Button -->
-                    {{-- <button wire:click="closeModalCreate" type="button" class="btn btn-secondary">Batal</button> --}}
                     <button wire:click="resetInput" type="button" class="btn btn-info">Reset</button>
                     <button wire:click="$dispatch('closeModalCreate')" type="button" class="btn btn-secondary">Batal</button>
                     <button wire:click="store" type="submit" class="btn btn-primary">Simpan</button>
@@ -284,7 +277,6 @@
                         width: '100%',
                         multiple: true,
                         maximumSelectionLength: 1,
-                        placeholder: 'Pilih.../tambahkan',
                     });
                 }
 
@@ -305,7 +297,6 @@
     <script src="{{ asset('assets/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
     {{-- Select2 --}}
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
-
     <script>
         // Event untuk membuka modalCreate
         window.addEventListener('showModalCreate', () => {

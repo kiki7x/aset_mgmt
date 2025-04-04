@@ -2,22 +2,26 @@
     {{-- @section('title')
         {{ 'Page Title Goes Here' }}
     @endsection --}}
-    <section class="content-header">
+    {{-- <section class="content-header">
         <div class="d-flex justify-content-end mb-1">
             <button wire:click="$dispatch('openModalCreate', { component: 'modal.create-aset-tik' })" type="button" class="btn btn-primary">
                 <i class="fas fa-square-plus"></i> 
                 Tambah Data
             </button>
         </div>
-    </section>
+    </section> --}}
 
     <section class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Kelola Aset TIK</h3>
+                        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 class="card-title">Kelola Aset TIK <i class="fa-solid fa-computer"></i></h3>
+                            <button wire:click="$dispatch('openModalCreate', { component: 'modal.create-aset-tik' })" type="button" class="btn btn-primary" style="margin-left: auto;">
+                                <i class="fas fa-square-plus"></i> 
+                                Tambah Data
+                            </button>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -25,9 +29,10 @@
                                 <div class="col-3 mt-auto">
                                     Show
                                     <select wire:model.live='per_page' class="form-select">
-                                        <option>5</option>
                                         <option>10</option>
-                                        <option>15</option>
+                                        <option>20</option>
+                                        <option>50</option>
+                                        <option>100</option>
                                     </select>
                                     Entries
                                 </div>
@@ -42,21 +47,31 @@
                                         <th>Tag</th>
                                         <th>Nama Aset</th>
                                         <th>Kategori</th>
-                                        <th>Model</th>
-                                        <th>Serial Number</th>
-                                        <th>Status</th>
+                                        <th>Tipe/Model</th>
+                                        <th>Pengguna</th>
+                                        <th>Aktivitas terakhir</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($assets as $asset)
                                         <tr wire:key="{{ $asset->id }}">
-                                            <td><a href="{{ route('admin.asettik.show', ['id' => $asset->id]) }}">{{ $asset->tag }}</a></td>
-                                            <td><a href="{{ route('admin.asettik.show', ['id' => $asset->id]) }}">{{ $asset->name }}</a></td>
-                                            <td><span class="badge" style="background-color:#FFF;color:{{ $asset->category->color }};border:1px solid {{ $asset->category->color }}">{{ $asset->category->name }}</span></td>
-                                            <td>{{ $asset->model->name }}</td>
-                                            <td>{{ $asset->serial }}</td>
-                                            <td><span class="badge" style="background-color: {{ $asset->status->color }}; color: white;">{{ $asset->status->name }}</span></td>
+                                            <td>
+                                                <a href="{{ route('admin.asettik.show', ['id' => $asset->id]) }}">{{ $asset->tag }}</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('admin.asettik.show', ['id' => $asset->id]) }}" class="font-weight-bold">{{ $asset->name }}</a>
+                                                <br>
+                                                <span class="text-muted">Serial No: </span><span>{{ $asset->serial }}</span> <br>
+                                                <span class="text-muted">Status:    </span><span class="badge" style="background-color: {{ $asset->status->color }}; color: white;">{{ $asset->status->name }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="badge" style="background-color:#FFF;color:{{ $asset->category->color }};border:1px solid {{ $asset->category->color }}">{{ $asset->category->name }}</span></td>
+                                            <td>
+                                                {{ $asset->model->name }}
+                                            </td>
+                                            <td>{{ $asset->user->name }}</td>
+                                            <td><span>{{ $asset->updated_at }}</span></td>
                                             <td>
                                                 <div class="">
                                                     <div class="btn-group">
@@ -88,9 +103,9 @@
                                         <th>Tag</th>
                                         <th>Nama Aset</th>
                                         <th>Kategori</th>
-                                        <th>Model</th>
-                                        <th>Serial Number</th>
-                                        <th>Status</th>
+                                        <th>Tipe/Model</th>
+                                        <th>Pengguna</th>
+                                        <th>Aktivitas terakhir</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </tfoot>

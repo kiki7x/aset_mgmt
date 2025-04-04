@@ -54,7 +54,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a  wire:click="switchSection('edit')" href="{{ route('admin.asettik.show', ['id' => $id, 'section' => 'edit']) }}" class="nav-link {{ $currentSection === 'edit' ? 'active' : '' }}">
+                            <a wire:click="switchSection('edit')" href="{{ route('admin.asettik.show', ['id' => $id, 'section' => 'edit']) }}" class="nav-link {{ $currentSection === 'edit' ? 'active' : '' }}">
                                 Edit Aset
                                 <div wire:loading wire:target="switchSection('edit')" class="spinner-border spinner-border-sm">
                                     <span class="sr-only">Loading...</span>
@@ -91,66 +91,79 @@
                         <div id="section-1" class="tab-pane active">
                             <div class="row mt-3">
                                 <!-- Left Column -->
-                                <div class="col-md-4">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <table class="table table-striped table-hover">
-                                                <tbody>
-                                                    <tr>
-                                                        <td><strong>Status</strong></td>
-                                                        <td><span class="badge bg-primary">{{ $asset->status->name }}</span></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>Tag:</strong></td>
-                                                        <td>{{ $asset->tag }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>Name:</strong></td>
-                                                        <td>{{ $asset->name }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>Category:</strong></td>
-                                                        <td><span class="badge bg-info text-dark">{{ $asset->category->name }}</span></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>Location:</strong></td>
-                                                        <td>{{ $asset->location->name }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>Manufacturer:</strong></td>
-                                                        <td>{{ $asset->manufacturer->name }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>Model:</strong></td>
-                                                        <td>{{ $asset->model->name }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>Supplier:</strong></td>
-                                                        <td>{{ $asset->supplier->name }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>Serial Number:</strong></td>
-                                                        <td>{{ $asset->serial }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>Asset Admin:</strong></td>
-                                                        <td>{{ $asset->admin->name }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>Asset User:</strong></td>
-                                                        <td>{{ $asset->user->name }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>Purchase Date:</strong></td>
-                                                        <td>{{ $asset->purchase_date }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>Warranty (months):</strong></td>
-                                                        <td>{{ $asset->warranty_months }} bulan</td>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                <div class="card col-md-4">
+                                    {{-- <div class="card-body"> --}}
+                                    <div class="card-header">
+                                        Asset Information
                                     </div>
+                                    <table class="table table-hover table-responsive">
+                                        <tbody>
+                                            <tr>
+                                                <td><strong>Status</strong></td>
+                                                <td>:</td>
+                                                <td><span class="badge bg-primary">{{ $asset->status->name }}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Tag</strong></td>
+                                                <td>:</td>
+                                                <td>{{ $asset->tag }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Nama Aset</strong></td>
+                                                <td>:</td>
+                                                <td>{{ $asset->name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Kategori</strong></td>
+                                                <td>:</td>
+                                                <td><span class="badge bg-info text-dark">{{ $asset->category->name }}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Penempatan</strong></td>
+                                                <td>:</td>
+                                                <td>{{ $asset->location->name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Merk/Pabrikan</strong></td>
+                                                <td>:</td>
+                                                <td>{{ $asset->manufacturer->name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Tipe/Model</strong></td>
+                                                <td>:</td>
+                                                <td>{{ $asset->model->name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Supplier</strong></td>
+                                                <td>:</td>
+                                                <td>{{ $asset->supplier->name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Serial No</strong></td>
+                                                <td>:</td>
+                                                <td>{{ $asset->serial }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Admin Aset</strong></td>
+                                                <td>:</td>
+                                                <td>{{ $asset->admin->name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Pengguna Aset</strong></td>
+                                                <td>:</td>
+                                                <td>{{ $asset->user->name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Waktu Perolehan</strong></td>
+                                                <td>:</td>
+                                                <td>{{ $asset->purchase_date }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Garansi</strong></td>
+                                                <td>:</td>
+                                                <td>{{ $asset->warranty_months }} bulan</td>
+                                        </tbody>
+                                    </table>
                                 </div>
 
                                 <!-- Right Column -->
@@ -211,7 +224,9 @@
                                     <div class="card">
                                         <div class="card-header">Notes</div>
                                         <div class="card-body">
-                                            <p class="text-muted">No notes available.</p>
+                                            <p>
+                                                {{ isset($asset->notes) && !empty($asset->notes) ? $asset->notes : '<p class="text-muted">No notes available.</p>' }}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -238,10 +253,10 @@
                             <p>Content for section 5.</p>
                         </div>
                     @elseif ($currentSection === 'edit')
-                    <div id="edit" class="tab-pane active">
-                        <!-- Komponen EditAsetTik -->
-                        @livewire('assets.edit-aset-tik', ['id' => $asset->id, 'section' => $currentSection])
-                    </div>
+                        <div id="edit" class="tab-pane active">
+                            <!-- Komponen EditAsetTik -->
+                            @livewire('assets.edit-aset-tik', ['id' => $asset->id, 'section' => $currentSection])
+                        </div>
                     @endif
                 </div>
             </div>

@@ -16,8 +16,8 @@ class ShowAsetTik extends Component
     public $assetID;
     public $classification;
     public $category;
-    public $adminaset;
     public $clientaset;
+    public $adminaset;
     public $useraset;
     public $manufacturer;
     public $model;
@@ -44,12 +44,13 @@ class ShowAsetTik extends Component
     {
         $this->currentSection = $section;
 
-        $asset = $this->asset = AssetsModel::findOrFail($id);
+        // $asset = $this->asset = AssetsModel::findOrFail($id);
+        $asset = $this->asset = AssetsModel::with('user')->findOrFail($id);
         $this->assetID = $asset->id;
         $this->classification = $asset->classification;
         $this->category = $asset->category;
-        $this->adminaset = $asset->admin;
         $this->clientaset = $asset->client;
+        $this->adminaset = $asset->admin;
         $this->useraset = $asset->user;
         $this->manufacturer = $asset->manufacturer;
         $this->model = $asset->model;

@@ -34,7 +34,6 @@
 </head>
 
 <body class="index-page">
-
     <header id="header" class="header d-flex align-items-center fixed-top">
         <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
@@ -190,45 +189,38 @@
 
         <!-- Skills Section -->
         <section id="skills" class="skills section">
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Statistik</h2>
+            </div><!-- End Section Title -->
             <div class="container" data-aos="fade-up" data-aos-delay="100">
                 <div class="row">
-                    <div class="col-lg-6 d-flex align-items-center">
-                        <img src="{{ asset('assets/gambar/siklus-pengelolaan-bmn-bmd.webp') }}" class="img-fluid" alt="">
-                    </div>
-                    <div class="col-lg-6 pt-4 pt-lg-0 content">
-                        <h3>Data Statistik</h3>
+                    <div class="col-lg-4 pt-4 pt-lg-0 content">
+                        <h3>Progress</h3>
                         <p class="fst-italic">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         </p>
                         <div class="skills-content skills-animation">
                             <div class="progress">
-                                <span class="skill"><span>Aset dalam kondisi baik</span> <i class="val">75%</i></span>
+                                <span class="skill"><span>Jumlah Aset</span> <i class="val">1569</i></span>
                                 <div class="progress-bar-wrap">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div><!-- End Skills Item -->
                             <div class="progress">
-                                <span class="skill"><span>Aset Rusak</span> <i class="val">23%</i></span>
+                                <span class="skill"><span>Progres Pendataan Aset</span> <i class="val">23%</i></span>
                                 <div class="progress-bar-wrap">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                            </div><!-- End Skills Item -->
-                            <div class="progress">
-                                <span class="skill"><span>Aset dalam pemeliharaan</span> <i class="val">15%</i></span>
-                                <div class="progress-bar-wrap">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div><!-- End Skills Item -->
-                            <div class="progress">
-                                <span class="skill"><span>Pendataan Aset</span> <i class="val">10%</i></span>
-                                <div class="progress-bar-wrap">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div><!-- End Skills Item -->
+                            </div>
                         </div>
+                    </div>
+                    <!-- PIE CHART -->
+                    <div class="col-lg-8 pt-4 pt-lg-0 content">
+                        <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
                 </div>
             </div>
+
         </section><!-- /Skills Section -->
 
         <!-- Services Section -->
@@ -271,7 +263,7 @@
                     <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up">
                         <div class="service-item position-relative">
                             <div class="icon"><i class="bi bi-telephone icon"></i></div>
-                            <h4><a href="" class="stretched-link">Helpdesk Sarana & Prasarana berbasis Tiket</a></h4>
+                            <h4><a href="" class="stretched-link">Service Desk Sarana & Prasarana berbasis Tiket</a></h4>
                             <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
                         </div>
                     </div><!-- End Service Item -->
@@ -500,7 +492,7 @@
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Preloader -->
-    <div id="preloader"></div>
+    {{-- <div id="preloader"></div> --}}
 
     <!-- Vendor JS Files -->
     <script src="{{ asset('arsha/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -513,6 +505,64 @@
 
     <!-- Template Main JS File -->
     <script src="{{ asset('arsha/assets/js/main.js') }}"></script>
+    <!-- jQuery -->
+    <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- ChartJS -->
+    <script src="{{ asset('assets/plugins/chart.js/Chart.min.js') }}"></script>
+
+    <script>
+        //-------------
+        //- PIE CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        const barChartCanvas = $('#barChart').get(0).getContext('2d')
+        const barData = {
+            labels: ['Aset TIK', 'Aset Rumah Tangga'],
+            datasets: [{
+                    label: 'Kondisi baik',
+                    data: [150, 350],
+                    borderColor: '#00a65a',
+                    backgroundColor: '#00a65a33',
+                    borderWidth: 1,
+                },
+                {
+                    label: 'Kondisi rusak',
+                    data: [35, 25],
+                    borderColor: '#f56954',
+                    backgroundColor: '#f5695433',
+                    borderWidth: 1,
+                },
+                {
+                    label: 'Kondisi dalam pemeliharaan',
+                    data: [25, 18],
+                    borderColor: '#f39c12',
+                    backgroundColor: '#f39c1233',
+                    borderWidth: 1,
+                }
+            ],
+        };
+
+        const config = {
+            type: 'bar',
+            data: barData,
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                legend: {
+                    position: 'top'
+                },
+                title: {
+                    display: true,
+                    text: 'Statistik Aset'
+                }
+            }
+        }
+        //Create bar chart
+        // You can switch between pie and douhnut using the method below.
+        new Chart(barChartCanvas, config)
+    </script>
 </body>
 
 </html>

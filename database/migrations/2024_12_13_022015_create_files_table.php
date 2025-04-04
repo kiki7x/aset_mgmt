@@ -21,11 +21,9 @@ return new class extends Migration
                 table: 'projects',
                 indexName: 'files_project_id'
             );
-            $table->foreignId('asset_id')->constrained(
-                table: 'assets',
-                indexName: 'files_asset_id'
-            );
-            $table->foreignId('ticketreply_id')->constrained(
+            $table->foreignId('asset_id')->nullable();
+            $table->foreignId('ticketreply_id')
+            ->constrained(
                 table: 'tickets_replies',
                 indexName: 'files_ticketreply_id'
             );

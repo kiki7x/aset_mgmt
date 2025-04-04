@@ -15,9 +15,14 @@ class AssetclassificationsModel extends Model
         'name',
     ];
 
-    public function assettiks()
+    public function assetcategories()
     {
-        return $this->hasMany(AsettiksModel::class);
+        return $this->hasMany(AssetcategoriesModel::class);
+    }
+
+    public function assets()
+    {
+        return $this->hasMany(AssetsModel::class);
     }
 
 }

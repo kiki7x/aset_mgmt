@@ -7,15 +7,18 @@ use App\Models\AssetsModel;
 use App\Livewire\Forms\AsetForm;
 use Livewire\Attributes\On;
 
+
 class CreateAsetTik extends Component
 {
     public AsetForm $form;
 
+    // isian default prefill
+    public $prefix = "tik";
+    public $classification = "1";
+
     // bawa relasi
-    public $classifications;
     public $categories;
     public $admins;
-    public $clients;
     public $users;
     public $manufacturers;
     public $models;
@@ -25,19 +28,32 @@ class CreateAsetTik extends Component
 
     public function mount()
     {
-        $this->classifications = \App\Models\AssetclassificationsModel::all();
-        $this->categories = \App\Models\AssetcategoriesModel::all();
-        $this->users = \App\Models\User::all();
-        $this->manufacturers = \App\Models\ManufacturersModel::all();
-        $this->models = \App\Models\ModelsModel::all();
-        $this->suppliers = \App\Models\SuppliersModel::all();
-        $this->locations = \App\Models\LocationsModel::all();
-        $this->statuses = \App\Models\LabelsModel::all();
-        $this->locations = \App\Models\LocationsModel::all();
+        // ambil user_id dari session auth
+        $this->form->adminaset = auth()->user()->id;
+
+        // looping seleksi
+        $this->categories = \App\Models\AssetcategoriesModel::where('classification_id', 1)->get();
+        $this->users = \App\Models\User::get();
+        $this->manufacturers = \App\Models\ManufacturersModel::get();
+        $this->models = \App\Models\ModelsModel::get();
+        $this->suppliers = \App\Models\SuppliersModel::get();
+        $this->locations = \App\Models\LocationsModel::get();
+        $this->statuses = \App\Models\LabelsModel::get();
+    }
+
+    public function render()
+    {
+        return view('livewire.modal.create-aset-tik');
     }
 
     public function store()
     {
+        // dd($this->form->adminaset);
+        // Cek kondisi inputan classification baru kemudian increment
+        $cektag = $this->incrementTag();
+        $tagBaru = $this->prefix . '-' . $cektag;
+        $this->form->tag = $tagBaru;
+
         // validasi input
         $this->form->validate();
         
@@ -71,10 +87,9 @@ class CreateAsetTik extends Component
             $this->form->model = $newmodel->id;
         }
 
-
         // himpun data input dan cocokkan ke database
         $data = [
-                'classification_id' => $this->form->classification,
+                'classification_id' => $this->classification,
                 'category_id' => $this->form->category,
                 'admin_id' => $this->form->adminaset,
                 'client_id' => $this->form->clientaset,
@@ -85,7 +100,7 @@ class CreateAsetTik extends Component
                 'status_id' => $this->form->status,
                 'purchase_date' => $this->form->purchase_date,
                 'warranty_months' => $this->form->warranty_months,
-                'tag' => $this->form->tag,
+                'tag' => $tagBaru,
                 'name' => $this->form->name,
                 'serial' => $this->form->serial,
                 'notes' => $this->form->notes,
@@ -134,8 +149,17 @@ class CreateAsetTik extends Component
         $this->form->reset();
     }
 
-    public function render()
-    {
-        return view('livewire.modal.create-aset-tik');
-    }
+    public function incrementTag() {
+        $lastTag = AssetsModel::where('tag', 'like', $this->prefix . '-%')
+                        ->orderBy('tag', 'desc')
+                        ->first();
+      
+        if ($lastTag) {
+          $lastSequenceNumber = (int) explode('-', $lastTag->tag)[1];
+          return $lastSequenceNumber + 1;
+        } else {
+          return 1; // Jika belum ada data, mulai dari 1
+        }
+      }
+    
 }

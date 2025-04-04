@@ -37,7 +37,22 @@ class ManufacturersSeeder extends Seeder
             ['id' => 22,'name' => 'Mercedes Benz'],
             ['id' => 23,'name' => 'Daihatsu'],
             ['id' => 24,'name' => 'Isuzu'],
-            ['id' => 25,'name' => 'Langqing'],
+            ['id' => 25,'name' => 'Hino'],
+            ['id' => 26,'name' => 'Langqing'],
+            ['id' => 27,'name' => 'MSI'],
+            ['id' => 28,'name' => 'Axioo'],
+            ['id' => 29, 'name' => 'Ubiquiti'],
+            ['id' => 30, 'name' => 'Advan'],
+            ['id' => 31, 'name' => 'Logitech'],
+            ['id' => 32, 'name' => 'Brother'],
+            ['id' => 33, 'name' => 'TSC'],
+            ['id' => 34, 'name' => 'APC'],
+            ['id' => 35, 'name' => 'Scanlogic'],
+            ['id' => 36, 'name' => 'Seagate'],
+            ['id' => 37, 'name' => 'Synology'],
+            ['id' => 38, 'name' => 'Linksys'],
+            ['id' => 39, 'name' => 'Raisecom'],
+            ['id' => 40, 'name' => 'Honeywell'],
         ]);
     }
 }

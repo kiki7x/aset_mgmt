@@ -14,11 +14,12 @@ class AssetcategoriesModel extends Model
     protected $fillable = [
         'name',
         'color',
+        'classification_id',
     ];
 
-    public function assettiks()
+    public function assets()
     {
-        return $this->hasMany(AsettiksModel::class);
+        return $this->hasMany(AssetsModel::class);
     }
 
 }

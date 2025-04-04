@@ -34,11 +34,14 @@ class AssetsModel extends Model
         'qrvalue',
     ];
 
+    // fungsi search
     public function scopeSearch($query, $value)
     {
         $query->where('name', 'LIKE', "%{$value}%")
         ->orWhere('serial', 'LIKE', "%{$value}%");
     }
+
+    // fungsi membuat tag incremental berdasarkan classification
 
 
     public function classification(): BelongsTo

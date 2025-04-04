@@ -4,54 +4,32 @@ namespace App\Livewire\Assets;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Livewire\CreateAsetTik;
+// use App\Livewire\CreateAsetTik;
 use Livewire\Attributes\On;
+use App\Models\AssetsModel;
 
 class IndexAsetTik extends Component
 {
     use WithPagination;
 
-    public $per_page = 5;
+    public $per_page = 10;
     public $search = "";
     protected $paginationTheme = 'bootstrap';
 
     public $deleteId = '';
     public $editId = '';
     public $showId = '';
-    // variabel bawa relasi model
-    public $classifications;
-    public $categories;
-    public $admins;
-    public $clients;
-    public $users;
-    public $manufacturers;
-    public $models;
-    public $suppliers;
-    public $statuses;
-    public $locations;
     
-
-    public function mount()
-    {
-
-    }
+    
     #[On('refresh')]
     public function render()
     {
         return view('livewire.assets.index-aset-tik')->with([
-        'assets' => \App\Models\AssetsModel::search($this->search)
+        'assets' => AssetsModel::search($this->search)
+        ->where('classification_id', 1)
+        ->with('category', 'status', 'model', 'user')
         ->latest()
         ->paginate($this->per_page),
-        'classifications' => \App\Models\AssetclassificationsModel::all(),
-        'categories' => \App\Models\AssetcategoriesModel::all(),
-        'admins' => \App\Models\User::all(),
-        'clients' => \App\Models\ClientsModel::all(),
-        'users' => \App\Models\User::all(),
-        'manufacturers' => \App\Models\ManufacturersModel::all(),
-        'models' => \App\Models\ModelsModel::all(),
-        'suppliers' => \App\Models\SuppliersModel::all(),
-        'statuses' => \App\Models\LabelsModel::all(), 
-        'locations' => \App\Models\LocationsModel::all(),
         ]);
     }
 
@@ -59,7 +37,6 @@ class IndexAsetTik extends Component
     {
         $this->dispatch('edit', $id);    
     }
-
 
     #[On('openModalDelete')] 
     public function openModalDelete($id)
@@ -80,7 +57,7 @@ class IndexAsetTik extends Component
     {
         try {
             $this->deleteId = $id;
-            \App\Models\AssetsModel::find($this->deleteId)->delete();
+            AssetsModel::find($this->deleteId)->delete();
             // $asset->delete();
             $this->closeModalDelete();
             $this->dispatchToastr('success','Data berhasil dihapus');

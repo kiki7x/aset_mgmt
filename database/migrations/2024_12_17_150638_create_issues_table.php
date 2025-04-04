@@ -17,19 +17,20 @@ return new class extends Migration
                 table: 'users',
                 indexName: 'issues_client_id'
             );
-            $table->foreignId('asset_id')->constrained(
-                table: 'assets',
-                indexName: 'issues_asset_id'
+            $table->foreignId('asset_id')->nullable();
+            $table->foreignId('ticketreply_id')->nullable()->constrained(
+                table: 'tickets',
+                indexName: 'issues_ticketreply_id'
             );
-            $table->foreignId('project_id')->constrained(
+            $table->foreignId('project_id')->nullable()->constrained(
                 table: 'projects',
                 indexName: 'issues_project_id'
             );
-            $table->foreignId('admin_id')->constrained(
+            $table->foreignId('admin_id')->nullable()->constrained(
                 table: 'users',
                 indexName: 'issues_admin_id'
             );
-            $table->foreignId('milestone_id')->constrained(
+            $table->foreignId('milestone_id')->nullable()->constrained(
                 table: 'milestones',
                 indexName: 'issues_milestone_id'
             );
@@ -37,9 +38,9 @@ return new class extends Migration
             $table->string('priority', 60);
             $table->string('status', 60);
             $table->string('name', 255);
-            $table->longText('description');
-            $table->string('duedate', 20);
-            $table->unsignedInteger('timespent');
+            $table->longText('description')->nullable();
+            $table->date('duedate', 20);
+            $table->unsignedInteger('timespent')->nullable();
             $table->timestamps();
         });
     }

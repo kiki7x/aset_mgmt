@@ -11,6 +11,9 @@ class CreateAsetRt extends Component
 {
     public AsetForm $form;
 
+    public $prefix = "rt";
+    public $classification = "2";
+
     // bawa relasi
     public $classifications;
     public $categories;
@@ -25,19 +28,27 @@ class CreateAsetRt extends Component
 
     public function mount()
     {
-        $this->classifications = \App\Models\AssetclassificationsModel::all();
-        $this->categories = \App\Models\AssetcategoriesModel::all();
-        $this->users = \App\Models\User::all();
-        $this->manufacturers = \App\Models\ManufacturersModel::all();
-        $this->models = \App\Models\ModelsModel::all();
-        $this->suppliers = \App\Models\SuppliersModel::all();
-        $this->locations = \App\Models\LocationsModel::all();
-        $this->statuses = \App\Models\LabelsModel::all();
-        $this->locations = \App\Models\LocationsModel::all();
+        // ambil user_id dari session auth
+        $this->form->adminaset = auth()->user()->id;
+
+        // looping seleksi
+        $this->categories = \App\Models\AssetcategoriesModel::where('classification_id', 2)->get();
+        $this->users = \App\Models\User::get();
+        $this->manufacturers = \App\Models\ManufacturersModel::get();
+        $this->models = \App\Models\ModelsModel::get();
+        $this->suppliers = \App\Models\SuppliersModel::get();
+        $this->locations = \App\Models\LocationsModel::get();
+        $this->statuses = \App\Models\LabelsModel::get();
     }
 
     public function store()
     {
+        // dd($this->form->adminaset);
+        // Cek kondisi inputan classification baru kemudian increment
+        $cektag = $this->incrementTag();
+        $tagBaru = $this->prefix . '-' . $cektag;
+        $this->form->tag = $tagBaru;
+
         // validasi input
         $this->form->validate();
         
@@ -138,4 +149,17 @@ class CreateAsetRt extends Component
     {
         return view('livewire.modal.create-aset-rt');
     }
+
+    public function incrementTag() {
+        $lastTag = AssetsModel::where('tag', 'like', $this->prefix . '-%')
+                        ->orderBy('tag', 'desc')
+                        ->first();
+      
+        if ($lastTag) {
+          $lastSequenceNumber = (int) explode('-', $lastTag->tag)[1];
+          return $lastSequenceNumber + 1;
+        } else {
+          return 1; // Jika belum ada data, mulai dari 1
+        }
+      }
 }

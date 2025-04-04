@@ -5,13 +5,14 @@ namespace App\Livewire\Assets;
 use Livewire\Component;
 use App\Models\AssetsModel;
 use App\Livewire\Forms\AsetForm;
+use Illuminate\Validation\Rule;
 
 class EditAsetTik extends Component
 {
     public AsetForm $form;
 
     public $id;
-    public $asset;
+    public ?AssetsModel $asset;
     public $assetID;
     public $section;
     public $currentSection;
@@ -19,7 +20,7 @@ class EditAsetTik extends Component
     // bawa relasi
     public $classifications;
     public $categories;
-    public $admins;
+    // public $admins;
     public $clients;
     public $users;
     public $manufacturers;
@@ -31,15 +32,14 @@ class EditAsetTik extends Component
     public function mount($id, $section)
     {
         // looping seleksi
-        $this->classifications = \App\Models\AssetclassificationsModel::all();
-        $this->categories = \App\Models\AssetcategoriesModel::all();
-        $this->users = \App\Models\User::all();
-        $this->manufacturers = \App\Models\ManufacturersModel::all();
-        $this->models = \App\Models\ModelsModel::all();
-        $this->suppliers = \App\Models\SuppliersModel::all();
-        $this->locations = \App\Models\LocationsModel::all();
-        $this->statuses = \App\Models\LabelsModel::all();
-        $this->locations = \App\Models\LocationsModel::all();
+        $this->classifications = \App\Models\AssetclassificationsModel::get();
+        $this->categories = \App\Models\AssetcategoriesModel::where('classification_id', 1)->get();
+        $this->users = \App\Models\User::get();
+        $this->manufacturers = \App\Models\ManufacturersModel::get();
+        $this->models = \App\Models\ModelsModel::get();
+        $this->suppliers = \App\Models\SuppliersModel::get();
+        $this->locations = \App\Models\LocationsModel::get();
+        $this->statuses = \App\Models\LabelsModel::get();
 
         // bawa data eksisting
         $this->currentSection = $section;
@@ -68,7 +68,16 @@ class EditAsetTik extends Component
     public function update()
     {
         // validasi input
-        $this->form->validate();
+        $this->form->validate([
+            'tag' => [
+                'required',
+                Rule::unique('assets', 'id')->ignore($this->assetID)
+            ],
+            'serial' => [
+                'required',
+                Rule::unique('assets', 'id')->ignore($this->assetID)
+            ],
+        ]);
 
         // cek kondisi inputan supplier baru
         $ceksupplier = \App\Models\SuppliersModel::find($this->form->supplier);
@@ -122,11 +131,12 @@ class EditAsetTik extends Component
                 'customfields' => $this->form->customfields,
                 'qrvalue' => $this->form->qrvalue,
         ];
-        AssetsModel::Update($data);
+        // AssetsModel::Update($data);
+        $this->asset->update($data);
         // Kirim alert toastr
         $this->dispatchToastr('success','Data berhasil diupdate');
         // reset form
-        $this->resetInput();
+        // $this->resetInput();
         // refresh index
         $this->dispatch('refresh');
     }

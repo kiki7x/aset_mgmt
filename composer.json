@@ -7,11 +7,14 @@
     "require": {
         "php": "^8.2",
         "asdh/laravel-flatpickr": "^2.2",
-        "laravel/fortify": "^1.24",
+        "chillerlan/php-qrcode": "^5.0",
+        "gumlet/php-image-resize": "^2.0",
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
-        "livewire/livewire": "^3.5"
+        "livewire/livewire": "^3.5",
+        "maatwebsite/excel": "^1.1",
+        "simplesoftwareio/simple-qrcode": "^4.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14",

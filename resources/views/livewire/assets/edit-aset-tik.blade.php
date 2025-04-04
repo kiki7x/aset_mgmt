@@ -245,9 +245,9 @@
         </div>
         <div class="d-block justify-content-end">
             <!-- Submit Button -->
-            <button wire:click="resetInput" type="button" class="btn btn-info">Reset</button>
-            <a href="{{ route('admin.asettik.show', ['id' => $asset->id]) }}" type="button" class="btn btn-info">Batal</a>
-            <button wire:click="update" type="submit" class="btn btn-primary">Simpan</button>
+            <button wire:click="resetInput" type="button" class="btn btn-secondary">Reset</button>
+            <a href="{{ route('admin.asettik.show', ['id' => $asset->id]) }}" type="button" class="btn btn-warning">Batal</a>
+            <button wire:click="update" type="submit" class="btn btn-info">Update</button>
         </div>
     </div>
 </form>

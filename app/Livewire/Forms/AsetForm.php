@@ -9,16 +9,16 @@ class AsetForm extends Form
 {
     // state inputan form
     #[Validate('required')]
-    public $classification = "1";
+    public $classification;
 
     #[Validate('required')]
     public $category;
     
     #[Validate('required')]
-    public $adminaset;
-    
-    #[Validate('required')]
     public $clientaset = "1";
+
+    #[Validate('required')]
+    public $adminaset;
     
     #[Validate('required')]
     public $useraset;

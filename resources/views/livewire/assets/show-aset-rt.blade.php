@@ -54,7 +54,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a  wire:click="switchSection('edit')" href="{{ route('admin.asetrt.show', ['id' => $id, 'section' => 'edit']) }}" class="nav-link {{ $currentSection === 'edit' ? 'active' : '' }}">
+                            <a wire:click="switchSection('edit')" href="{{ route('admin.asetrt.show', ['id' => $id, 'section' => 'edit']) }}" class="nav-link {{ $currentSection === 'edit' ? 'active' : '' }}">
                                 Edit Aset
                                 <div wire:loading wire:target="switchSection('edit')" class="spinner-border spinner-border-sm">
                                     <span class="sr-only">Loading...</span>
@@ -211,7 +211,11 @@
                                     <div class="card">
                                         <div class="card-header">Notes</div>
                                         <div class="card-body">
-                                            <p class="text-muted">No notes available.</p>
+                                            @if (isset($asset->notes) && !empty($asset->notes))
+                                                <p>{{ $asset->notes }}</p>
+                                            @else
+                                                <p class="text-muted">No notes available.</p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -238,10 +242,10 @@
                             <p>Content for section 5.</p>
                         </div>
                     @elseif ($currentSection === 'edit')
-                    <div id="edit" class="tab-pane active">
-                        <!-- Komponen EditAsetRt -->
-                        @livewire('assets.edit-aset-rt', ['id' => $asset->id, 'section' => $currentSection])
-                    </div>
+                        <div id="edit" class="tab-pane active">
+                            <!-- Komponen EditAsetRt -->
+                            @livewire('assets.edit-aset-rt', ['id' => $asset->id, 'section' => $currentSection])
+                        </div>
                     @endif
                 </div>
             </div>

@@ -15,9 +15,8 @@ class ClientsSeeder extends Seeder
         DB::table('clients')->insert([
             'id' => 1,
             'name' => 'Politeknik Pariwisata Lombok', 
-            'assettik_tag_prefix' => 'TIK', 
-            'assetrt_tag_prefix' => 'RT', 
-            'license_tag_prefix' => 'LIC',
+            'asset_tag_prefix' => 'ppl', 
+            'license_tag_prefix' => 'lic',
         ]);
     }
 }

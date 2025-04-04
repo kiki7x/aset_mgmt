@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->id(); // id column (AUTO_INCREMENT)
             $table->string('name', 255);
-            $table->string('assettik_tag_prefix', 10);
-            $table->string('assetrt_tag_prefix', 10);
+            $table->string('asset_tag_prefix', 10);
             $table->string('license_tag_prefix', 10);
             $table->longText('notes')->nullable(); // notes column (LONGTEXT)
             $table->timestamps(); // created_at and updated_at columns

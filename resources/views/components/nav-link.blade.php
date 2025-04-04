@@ -1,4 +1,4 @@
 <a {{$attributes}} 
-class="{{ $active ? 'active' : ''}} dropdown-item">
+class="{{ $active ? 'active font-weight-bold' : ''}} dropdown-item">
 {{$slot}}
 </a>

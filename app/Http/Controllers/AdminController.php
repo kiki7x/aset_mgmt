@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //import return type redirectResponse
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
     public function index()
     {
+        $assets = \App\Models\AssetsModel::get();
         return view('admin.dashboard', 
         [
-            'title' => 'Selamat datang di Dashboard Sistem Informasi Aset Manajemen',
-        ]);
+            'title' => 'Selamat datang '. Auth::user()->name .' di Dashboard Sistem Informasi Aset Manajemen',
+        ], compact('assets'));
         
     }
 

@@ -3,8 +3,9 @@
 namespace App\Livewire\Issues;
 
 use Livewire\Component;
-use App\Models\Issues;
+use App\Models\IssuesModel;
 use Livewire\WithPagination;
+use Livewire\Attributes\On;
 
 
 class IndexIssues extends Component
@@ -24,17 +25,14 @@ class IndexIssues extends Component
     {
 
     }
+
     #[On('refresh')]
     public function render()
     {
         return view('livewire.issues.index-issues')->with([
         'issues' => IssuesModel::search($this->search)
         ->latest()
-        ->paginate($this->per_page),
-        'admins' => \App\Models\User::all(),
-        'clients' => \App\Models\ClientsModel::all(),
-        'users' => \App\Models\User::all(),
-        'statuses' => \App\Models\LabelsModel::all(), 
+        ->paginate($this->per_page), 
         ]);
     }
 

@@ -17,10 +17,7 @@ return new class extends Migration
                 table: 'clients',
                 indexName: 'credentials_client_id'
             );
-            $table->foreignId('asset_id')->constrained(
-                table: 'assets',
-                indexName: 'credentials_asset_id'
-            );
+            $table->foreignId('asset_id')->nullable();
             $table->string('type', 100)->nullable();
             $table->string('username', 100)->nullable();
             $table->text('password')->nullable();

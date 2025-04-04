@@ -12,8 +12,7 @@
             <!-- small card -->
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>150</h3>
-
+                    <h3>{{ $assets->where('classification_id', '1')->count() }}</h3>
                     <p>Aset TIK</p>
                 </div>
                 <div class="icon">
@@ -86,14 +85,14 @@
             <!-- small card -->
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>150</h3>
+                    <h3>{{ $assets->where('classification_id', '2')->count() }}</h3>
 
                     <p>Aset Rumah Tangga</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-building"></i>
                 </div>
-                <a href="#" class="small-box-footer">
+                <a href="{{ route('admin.asetrt') }}" class="small-box-footer">
                     Selengkapnya <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
@@ -159,7 +158,7 @@
                 <div class="card-header">
                     <h3 class="card-title">
                         <i class="fas fa-tasks"></i>
-                        Issue
+                        Pemeliharaan
                     </h3>
                 </div>
                 <!-- /.card-header -->
@@ -186,12 +185,9 @@
 
                         <p>This is a green callout.</p>
                     </div>
-                </div>
-                <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-        </div>
-        <!-- /.col -->
+                </div><!-- /.card-body -->
+            </div><!-- /.card -->
+        </div><!-- /.col -->
 
         <div class="col-md-6">
             <div class="card card-default">
@@ -243,12 +239,9 @@
                         //     }
                         // });
                     </script>
-                </div>
-                <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-        </div>
-        <!-- /.col -->
+                </div><!-- /.card-body -->
+            </div><!-- /.card -->
+        </div><!-- /.col -->
     </div>
 
 @endsection

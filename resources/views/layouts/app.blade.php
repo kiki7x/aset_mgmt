@@ -32,7 +32,7 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-    
+
     <!-- date-picker -->
     <x-flatpickr::style />
     {{-- script-head --}}
@@ -42,16 +42,18 @@
     @livewireStyles
 </head>
 
-<body class="hold-transition layout-top-nav layout-fixed layout-navbar-fixed text-sm">
+{{-- <body class="hold-transition layout-top-nav layout-fixed layout-navbar-fixed text-sm"> --}}
+
+<body class="hold-transition layout-fixed sidebar-mini">
     <div class="wrapper">
         <x-navbar></x-navbar>
         <div class="content-wrapper">
-            <x-header>Aset Management</x-header>
-            <div class="content">
-                <div class="container">
+            <x-header></x-header>
+            <section class="content">
+                <div class="container-fluid">
                     {{ $slot }}
                 </div>
-            </div>
+            </section>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
@@ -74,7 +76,7 @@
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="{{ asset('assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
     {{-- Toastr --}}
-    <script src="{{ asset('assets/plugins/toastr/toastr.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
     {{-- Event untuk menampilkan notifikasi --}}

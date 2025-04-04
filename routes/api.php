@@ -10,5 +10,5 @@ Route::get('/user', function (Request $request) {
 
 //asettiks
 Route::apiResource('/asettiks', App\Http\Controllers\Api\AsettiksController::class);
-Route::apiResource('/assetclassifications', App\Http\Controllers\Api\AssetclassificationsController::class);
+// Route::apiResource('/assetclassifications', App\Http\Controllers\Api\AssetclassificationsController::class);
 Route::apiResource('/assetcategories', App\Http\Controllers\Api\AssetcategoriesController::class);

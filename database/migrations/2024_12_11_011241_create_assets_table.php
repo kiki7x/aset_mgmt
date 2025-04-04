@@ -11,15 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('assetclassifications', function (Blueprint $table) {
+            $table->id();
+            $table->string('name', 100);
+            $table->timestamps();
+        });
         Schema::create('assetcategories', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
             $table->string('color', 7);
-            $table->timestamps();
-        });
-        Schema::create('assetclassifications', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 100);
+            $table->foreignId('classification_id')->constrained(
+                table: 'assetclassifications',
+                indexName: 'assetcategories_classification_id'
+            );
             $table->timestamps();
         });
         Schema::create('assets', function (Blueprint $table) {
@@ -81,8 +85,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('assetcategories');
         Schema::dropIfExists('assetclassifications');
+        Schema::dropIfExists('assetcategories');
         Schema::dropIfExists('assets');
     }
 };

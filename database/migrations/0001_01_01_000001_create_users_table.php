@@ -13,15 +13,20 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('type', 10)->nullable(); // type column (VARCHAR 10)
-            $table->unsignedInteger('role_id')->nullable(); // roleid column (integer)
+            $table->string('username', 20)->unique();
+            $table->string('name');
+            $table->string('email')->unique();
+            // $table->string('type', 10)->nullable(); // pindah ke table roles bro
+            // $table->unsignedInteger('role_id')->nullable(); // pindah ke table roles bro
+            $table->foreignId('role_id')->constrained(
+                table: 'roles',
+                indexName: 'users_role_id'
+            );
             $table->unsignedInteger('client_id')->nullable(); // clientid column (integer)
             $table->string('title', 64)->nullable(); // title column (VARCHAR 64)
             $table->string('mobile', 64)->nullable(); // mobile column (VARCHAR 64)
             $table->boolean('ticketsnotification')->default(0); // ticketsnotification column (integer as boolean, default 0)
             $table->binary('avatar')->nullable(); // avatar column (MEDIUMBLOB)
-            $table->string('name');
-            $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
