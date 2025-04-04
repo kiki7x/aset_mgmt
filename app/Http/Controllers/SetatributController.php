@@ -19,16 +19,8 @@ class SetatributController extends Controller
         $label = \App\Models\LabelsModel::get();
         // $kategorilisensi = \App\Models\LicensecategoriesModel::get();
         $lokasi = \App\Models\LocationsModel::get();
-        return view('admin.setatribut', ['title' => 'Setting Atribut Aset'], 
+        return view('admin.setatribut', ['title' => 'Setting Atribut Aset'],
         compact('klasifikasi', 'kategori', 'merk', 'model', 'supplier', 'label', 'lokasi')
-        );    
-    }
-
-    public function klasifikasi()
-    {
-        $klasifikasis = \App\Models\AssetclassificationsModel::get();
-        return view('admin.setklasifikasi', ['title' => 'Setting Klasifikasi'],
-        compact('klasifikasis')
         );
     }
 
@@ -38,7 +30,7 @@ class SetatributController extends Controller
         return view('admin.setkategori', ['title' => 'Setting Kategori'],
         compact('kategoris')
         );
-        
+
     }
 
     public function merk()

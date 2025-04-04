@@ -20,10 +20,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100);
             $table->string('color', 7);
-            $table->foreignId('classification_id')->constrained(
-                table: 'assetclassifications',
-                indexName: 'assetcategories_classification_id'
-            );
+            $table->foreignId('classification_id')->constrained('assetclassifications')->cascadeOnDelete();
             $table->timestamps();
         });
         Schema::create('assets', function (Blueprint $table) {
@@ -31,7 +28,7 @@ return new class extends Migration
             $table->foreignId('classification_id')->constrained(
                 table: 'assetclassifications',
                 indexName: 'assets_classification_id'
-            );
+            )->onDelete('cascade');
             $table->foreignId('category_id')->constrained(
                 table: 'assetcategories',
                 indexName: 'assets_category_id'
