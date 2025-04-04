@@ -115,4 +115,4 @@ Contributions are welcome! Please refer to the [contribution guide](https://lara
 
 ## License
 
-This project is open-source software licensed under the [MIT license](LICENSE).
+This project is open source and available under the [MIT License](LICENSE).
