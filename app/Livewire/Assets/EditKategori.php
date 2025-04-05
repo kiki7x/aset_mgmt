@@ -8,13 +8,6 @@ use Illuminate\Validation\Rule;
 use App\Models\AssetcategoriesModel;
 use App\Models\AssetclassificationsModel;
 
-namespace App\Livewire\Assets;
-
-use Livewire\Component;
-use App\Livewire\Forms\KategoriForm;
-use App\Models\AssetcategoriesModel;
-use App\Models\AssetclassificationsModel;
-
 class EditKategori extends Component
 {
     public KategoriForm $form;
@@ -59,13 +52,4 @@ class EditKategori extends Component
         ]);
     }
 }
-
-
-    // public function render()
-    // {
-    //     return view('livewire.assets.edit-aset-kategori', [
-    //         'classifications' => $this->classifications,
-    //         'asset' => $this->asset
-    //     ]);
-    // }
 

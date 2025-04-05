@@ -25,6 +25,14 @@ use App\Livewire\Assets\IndexAsetKategori;
 use App\Livewire\Assets\ShowKategori;
 use App\Livewire\Assets\EditKategori;
 
+use App\Livewire\Assets\IndexAsetMerk;
+use App\Livewire\Assets\ShowMerk;
+use App\Livewire\Assets\EditMerk;
+
+use App\Livewire\Assets\IndexAsetModel;
+use App\Livewire\Assets\ShowModel;
+use App\Livewire\Assets\EditModel;
+
 use App\Livewire\Assets\IndexAsetRt;
 use App\Livewire\Assets\ShowAsetRt;
 use App\Livewire\Assets\EditAsetRt;
@@ -64,12 +72,15 @@ Route::prefix('admin')->group(function () {
     Route::get('/setting_attr/kategori/show/{id}/{section?}', ShowKategori::class)->name('admin.setting_attr.kategori.show')->middleware('auth');
     Route::get('/setting_attr/kategori/edit/{id}/{section?}', EditKategori::class)->name('admin.setting_attr.kategori.edit')->middleware('auth');
 
-
     // Route Setting Merk
-    Route::get('/setting_attr/merk', [SetatributController::class, 'merk'])->name('admin.setting_attr.merk')->middleware('auth');
+    Route::get('/setting_attr/merk', IndexAsetMerk::class)->name('admin.setting_attr.merk')->middleware('auth');
+    Route::get('/setting_attr/merk/show/{id}/{section?}', ShowMerk::class)->name('admin.setting_attr.merk.show')->middleware('auth');
+    Route::get('/setting_attr/merk/edit/{id}/{section?}', EditMerk::class)->name('admin.setting_attr.merk.edit')->middleware('auth');
 
     // Route Setting Model
-    Route::get('/setting_attr/model', [SetatributController::class, 'model'])->name('admin.setting_attr.model')->middleware('auth');
+    Route::get('/setting_attr/model', IndexAsetModel::class)->name('admin.setting_attr.model')->middleware('auth');
+    Route::get('/setting_attr/model/show/{id}/{section?}', ShowModel::class)->name('admin.setting_attr.model.show')->middleware('auth');
+    Route::get('/setting_attr/model/edit/{id}/{section?}', EditModel::class)->name('admin.setting_attr.model.edit')->middleware('auth');
 
     Route::get('/setting_attr/supplier', [SetatributController::class, 'supplier'])->name('admin.setting_attr.supplier')->middleware('auth');
 

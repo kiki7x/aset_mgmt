@@ -13,4 +13,9 @@ class ManufacturersModel extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function scopeSearch($query, $value)
+    {
+       $query->where('name', 'LIKE', "%{$value}%");
+    }
 }
