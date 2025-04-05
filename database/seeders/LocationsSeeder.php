@@ -13,14 +13,14 @@ class LocationsSeeder extends Seeder
     public function run(): void
     {
         DB::table('locations')->insert([
-            ['id' => 1, 'client_id' => 1,'name' => 'Rektorat'],
-            ['id' => 2, 'client_id' => 1,'name' => 'Gedung Kuliah 1'],
-            ['id' => 3, 'client_id' => 1,'name' => 'Gedung Kuliah 2'],
-            ['id' => 4, 'client_id' => 1,'name' => 'Hotel DBSH'],
-            ['id' => 5, 'client_id' => 1,'name' => 'Masjid Al-Hanif'],
-            ['id' => 6, 'client_id' => 1,'name' => 'GKT Rinjani'],
-            ['id' => 7, 'client_id' => 1,'name' => 'Zona B Praktikum'],
-            ['id' => 8, 'client_id' => 1,'name' => 'Kantin'],
+            ['id' => 1, 'client_id' => 1,'name' => 'Rektorat', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 2, 'client_id' => 1,'name' => 'Gedung Kuliah 1', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 3, 'client_id' => 1,'name' => 'Gedung Kuliah 2', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 4, 'client_id' => 1,'name' => 'Hotel DBSH', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 5, 'client_id' => 1,'name' => 'Masjid Al-Hanif', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 6, 'client_id' => 1,'name' => 'GKT Rinjani', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 7, 'client_id' => 1,'name' => 'Zona B Praktikum', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 8, 'client_id' => 1,'name' => 'Kantin', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }
