@@ -13,6 +13,11 @@ class SuppliersModel extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'name',
+        'address',
+        'contactname',
+        'phone',
+        'email',
+        'notes',
     ];
 
     public function scopeSearch($query, $value)
