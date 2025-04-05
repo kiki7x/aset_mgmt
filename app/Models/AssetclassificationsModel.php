@@ -17,12 +17,18 @@ class AssetclassificationsModel extends Model
 
     public function assetcategories()
     {
-        return $this->hasMany(AssetcategoriesModel::class);
+        return $this->hasMany(AssetcategoriesModel::class, 'classification_id', 'id');
     }
 
     public function assets()
     {
         return $this->hasMany(AssetsModel::class);
     }
+
+     // fungsi search
+     public function scopeSearch($query, $value)
+     {
+        $query->where('name', 'LIKE', "%{$value}%");
+     }
 
 }

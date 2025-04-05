@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             ModelsSeeder::class,
             SuppliersSeeder::class,
             AssetsSeeder::class,
-            // ImportSeeder::class
+            ImportSeeder::class
         ]);
 
     }

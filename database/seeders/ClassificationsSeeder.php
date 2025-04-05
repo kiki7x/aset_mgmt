@@ -13,8 +13,8 @@ class ClassificationsSeeder extends Seeder
     public function run(): void
     {
         DB::table('assetclassifications')->insert([
-            ['id' => 1,'name' => 'TIK'],
-            ['id' => 2, 'name' => 'RT']
+            ['id' => 1, 'name' => 'TIK', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 2, 'name' => 'RT', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }

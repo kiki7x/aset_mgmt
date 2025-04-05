@@ -16,4 +16,9 @@ class LocationsModel extends Model
         'name',
     ];
 
+    public function scopeSearch($query, $value)
+    {
+       $query->where('name', 'LIKE', "%{$value}%");
+    }
+
 }
