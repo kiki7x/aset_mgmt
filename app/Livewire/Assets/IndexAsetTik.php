@@ -20,7 +20,7 @@ class IndexAsetTik extends Component
     public $editId = '';
     public $showId = '';
     
-    
+
     #[On('refresh')]
     public function render()
     {
@@ -35,10 +35,10 @@ class IndexAsetTik extends Component
 
     public function edit($id)
     {
-        $this->dispatch('edit', $id);    
+        $this->dispatch('edit', $id);
     }
 
-    #[On('openModalDelete')] 
+    #[On('openModalDelete')]
     public function openModalDelete($id)
     {
         $this->dispatch('showModalDelete');
