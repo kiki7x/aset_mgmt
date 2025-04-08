@@ -84,7 +84,6 @@
                                                             <ul class="dropdown-menu pull-right">
                                                                 <li><a href="{{ route('admin.setting_attr.kategori.edit', ['id' => $kategori->id]) . '/edit' }}"><i class="fa fa-trash-o fa-fw"></i>Edit</a></li>
                                                                 <li><a href="" wire:click="$dispatch('openModalDelete', { id: {{ $kategori->id }} })" onclick="event.preventDefault()"><i class="fa fa-trash-o fa-fw"></i>Delete</a></li>
-                                                                <li><a href="" target="_blank"><i class="fa fa-barcode fa-fw"></i>label</a></li>
                                                             </ul>
                                                         </div>
                                                     </div>
