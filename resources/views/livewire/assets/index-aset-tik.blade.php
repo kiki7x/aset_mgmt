@@ -73,7 +73,7 @@
                                                             <ul class="dropdown-menu pull-right">
                                                                 <li><a href="{{ route('admin.asettik.show', ['id' => $asset->id]) . '/edit' }}"><i class="fa fa-trash-o fa-fw"></i>Edit</a></li>
                                                                 <li><a href="" wire:click="$dispatch('openModalDelete', { id: {{ $asset->id }} })" onclick="event.preventDefault()"><i class="fa fa-trash-o fa-fw"></i>Delete</a></li>
-                                                                <li><a href="" target="_blank"><i class="fa fa-barcode fa-fw"></i>label</a></li>
+                                                                <li><a href="" target="_blank"><i class="fa-solid fa-qrcode fa-fw"></i>Label QR</a></li>
                                                             </ul>
                                                         </div>
                                                     </div>
