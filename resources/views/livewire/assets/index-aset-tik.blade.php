@@ -38,6 +38,7 @@
                                         <th>Tipe/Model</th>
                                         <th>Pengguna</th>
                                         <th>Aktivitas terakhir</th>
+                                        <th>Qr Code</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
@@ -61,6 +62,10 @@
                                             <td>{{ $asset->user->name }}</td>
                                             <td><span>{{ $asset->updated_at }}</span></td>
                                             <td>
+                                                <a href="#" onclick="event.preventDefault(); showQrCodeModal('{{ $asset->tag }}')">
+                                                    <i class="fas fa-qrcode"></i>
+                                                </a>
+                                            <td>
                                                 <div class="">
                                                     <div class="btn-group">
                                                         <a href="{{ route('admin.asettik.show', ['id' => $asset->id]) }}" class="btn btn-flat btn-primary btn-sm"><i class="fa fa-eye"></i></a>
@@ -73,7 +78,11 @@
                                                             <ul class="dropdown-menu pull-right">
                                                                 <li><a href="{{ route('admin.asettik.show', ['id' => $asset->id]) . '/edit' }}"><i class="fa fa-trash-o fa-fw"></i>Edit</a></li>
                                                                 <li><a href="" wire:click="$dispatch('openModalDelete', { id: {{ $asset->id }} })" onclick="event.preventDefault()"><i class="fa fa-trash-o fa-fw"></i>Delete</a></li>
-                                                                <li><a href="" target="_blank"><i class="fa-solid fa-qrcode fa-fw"></i>Label QR</a></li>
+                                                                <li>
+                                                                    {{-- <a href="#" onclick="event.preventDefault(); showQrCodeModal('{{ $asset->tag }}')">
+                                                                        <i class="fa-solid fa-qrcode fa-fw"></i>QR Code
+                                                                    </a> --}}
+                                                                </li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -98,6 +107,28 @@
                                     </tr>
                                 </tfoot>
                             </table>
+                            <!-- Modal QR Code -->
+                            <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                                <div class="modal-content text-center">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="qrCodeModalLabel">QR Code Aset {{ $asset->name}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body" id="qrCodeContainer">
+                                    <div id="qrcode"></div>
+                                    <p class="mt-2" id="qrTagLabel"></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button onclick="printQrCode()" class="btn btn-primary">Print</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+
                             <!-- Modal Konfirmasi -->
                             <div class="modal fade" data-backdrop="static" role="dialog" id="modalDelete">
                                 <div class="modal-dialog">
@@ -158,4 +189,42 @@
             // $('.modal-backdrop').fadeOut(250);
         })
     </script>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script>
+    let qrCodeInstance;
+
+    function showQrCodeModal(tag) {
+        $('#qrCodeModal').modal('show');
+        document.getElementById('qrTagLabel').innerText = tag;
+
+        // Reset qrcode div
+        document.getElementById('qrcode').innerHTML = '';
+
+        // Generate QR code
+        qrCodeInstance = new QRCode(document.getElementById('qrcode'), {
+            text: tag,
+            width: 150,
+            height: 150,
+        });
+    }
+
+    function printQrCode() {
+        const qrContent = document.getElementById('qrCodeContainer').innerHTML;
+        const printWindow = window.open('', '', 'width=600,height=500');
+        printWindow.document.write(
+        `<html>
+        <head>
+            <title>Cetak QR Aset {{ $asset->name }}</title>
+        </head>
+        <body>
+        ${qrContent}
+        </body>
+        </html>`);
+        printWindow.document.close();
+        printWindow.focus();
+        printWindow.print();
+        printWindow.close();
+    }
+</script>
 @endpush

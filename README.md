@@ -107,9 +107,10 @@ Visit `http://localhost:8000` in your browser to access the application.
 
 ---
 
-## Contributing
+### Contributors projects
 
-Contributions are welcome! Please refer to the [contribution guide](https://laravel.com/docs/contributions) for details.
+
+[![Contributors](https://contrib.rocks/image?repo=kiki7x/aset_mgmt)](https://github.com/kiki7x/aset_mgmt/graphs/contributors)
 
 ---
 
