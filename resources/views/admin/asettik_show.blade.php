@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.backsite')
 
 @section('title', 'Kelola Aset TIK')
 

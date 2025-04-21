@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.backsite')
 
 <x-slot:title>{{ $title }}</x-slot:title>
 

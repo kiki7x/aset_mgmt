@@ -46,9 +46,9 @@
 
 <body class="hold-transition layout-fixed sidebar-mini">
     <div class="wrapper">
-        <x-navbar></x-navbar>
+        <x-backsite.navbar></x-backsite.navbar>
         <div class="content-wrapper">
-            <x-header></x-header>
+            <x-backsite.header></x-backsite.header>
             <section class="content">
                 <div class="container-fluid">
                     {{ $slot }}
@@ -57,7 +57,7 @@
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-        <x-footer></x-footer>
+        <x-backsite.footer></x-backsite.footer>
     </div>
     <!-- ./wrapper -->
 

@@ -38,9 +38,9 @@
 {{-- <body class="hold-transition layout-top-nav layout-fixed layout-navbar-fixed text-sm"> --}}
 <body class="hold-transition layout-fixed sidebar-mini">
     <div class="wrapper">
-        <x-navbar></x-navbar>
+        <x-backsite.navbar></x-backsite.navbar>
         <div class="content-wrapper">
-            <x-header>{{ $title }}</x-header>
+            <x-backsite.header>{{ $title }}</x-backsite.header>
             <section class="content">
                 <div class="container-fluid">
                     {{-- content --}}
@@ -51,7 +51,7 @@
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-        <x-footer></x-footer>
+        <x-backsite.footer></x-backsite.footer>
     </div>
     <!-- ./wrapper -->
 

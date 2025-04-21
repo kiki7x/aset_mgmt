@@ -71,6 +71,7 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 // Front end landing page
 Route::get('/', [FrontController::class, 'index']);
+Route::get('/lacak', [FrontController::class, 'lacak'])->name('lacak');
 
 //route admin
 Route::prefix('admin')->group(function () {
