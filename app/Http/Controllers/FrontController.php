@@ -16,4 +16,10 @@ class FrontController extends Controller
     {
         return view('frontsite.lacak');
     }
+
+    public function lacak_show($id)
+    {
+        $lacak = \App\Models\AssetsModel::where('tag', $id)->firstOrFail();
+        return view('frontsite.lacak_show', compact('lacak'));
+    }
 }

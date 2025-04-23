@@ -201,7 +201,7 @@
 
                     <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up">
                         <div class="service-item position-relative">
-                            <div class="icon"><i class="bi bi-journal-check icon"></i></div>
+                            <div class="icon"><i class="bi bi-qr-code-scan"></i></div>
                             <h4><a href="{{ route('lacak') }}" class="stretched-link">Lacak Aset</a></h4>
                             <p>Lacak aset yang sudah didistribusikan menggunakan fitur scan QR Code</p>
                         </div>
