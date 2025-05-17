@@ -1,16 +1,10 @@
-<div>
-    {{-- @section('title')
-        {{ 'Page Title Goes Here' }}
-    @endsection --}}
-    {{-- <section class="content-header">
-        <div class="d-flex justify-content-end mb-1">
-            <button wire:click="$dispatch('openModalCreate', { component: 'modal.create-issue' })" type="button" class="btn btn-primary">
-                <i class="fas fa-square-plus"></i> 
-                Buat Penugasan
-            </button>
-        </div>
-    </section> --}}
+<x-slot:title>Pemeliharaan | SAPA PPL</x-slot:title>
+<x-slot:welcome>Pemeliharaan</x-slot:welcome>
+<x-slot:breadcrumb>
+    <li class="breadcrumb-item active">Pemeliharaan</li>
+</x-slot:breadcrumb>
 
+<div>
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -19,7 +13,7 @@
                         <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                             <h3 class="card-title">Kelola Penugasan</h3>
                             <button wire:click="$dispatch('openModalCreate', { component: 'modal.create-issue' })" type="button" class="btn btn-primary" style="margin-left: auto;">
-                                <i class="fas fa-square-plus"></i> 
+                                <i class="fas fa-square-plus"></i>
                                 Buat Penugasan
                             </button>
                         </div>
@@ -47,6 +41,7 @@
                                         <th>ID</th>
                                         <th>Nama</th>
                                         <th>Petugas</th>
+                                        <th>Entitas Terkait</th>
                                         <th>Status</th>
                                         <th>Tenggat Waktu</th>
                                         <th>Opsi</th>
@@ -56,9 +51,27 @@
                                     @forelse ($issues as $issue)
                                         <tr wire:key="{{ $issue->id }}" class="odd">
                                             <td><a href="#">{{ $issue->id }}</a></td>
-                                            <td><span class="badge" style="background-color:#FFF;color:{{ $issue->priority }};border:1px solid {{ $issue->issuetype }}"></span><a href="?route=inventory/assets/manage&amp;id=1">{{ $issue->name }}</a></td>
-\                                            <td>{{ $issue->admin_id }}</td>
-                                            <td>{{ $issue->status }}</td>
+                                            <td>
+                                                <i class="fa fa-flag fa-fw text-yellow" data-toggle="tooltip" data-placement="top" title="Normal priority"></i>
+                                                <i class="fa fa-minus-square fa-fw text-yellow" data-toggle="tooltip" data-placement="top" title="Maintenance"></i>
+                                                <span class="badge" style="background-color:#FFF;color:{{ $issue->priority }};border:1px solid {{ $issue->issuetype }}"></span><a href="">{{ $issue->name }}</a>
+                                            </td>
+                                            <td>{{ $issue->admin_id }}</td>
+                                            <td>{{ $issue->asset_id }}</td>
+                                            <td>
+                                                @if ($issue->status == 'To Do')
+                                                    <span class="badge bg-danger"><i class="fas fa-tag"></i> {{ $issue->status }}</span>
+                                                @elseif ($issue->status == 'In Progress')
+                                                    <span class="badge bg-warning"><i class="fas fa-tag"></i> {{ $issue->status }}</span>
+                                                @elseif ($issue->status == 'In Review')
+                                                    <span class="badge bg-info"><i class="fas fa-tag"></i> {{ $issue->status }}</span>
+                                                @elseif ($issue->status == 'Done')
+                                                    <span class="badge bg-secondary"><i class="fas fa-tag"></i> {{ $issue->status }}</span>
+                                                @elseif ($issue->status)
+                                                    {{-- Cek jika $issue->status tidak kosong --}}
+                                                    <span class="badge bg-green"><i class="fas fa-tag"></i> {{ $issue->status }}</span> {{-- Pertahankan bg-green defaultnya --}}
+                                                @endif
+                                            </td>
                                             <td>{{ $issue->duedate }}</td>
                                             <td>
                                                 <div class="">
@@ -87,6 +100,7 @@
                                         <th>ID</th>
                                         <th>Nama</th>
                                         <th>Petugas</th>
+                                        <th>Entitas Terkait</th>
                                         <th>Status</th>
                                         <th>Tenggat Waktu</th>
                                         <th>Opsi</th>

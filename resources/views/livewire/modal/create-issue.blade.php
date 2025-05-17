@@ -13,7 +13,7 @@
                         <!-- Asset Name -->
                         <div class="form-group col-md-8">
                             <label for="name">Nama Penugasan <span class="text-danger">*</span></label>
-                            <input wire:model="form.name" type="text" name="name" class="form-control @error('form.name') is-invalid @enderror" id="name" placeholder="Asset Name">
+                            <input wire:model="form.name" type="text" name="name" class="form-control @error('form.name') is-invalid @enderror" id="name" placeholder="Contoh: 'Pemeriksaan berkala Komputer/Kendaraan Roda 4'">
                             @error('form.name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -33,12 +33,12 @@
                                 <label for="issuetype">Tipe <span class="text-danger">*</span></label>
                                 <select wire:model="form.issuetype" x-ref="selecttype" name="issuetype" id="issuetype" class="form-control select2 @error('issuetype') is-invalid @enderror" for="issuetype">
                                     <option name="None" id="None" value="">None</option>
-                                    <option name="Task" id="Task" data-icon="fa-square-check fa-fw text-blue" value="Task">Task</option>
-                                    <option name="Maintenance" id="Maintenance" data-icon="fa-minus-square fa-fw text-yellow" value="Maintenance">Maintenance</option>
-                                    <option name="Bug" id="Bug" data-icon="fa-bug fa-fw text-red" value="Bug">Bug</option>
-                                    <option name="Improvement" id="Improvement" data-icon="fa-external-link fa-fw text-teal" value="Improvement">Improvement</option>
-                                    <option name="New_feature" id="New Feature" data-icon="fa-plus-square fa-fw text-green" value="New Feature">New Feature</option>
-                                    <option name="Story" id="Story" data-icon="fa-circle fa-fw text-red" value="Story">Story</option>
+                                    <option name="Task" id="Task" data-icon="fa-square-check fa-fw text-blue" value="Task">Tugas</option>
+                                    <option name="Maintenance" id="Maintenance" data-icon="fa-minus-square fa-fw text-yellow" value="Maintenance">Pemeliharaan</option>
+                                    <option name="Bug" id="Bug" data-icon="fa-bug fa-fw text-red" value="Bug">Bug (Celah)</option>
+                                    <option name="Improvement" id="Improvement" data-icon="fa-external-link fa-fw text-teal" value="Improvement">Peningkatan</option>
+                                    <option name="New_feature" id="New Feature" data-icon="fa-plus-square fa-fw text-green" value="New Feature">Fitur Baru</option>
+                                    <option name="Story" id="Story" data-icon="fa-circle fa-fw text-red" value="Story">Story (Cerita)</option>
                                 </select>
                             </div>
                             @error('form.issuetype')
@@ -91,7 +91,7 @@
                                 });
                             }
                         }" x-init="initAsset()">
-                            <label for="asset_id">Pilih Aset <span class="text-danger">*</span></label>
+                            <label for="asset_id">Pilih Aset</label>
                             <select wire:model="form.asset_id" x-on:click="open = true" x-show="open" x-ref="select2assets" name="asset_id" id="asset_id" class="form-control select2tag @error('form.asset_id') is-invalid @enderror" data-placeholder="None" multiple="multiple">
                                 <option name="asset_id" value="">None</option>
                                 @foreach ($assets as $asset)
@@ -141,10 +141,10 @@
                                 <label for="status">Status <span class="text-danger">*</span></label>
                                 <select wire:model="form.status" x-ref="selectstatus" name="status_id" id="status_id" class="form-control select2 @error('form.status_id') is-invalid @enderror" for="status_id">
                                     <option name="" value="">None</option>
-                                    <option name="To Do" id="To Do" value="To Do">To Do</option>
-                                    <option name="In Progress" id="In Progress" value="In Progress">In Progress</option>
-                                    <option name="In Review" id="In Review" value="In Review">In Review</option>
-                                    <option name="Done" id="Done" value="Done">Done</option>
+                                    <option name="To Do" id="To Do" value="To Do" data-icon="fas fa-tag text-danger">Segera Kerjakan</option>
+                                    <option name="In Progress" id="In Progress" value="In Progress" data-icon="fas fa-tag text-warning">Sedang Dikerjakan</option>
+                                    <option name="In Review" id="In Review" value="In Review" data-icon="fas fa-tag text-info">Dalam Peninjauan</option>
+                                    <option name="Done" id="Done" value="Done" data-icon="fas fa-tag text-secondary">Selesai</option>
                                 </select>
                             </div>
                             @error('form.status')
@@ -166,9 +166,9 @@
                                 <label for="priority">Prioritas <span class="text-danger">*</span></label>
                                 <select wire:model="form.priority" x-ref="selectpriority" name="priority" id="priority" class="form-control select2 @error('form.priority') is-invalid @enderror" for="priority">
                                     <option name="Pilih" id="Pilih" value="">None</option>
-                                    <option name="Low" id="Low" value="Low">Low</option>
-                                    <option name="Normal" id="Normal" value="Normal">Normal</option>
-                                    <option name="High" id="High" value="High">High</option>
+                                    <option name="Low" id="Low" value="Low" data-icon="fas fa-flag text-secondary">Rendah</option>
+                                    <option name="Medium" id="Medium" value="Medium" data-icon="fas fa-flag text-warning">Sedang</option>
+                                    <option name="High" id="High" value="High" data-icon="fas fa-flag text-danger">Tinggi</option>
                                 </select>
                             </div>
                             @error('form.priority')

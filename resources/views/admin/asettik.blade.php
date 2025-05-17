@@ -1,9 +1,5 @@
 @extends('layouts.backsite')
 
-{{-- @section('title', 'Kelola Aset TIK') --}}
-{{-- <x-slot:title>{{ $title }}</x-slot:title> --}}
-
-
 @section('script-head')
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">

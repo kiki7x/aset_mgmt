@@ -5,8 +5,6 @@ namespace App\Livewire\Modal;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use App\Livewire\Forms\IssueForm;
-use App\Models\IssuesModel;
-
 
 class CreateIssue extends Component
 {
@@ -61,7 +59,7 @@ class CreateIssue extends Component
                 'duedate' => $this->form->duedate,
                 'description' => $this->form->description,
         ];
-        IssuesModel::Create($data);
+        App\Models\IssuesModel::Create($data);
         // tutup modal
         $this->dispatch('hideModalCreate');
         // Kirim alert toastr

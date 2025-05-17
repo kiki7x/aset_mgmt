@@ -33,7 +33,7 @@ class EditAsetTik extends Component
     {
         // looping seleksi
         $this->classifications = \App\Models\AssetclassificationsModel::get();
-        $this->categories = \App\Models\AssetcategoriesModel::where('classification_id', 1)->get();
+        $this->categories = \App\Models\AssetcategoriesModel::where('classification_id', 2)->get();
         $this->users = \App\Models\User::get();
         $this->manufacturers = \App\Models\ManufacturersModel::get();
         $this->models = \App\Models\ModelsModel::get();

@@ -6,7 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 // use App\Livewire\CreateAsetTik;
 use Livewire\Attributes\On;
-use App\Models\AssetsModel;
+
 
 class IndexAsetTik extends Component
 {
@@ -18,15 +18,15 @@ class IndexAsetTik extends Component
 
     public $deleteId = '';
     public $editId = '';
-    public $showId = '';
-    
+    public $showId = ''; 
+
 
     #[On('refresh')]
     public function render()
     {
         return view('livewire.assets.index-aset-tik')->with([
-        'assets' => AssetsModel::search($this->search)
-        ->where('classification_id', 1)
+        'assets' => \App\Models\AssetsModel::search($this->search)
+        ->where('classification_id', 2)
         ->with('category', 'status', 'model', 'user')
         ->latest()
         ->paginate($this->per_page),

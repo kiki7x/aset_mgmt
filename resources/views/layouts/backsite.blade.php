@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title') | Sistem Aplikasi Pengelolaan Aset PPL</title>
+    <title>{{ $title ?? config('app.name') }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -23,6 +22,8 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- JQVMap -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/jqvmap/jqvmap.min.css') }}">
+    {{-- Bootstrap 4.6 --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/dist/css/bootstrap.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
@@ -40,7 +41,14 @@
     <div class="wrapper">
         <x-backsite.navbar></x-backsite.navbar>
         <div class="content-wrapper">
-            <x-backsite.header>{{ $title }}</x-backsite.header>
+            <x-backsite.header>
+                <x-slot name="welcome">
+                {{isset($welcome) ? $welcome : ''}}
+                </x-slot>
+                <x-slot name="breadcrumb">
+                {{isset($breadcrumb) ? $breadcrumb : ''}}
+                </x-slot>
+            </x-backsite.header>
             <section class="content">
                 <div class="container-fluid">
                     {{-- content --}}
@@ -68,7 +76,7 @@
     <script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
     <!-- Bootstrap 4-->
-    <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- overlayScrollbars -->
     <script src="{{ asset('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- Tempusdominus Bootstrap 4 -->

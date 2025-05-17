@@ -1,16 +1,13 @@
-<div>
-    {{-- @section('title')
-        {{ 'Page Title Goes Here' }}
-    @endsection --}}
-    {{-- <section class="content-header">
-        <div class="d-flex justify-content-end mb-1">
-            <button wire:click="$dispatch('openModalCreate', { component: 'modal.create-aset-rt' })" type="button" class="btn btn-primary">
-                <i class="fas fa-square-plus"></i> 
-                Tambah Data
-            </button>
-        </div>
-    </section> --}}
+<x-slot:title>Aset RT | SAPA PPL</x-slot:title>
+<x-slot:welcome>Aset RT</x-slot:welcome>
+<x-slot:breadcrumb>
+    <li class="breadcrumb-item active">Aset RT</li>
+</x-slot:breadcrumb>
 
+<div>
+    @php
+        $assetLoop = [];
+    @endphp
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -57,6 +54,17 @@
                                 <tbody>
                                     @forelse ($assets as $asset)
                                         <tr wire:key="{{ $asset->id }}">
+                                            @php
+                                                $assetLoop[] = [
+                                                    'id' => $asset->id,
+                                                    'tag' => $asset->tag,
+                                                    'name' => $asset->name,
+                                                    'category' => $asset->category->name,
+                                                    'model' => $asset->model->name,
+                                                    'user' => $asset->user->name,
+                                                    'updated_at' => $asset->updated_at,
+                                                ];
+                                            @endphp
                                             <td>
                                                 <a href="{{ route('admin.asetrt.show', ['id' => $asset->id]) }}">{{ $asset->tag }}</a>
                                             </td>
@@ -75,7 +83,7 @@
                                             <td>{{ $asset->user->name }}</td>
                                             <td><span>{{ $asset->updated_at }}</span></td>
                                             <td>
-                                                <a href="#" onclick="event.preventDefault(); showQrCodeModal('{{ $asset->tag }}')">
+                                                <a href="#" onclick="event.preventDefault(); showQrCodeModal('{{ $asset->tag }}', '{{ $asset->name }}')">
                                                     <i class="fas fa-qrcode"></i>
                                                 </a>
                                             </td>
@@ -121,12 +129,13 @@
                                 <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                                     <div class="modal-content text-center">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="qrCodeModalLabel">QR Code Aset {{ $asset->name }}</h5>
+                                            <h5 class="modal-title" id="qrCodeModalLabel">QR Code Aset</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body" id="qrCodeContainer">
+                                            <div id="qrCodeName" class="d-flex justify-content-center mb-2"></div>
                                             <div id="qrcode" class="d-flex justify-content-center"></div>
                                             <p class="mt-2" id="qrTagLabel"></p>
                                         </div>
@@ -202,8 +211,9 @@
     <script>
         let qrCodeInstance;
 
-        function showQrCodeModal(tag) {
+        function showQrCodeModal(tag, name) {
             $('#qrCodeModal').modal('show');
+            document.getElementById('qrCodeName').innerText = name;
             document.getElementById('qrTagLabel').innerText = tag;
 
             // Reset qrcode div
@@ -212,23 +222,36 @@
             // Generate QR code
             qrCodeInstance = new QRCode(document.getElementById('qrcode'), {
                 text: tag,
-                width: 150,
-                height: 150,
+                width: 200,
+                height: 200,
             });
         }
 
         function printQrCode() {
             const qrContent = document.getElementById('qrCodeContainer').innerHTML;
-            const printWindow = window.open('', '', 'width=600,height=500');
+            const printWindow = window.open('', '', 'width=800,height=800');
             printWindow.document.write(
-                `<html>
-    <head>
-        <title>Cetak QR Aset {{ $asset->name }}</title>
-    </head>
-    <body>
-        ${qrContent}
-    </body>
-    </html>`);
+        `<html>
+        <head>
+            <title>Cetak QR Aset</title>
+            <style>
+                body {
+                    display: flex; /* Menggunakan flexbox untuk tata letak */
+                    flex-direction: column;
+                    justify-content: center; /* Pusatkan vertikal */
+                    align-items: center; /* Pusatkan horizontal */
+                    min-height: 100vh; /* Pastikan body setinggi viewport */
+                    margin: 0; /* Hilangkan margin default body */
+                }
+            </style>
+        </head>
+        <body>
+            @foreach ($assetLoop as $asset)
+            <title>Cetak QR Aset {{ $asset['name'] }}</title>
+            @endforeach
+            ${qrContent}
+        </body>
+        </html>`);
             printWindow.document.close();
             printWindow.focus();
             printWindow.print();

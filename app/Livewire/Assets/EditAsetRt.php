@@ -32,7 +32,7 @@ class EditAsetRt extends Component
     {
         // looping seleksi
         $this->classifications = \App\Models\AssetclassificationsModel::get();
-        $this->categories = \App\Models\AssetcategoriesModel::where('classification_id', 2)->get();
+        $this->categories = \App\Models\AssetcategoriesModel::where('classification_id', 3)->get();
         $this->users = \App\Models\User::all();
         $this->manufacturers = \App\Models\ManufacturersModel::all();
         $this->models = \App\Models\ModelsModel::all();

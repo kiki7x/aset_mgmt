@@ -14,7 +14,7 @@ class CreateAsetTik extends Component
 
     // isian default prefill
     public $prefix = "tik";
-    public $classification = "1";
+    public $classification = "2";
 
     // bawa relasi
     public $categories;
@@ -32,7 +32,7 @@ class CreateAsetTik extends Component
         $this->form->adminaset = auth()->user()->id;
 
         // looping seleksi
-        $this->categories = \App\Models\AssetcategoriesModel::where('classification_id', 1)->get();
+        $this->categories = \App\Models\AssetcategoriesModel::where('classification_id', 2)->get();
         $this->users = \App\Models\User::get();
         $this->manufacturers = \App\Models\ManufacturersModel::get();
         $this->models = \App\Models\ModelsModel::get();

@@ -12,7 +12,7 @@ class CreateAsetRt extends Component
     public AsetForm $form;
 
     public $prefix = "rt";
-    public $classification = "2";
+    public $classification = "3";
 
     // bawa relasi
     public $classifications;
@@ -32,7 +32,7 @@ class CreateAsetRt extends Component
         $this->form->adminaset = auth()->user()->id;
 
         // looping seleksi
-        $this->categories = \App\Models\AssetcategoriesModel::where('classification_id', 2)->get();
+        $this->categories = \App\Models\AssetcategoriesModel::where('classification_id', 3)->get();
         $this->users = \App\Models\User::get();
         $this->manufacturers = \App\Models\ManufacturersModel::get();
         $this->models = \App\Models\ModelsModel::get();

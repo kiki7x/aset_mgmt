@@ -6,10 +6,16 @@ use Illuminate\Http\Request;
 
 class FrontController extends Controller
 {
+
+    public function testing()
+    {
+        return view('frontsite.testing');
+    }
+
     public function index()
     {
-        // return view('layouts.front');
-        return view('frontsite.index');
+        $assets = \App\Models\AssetsModel::get();
+        return view('frontsite.index', compact('assets'));
     }
 
     public function lacak()

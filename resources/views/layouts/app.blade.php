@@ -1,3 +1,5 @@
+{{-- Ini layout default untuk semua halaman livewire --}}
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -5,8 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {{-- <title>@yield('title') | Sistem Aset Manajemen PPL</title> --}}
-    {{-- <title>{{ $title ?? 'Page Title' }}</title> --}}
+    <title>{{ $title ?? 'Page Title' }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Google Font: Source Sans Pro -->
@@ -27,8 +28,10 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- jQuery UI -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/jquery-ui/jquery-ui.css') }}">
+    {{-- Bootstrap 4.6 --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/dist/css/bootstrap.min.css')}}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
@@ -48,7 +51,14 @@
     <div class="wrapper">
         <x-backsite.navbar></x-backsite.navbar>
         <div class="content-wrapper">
-            <x-backsite.header></x-backsite.header>
+            <x-backsite.header>
+                <x-slot name="welcome">
+                {{isset($welcome) ? $welcome : ''}}
+                </x-slot>
+                <x-slot name="breadcrumb">
+                {{isset($breadcrumb) ? $breadcrumb : ''}}
+                </x-slot>
+            </x-backsite.header>
             <section class="content">
                 <div class="container-fluid">
                     {{ $slot }}
@@ -66,9 +76,10 @@
     <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('assets/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-    {{-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> --}}
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>$.widget.bridge('uibutton', $.ui.button);</script>
     <!-- Bootstrap 4.6.1-->
-    <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- overlayScrollbars -->
     <script src="{{ asset('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     {{-- Moment --}}
@@ -78,7 +89,7 @@
     {{-- Toastr --}}
     <script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
     {{-- Event untuk menampilkan notifikasi --}}
     <script>
         window.addEventListener('alert', (e) => {
@@ -93,7 +104,11 @@
             }
         });
     </script>
-
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+          })
+    </script>
     {{-- script tambahan --}}
     @stack('script')
     {{-- ./script tambahan --}}

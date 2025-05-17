@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('issues', function (Blueprint $table) {
             $table->id(); // Primary Key, AUTO_INCREMENT
-            $table->foreignId('client_id')->constrained(
+            $table->foreignId('client_id')->nullable()->constrained(
                 table: 'users',
                 indexName: 'issues_client_id'
             );

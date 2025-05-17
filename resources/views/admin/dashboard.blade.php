@@ -1,9 +1,11 @@
-@extends('layouts.backsite')
+@extends('layouts.backsite', [
+    'title' => 'Dashboard | SAPA PPL',
+    'welcome' => 'Selamat datang '. Auth::user()->name .' di Dashboard Sistem Informasi Aset Manajemen',
+    // 'breadcrumb' => 'Dashboard'
+    ])
 
-<x-slot:title>{{$title}}</x-slot:title>
 
 @section('content')
-
     {{-- Rangkum Aset TIK --}}
     <h2>Aset TIK</h2>
     {{-- Selamat Datang <strong>{{ auth()->user()->name }}</strong> --}}
@@ -12,7 +14,7 @@
             <!-- small card -->
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>{{ $assets->where('classification_id', '1')->count() }}</h3>
+                    <h3>{{ $assets->where('classification_id', '2')->count() }}</h3>
                     <p>Aset TIK</p>
                 </div>
                 <div class="icon">
@@ -85,7 +87,7 @@
             <!-- small card -->
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>{{ $assets->where('classification_id', '2')->count() }}</h3>
+                    <h3>{{ $assets->where('classification_id', '3')->count() }}</h3>
 
                     <p>Aset Rumah Tangga</p>
                 </div>

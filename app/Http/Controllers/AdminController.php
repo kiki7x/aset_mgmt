@@ -12,10 +12,7 @@ class AdminController extends Controller
     public function index()
     {
         $assets = \App\Models\AssetsModel::get();
-        return view('admin.dashboard', 
-        [
-            'title' => 'Selamat datang '. Auth::user()->name .' di Dashboard Sistem Informasi Aset Manajemen',
-        ], compact('assets'));
+        return view('admin.dashboard', compact('assets'));
         
     }
 

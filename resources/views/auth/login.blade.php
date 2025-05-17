@@ -1,4 +1,4 @@
-@extends('layouts.auth', ['title' => 'Login - Asset Management PPL'])
+@extends('layouts.auth', ['title' => 'Login - SAPA PPL'])
 
 @section('content')
     <div class="col-md-6 text-center">
@@ -9,7 +9,10 @@
                         {{ session('status') }}
                     </div>
                 @endif
-                <h4 class="font-weight-bold">FORM LOGIN</h4>
+                <a href="{{ url('/') }}">
+                    <img class="rounded img-fluid" loading="lazy" src="{{ asset('ppl-icon.png') }}" alt="logo ppl">
+                </a>
+                <h4 class="font-weight-bold">LOGIN</h4>
                 <hr>
                 <form action="{{ route('login.post') }}" method="POST">
                     @csrf
@@ -36,6 +39,7 @@
                     <a href="/forgot-password">Lupa Password ?</a>
                     <div class="register mt-3 text-center">
                         <p>Belum punya akun ? Daftar <a href="{{ route('register') }}">Disini</a></p>
+                        <p><a href="{{ route('/')}}">← Kembali ke Home </a></p>
                     </div>
                 </form>
             </div>

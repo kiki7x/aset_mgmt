@@ -13,8 +13,9 @@ class ClassificationsSeeder extends Seeder
     public function run(): void
     {
         DB::table('assetclassifications')->insert([
-            ['id' => 1, 'name' => 'TIK', 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 2, 'name' => 'RT', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 1, 'name' => 'None', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 2, 'name' => 'TIK', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 3, 'name' => 'RT', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }

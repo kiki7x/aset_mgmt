@@ -1,4 +1,4 @@
-@extends('layouts.front')
+@extends('layouts.front', ['title' => 'Lacak - SAPA PPL'])
 
 {{-- @section('title', 'Kelola Aset TIK') --}}
 {{-- <x-slot:title>{{ $title }}</x-slot:title> --}}
