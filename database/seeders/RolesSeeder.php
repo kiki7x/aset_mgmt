@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+
 
 class RolesSeeder extends Seeder
 {
@@ -14,32 +14,9 @@ class RolesSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-
-        DB::table('roles')->insert([
-        [
-            'id' => 1,
-            'name' => 'superadmin',
-            'type' => 'superadmin', 
-            'permission' => '', 
-        ],
-        [
-            'id' => 2,
-            'name' => 'admintik',
-            'type' => 'admintik', 
-            'permission' => '', 
-        ],
-        [
-            'id' => 3,
-            'name' => 'adminrt',
-            'type' => 'adminrt', 
-            'permission' => '', 
-        ],
-        [
-            'id' => 4,
-            'name' => 'user',
-            'type' => 'user', 
-            'permission' => '', 
-        ],
-        ]);
+        Role::create(['name' => 'super_admin']);
+        Role::create(['name' => 'admintik']);
+        Role::create(['name' => 'adminnrt']);
+        Role::create(['name' => 'user']);
     }
 }
