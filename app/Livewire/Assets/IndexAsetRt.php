@@ -18,12 +18,13 @@ class IndexAsetRt extends Component
     public $deleteId = '';
     public $editId = '';
     public $showId = '';
-    
+
 
     #[On('refresh')]
     public function render()
     {
         return view('livewire.assets.index-aset-rt')->with([
+        'totalAssets' => \App\Models\AssetsModel::where('classification_id', 3)->count(),
         'assets' => \App\Models\AssetsModel::search($this->search)
         ->where('classification_id', 3)
         ->with('category', 'status', 'model', 'user')
@@ -73,4 +74,5 @@ class IndexAsetRt extends Component
             'message' => $message,
         ]);
     }
+
 }

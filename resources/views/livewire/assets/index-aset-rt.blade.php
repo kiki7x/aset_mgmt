@@ -14,7 +14,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                            <h3 class="card-title">Kelola Aset Rumah Tangga <i class="fa-solid fa-building"></i></h3>
+                            <h3 class="card-title"><i class="fa-solid fa-building"></i> Kelola Aset Rumah Tangga <span class="badge end-0 mr-3 bg-info text-light">{{ $totalAssets }}</span></h3>
                             <button wire:click="$dispatch('openModalCreate', { component: 'modal.create-aset-rt' })" type="button" class="btn btn-primary" style="margin-left: auto;">
                                 <i class="fas fa-square-plus"></i>
                                 Tambah Data
@@ -23,8 +23,8 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <div class="row form-group">
-                                <div class="col-3 mt-auto">
-                                    Show
+                                <div class="col-3 mb-auto mt-auto">
+                                    Tampilkan
                                     <select wire:model.live='per_page' class="form-select">
                                         <option>10</option>
                                         <option>20</option>
@@ -33,7 +33,18 @@
                                     </select>
                                     Entries
                                 </div>
-                                <div class="col-6 d-flex justify-content-end">
+                                <div class="col-4 mt-auto">
+                                    <form action="" class="d-flex">
+                                        <select name="jenis" class="ml-3 form-control">
+                                            <option value="Semua">Semua Kategori</option>
+                                            <option value="Semua">Kendaraan</option>
+                                            <option value="masuk">Masuk</option>
+                                            <option value="keluar">Keluar</option>
+                                        </select>
+                                        <button type="submit" class="ml-3 btn btn-primary"><i class="fas fa-filter"></i></button>
+                                    </form>
+                                </div>
+                                <div class="col-2 d-flex justify-content-end">
                                     <label for="search" class="col-form-label">Search:</label>
                                 </div>
                                 <input wire:model.live.debounce.200ms='search' type="text" id="search" class="form-control col-3" placeholder="nama aset / serial no">
@@ -231,7 +242,7 @@
             const qrContent = document.getElementById('qrCodeContainer').innerHTML;
             const printWindow = window.open('', '', 'width=800,height=800');
             printWindow.document.write(
-        `<html>
+                `<html>
         <head>
             <title>Cetak QR Aset</title>
             <style>

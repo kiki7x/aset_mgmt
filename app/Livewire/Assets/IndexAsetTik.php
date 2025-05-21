@@ -25,6 +25,7 @@ class IndexAsetTik extends Component
     public function render()
     {
         return view('livewire.assets.index-aset-tik')->with([
+        'totalAssets' => \App\Models\AssetsModel::where('classification_id', 2)->count(),
         'assets' => \App\Models\AssetsModel::search($this->search)
         ->where('classification_id', 2)
         ->with('category', 'status', 'model', 'user')
