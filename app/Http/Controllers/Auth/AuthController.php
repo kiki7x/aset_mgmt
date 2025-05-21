@@ -69,7 +69,7 @@ class AuthController extends Controller
         ]);
 
         $data = $request->all();
-        $user = $this->create($data);
+        $user = $this->create($data)->assignRole("user");
 
         Auth::login($user);
 
