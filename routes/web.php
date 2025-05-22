@@ -22,7 +22,7 @@ Route::get('/lacak/show/{id}', [App\Http\Controllers\FrontController::class, 'la
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
     // halaman list Aset TIK
-    Route::middleware(['role:super_admin|admin_tik|staf_tik'])->group(function() {
+    Route::middleware(['role:superadmin|admin_tik|staf_tik'])->group(function() {
         Route::get('/asettik', App\Livewire\Assets\IndexAsetTik::class)->name('admin.asettik');
         Route::get('/asettik/show/{id}/{section?}', App\Livewire\Assets\ShowAsetTik::class)->name('admin.asettik.show');
         // Route::get('/asettik/create', App\Livewire\Modal\CreateAsetTik::class)->name('admin.asettik.create');
@@ -31,14 +31,14 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/setting_attr', [App\Http\Controllers\SetatributController::class, 'index'])->name('admin.setting_attr');
 
     // halaman list Aset RT
-    Route::middleware(['role:super_admin|admin_rt|staf_driver|staf_engineering'])->group(function() {
+    Route::middleware(['role:superadmin|admin_rt|staf_driver|staf_engineering'])->group(function() {
         Route::get('/asetrt', App\Livewire\Assets\IndexAsetRt::class)->name('admin.asetrt');
         Route::get('/asetrt/show/{id}/{section?}', App\Livewire\Assets\ShowAsetRt::class)->name('admin.asetrt.show');
         // Route::get('/asetrt/create', App\Livewire\Modal\CreateAsetRt::class)->name('admin.asetrt.create');
     });
 
     // halaman list Issues
-    Route::middleware(['role:super_admin|admin_tik|admin_rt|staf_tik|staf_driver|staf_engineering'])->group(function() {
+    Route::middleware(['role:superadmin|admin_tik|admin_rt|staf_tik|staf_driver|staf_engineering'])->group(function() {
         Route::get('/issues', App\Livewire\Issues\IndexIssues::class)->name('admin.issues');
         // Route::get('/issues', App\Livewire\Issues\CreateIssues::class)->name('admin.issues');
     });
