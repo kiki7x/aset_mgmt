@@ -33,7 +33,7 @@
                                     </select>
                                     Entries
                                 </div>
-                                <div class="col-4 mt-auto">
+                                <div class="col-4 mb-auto mt-auto">
                                     <form action="" class="d-flex">
                                         <select name="jenis" class="ml-3 form-control">
                                             <option value="Semua">Semua Kategori</option>
@@ -44,10 +44,12 @@
                                         <button type="submit" class="ml-0 btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Filter"><i class="fas fa-filter"></i></button>
                                     </form>
                                 </div>
-                                <div class="col-2 d-flex justify-content-end">
+                                <div class="col mb-auto mt-auto d-none d-lg-block justify-content-end">
                                     <label for="search" class="col-form-label">Search:</label>
                                 </div>
-                                <input wire:model.live.debounce.200ms='search' type="text" id="search" class="form-control col-3" placeholder="nama aset / serial no">
+                                <div class="col mb-auto mt-auto d-flex">
+                                    <input wire:model.live.debounce.200ms='search' type="text" id="search" class="form-control" placeholder="search nama aset / serial no">
+                                </div>
                             </div>
                             <table id="example1" class="table table-bordered table-striped table-hover table-responsive-md">
                                 <thead>

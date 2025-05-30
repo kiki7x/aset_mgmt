@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <section class="content-header">
         <div class="d-flex justify-content-end mb-1">
-            <a href="{{ route('admin.asettik') }}" type="button" class="btn btn-primary"><i class="fa-solid fa-angles-left"></i> Kembali</a>
+            <a href="{{ route('admin.asettik') }}" type="button" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali</a>
             {{-- <button wire:click="$dispatch('showModalCreate')" type="button" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Data</button> --}}
         </div>
     </section>
@@ -71,7 +71,6 @@
                         </li>
                         <li class="col d-flex justify-content-end">
                             <button class="btn btn-sm btn-outline-primary me-2">+ New Issue</button>
-                            <button class="btn btn-sm btn-outline-info">Log Time</button>
                             <div class="dropdown">
                                 <button class="btn btn-light btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown">
                                     More

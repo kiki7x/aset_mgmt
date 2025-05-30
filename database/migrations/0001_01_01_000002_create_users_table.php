@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username', 20)->unique();
-            $table->string('name');
+            $table->string('nickname', 10)->nullable();
+            $table->string('fullname', 255)->nullable();
+            $table->string('address', 255)->nullable();
             $table->string('email')->unique();
             $table->unsignedInteger('client_id')->nullable(); // clientid column (integer)
             $table->string('title', 64)->nullable(); // title column (VARCHAR 64)
