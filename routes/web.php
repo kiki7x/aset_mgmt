@@ -78,5 +78,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/setting_attr/lokasi/show/{id}/{section?}', App\Livewire\Assets\ShowLokasi::class)->name('admin.setting_attr.lokasi.show');
     Route::get('/setting_attr/lokasi/edit/{id}/{section?}', App\Livewire\Assets\EditLokasi::class)->name('admin.setting_attr.lokasi.edit');
 
-
+    // Route User Manager
+    Route::get('usermanager', [App\Http\Controllers\UserController::class, 'index'])->name('admin.usermanager');
 });

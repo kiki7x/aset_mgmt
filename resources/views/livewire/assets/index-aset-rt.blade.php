@@ -38,10 +38,10 @@
                                         <select name="jenis" class="ml-3 form-control">
                                             <option value="Semua">Semua Kategori</option>
                                             <option value="Semua">Kendaraan</option>
-                                            <option value="masuk">Masuk</option>
-                                            <option value="keluar">Keluar</option>
+                                            <option value="masuk">Mesin</option>
+                                            <option value="keluar">Peralatan</option>
                                         </select>
-                                        <button type="submit" class="ml-3 btn btn-primary"><i class="fas fa-filter"></i></button>
+                                        <button type="submit" class="ml-0 btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Filter"><i class="fas fa-filter"></i></button>
                                     </form>
                                 </div>
                                 <div class="col-2 d-flex justify-content-end">
@@ -58,7 +58,6 @@
                                         <th>Tipe/Model</th>
                                         <th>Pengguna</th>
                                         <th>Aktivitas terakhir</th>
-                                        <th>QR</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
@@ -94,22 +93,23 @@
                                             <td>{{ $asset->user->name }}</td>
                                             <td><span>{{ $asset->updated_at }}</span></td>
                                             <td>
-                                                <a href="#" onclick="event.preventDefault(); showQrCodeModal('{{ $asset->tag }}', '{{ $asset->name }}')">
-                                                    <i class="fas fa-qrcode"></i>
-                                                </a>
-                                            </td>
-                                            <td>
                                                 <div class="">
                                                     <div class="btn-group">
-                                                        <a href="{{ route('admin.asetrt.show', ['id' => $asset->id]) }}" class="btn btn-flat btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+                                                        {{-- <a href="{{ route('admin.asetrt.show', ['id' => $asset->id]) }}" class="btn btn-flat btn-primary btn-sm"><i class="fa-regular fa-calendar-check"></i></a> --}}
+                                                        <a href="{{ route('admin.asetrt.show', ['id' => $asset->id]) . '/penjadwalan' }}" type="button" class="btn btn-light"><i class="fa-regular fa-calendar-check" style="color: green" data-toggle="tooltip"
+                                                               data-placement="top" title="Penjadwalan"></i></a>
+                                                        <a href="#" type="button" class="btn btn-light" style="color: blue" data-toggle="tooltip" onclick="event.preventDefault(); showQrCodeModal('{{ $asset->tag }}', '{{ $asset->name }}')"
+                                                           data-placement="top" title="QR Code">
+                                                            <i class="fas fa-qrcode"></i>
+                                                        </a>
                                                         <div class="btn-group">
-                                                            <button type="button" class="btn btn-default btn-flat " data-toggle="dropdown">
-                                                                <span class="caret"></span><i class="fas fa-ellipsis-vertical"></i>
+                                                            {{-- <button type="button" class="btn btn-default btn-flat " data-toggle="dropdown"> --}}
+                                                            <button type="button" class="btn btn-light btn-outline dropdown-toggle" data-toggle="dropdown" data-toggle-second="tooltip" data-placement="top" title="More...">
+                                                                {{-- <span class="caret"></span><i class="fas fa-ellipsis-vertical"></i> --}}
                                                             </button>
-                                                            <ul class="dropdown-menu pull-right">
+                                                            <ul class="dropdown-menu dropdown-menu-right">
                                                                 <li><a href="{{ route('admin.asetrt.show', ['id' => $asset->id]) . '/edit' }}"><i class="fa fa-trash-o fa-fw"></i>Edit</a></li>
                                                                 <li><a href="" wire:click="$dispatch('openModalDelete', { id: {{ $asset->id }} })" onclick="event.preventDefault()"><i class="fa fa-trash-o fa-fw"></i>Delete</a></li>
-                                                                <li><a href="" target="_blank"><i class="fa fa-barcode fa-fw"></i>label</a></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -130,7 +130,6 @@
                                         <th>Tipe/Model</th>
                                         <th>Pengguna</th>
                                         <th>Aktivitas terakhir</th>
-                                        <th>QR</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </tfoot>
@@ -216,6 +215,8 @@
             $('#modalDelete').modal('hide');
             // $('.modal-backdrop').fadeOut(250);
         })
+
+        $('[data-toggle-second="tooltip"]').tooltip();
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>

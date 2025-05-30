@@ -239,7 +239,7 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              <a href="./index.html" class="nav-link active">
+                              <a href="{{ route('admin.usermanager') }}" class="nav-link active">
                                   <i class="nav-icon fa-solid fa-users-gear"></i>
                                   <p>User Management</p>
                               </a>

@@ -35,13 +35,22 @@
                                 </div>
                                 <div class="col-4 mt-auto">
                                     <form action="" class="d-flex">
-                                        <select name="jenis" class="ml-3 form-control">
+                                        <select name="jenis" class="ml-0 form-control">
                                             <option value="Semua">Semua Kategori</option>
-                                            <option value="Semua">Kendaraan</option>
-                                            <option value="masuk">Masuk</option>
-                                            <option value="keluar">Keluar</option>
+                                            <option value="Semua">Desktop PC</option>
+                                            <option value="Semua">AIO PC</option>
+                                            <option value="masuk">Laptop</option>
+                                            <option value="masuk">Monitor</option>
+                                            <option value="keluar">Server</option>
+                                            <option value="keluar">Printer</option>
+                                            <option value="keluar">Router</option>
+                                            <option value="keluar">Switch Managed</option>
+                                            <option value="keluar">Switch Unmanaged</option>
+                                            <option value="keluar">NVR/DVR</option>
+                                            <option value="keluar">Camera CCTV</option>
+                                            <option value="keluar">Wireless Access Point</option>
                                         </select>
-                                        <button type="submit" class="ml-3 btn btn-primary"><i class="fas fa-filter"></i></button>
+                                        <button type="submit" class="ml-0 btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Filter"><i class="fas fa-filter"></i></button>
                                     </form>
                                 </div>
                                 <div class="col-2 d-flex justify-content-end">
@@ -58,7 +67,6 @@
                                         <th>Tipe/Model</th>
                                         <th>Pengguna</th>
                                         <th>Aktivitas terakhir</th>
-                                        <th>QR</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
@@ -94,18 +102,17 @@
                                             <td>{{ $asset->user->name }}</td>
                                             <td><span>{{ $asset->updated_at }}</span></td>
                                             <td>
-                                                <a href="#" onclick="event.preventDefault(); showQrCodeModal('{{ $asset->tag }}', '{{ $asset->name }}')">
-                                                    <i class="fas fa-qrcode"></i>
-                                                </a>
-                                            </td>
-                                            <td>
                                                 <div class="">
                                                     <div class="btn-group">
-                                                        <a href="{{ route('admin.asettik.show', ['id' => $asset->id]) }}" class="btn btn-flat btn-primary btn-sm"><i class="fa fa-eye"></i></a>
-                                                        {{-- <a href="" onclick="event.preventDefault()" wire:click="edit({{ $asset->id }})" class="btn btn-flat btn-success btn-sm"><i class="fa fa-edit"></i></a> --}}
+                                                        <a href="{{ route('admin.asettik.show', ['id' => $asset->id]) . '/penjadwalan' }}" type="button" class="btn btn-light" data-toggle="tooltip" data-placement="top" title="Penjadwalan"><i
+                                                               class="fa-regular fa-calendar-check" style="color: green"></i></a>
+                                                        <a href="#" onclick="event.preventDefault(); showQrCodeModal('{{ $asset->tag }}', '{{ $asset->name }}')" class="btn btn-light" style="color: blue" type="button" data-toggle="tooltip"
+                                                           data-placement="top" title="QR Code">
+                                                            <i class="fas fa-qrcode"></i>
+                                                        </a> {{-- <a href="" onclick="event.preventDefault()" wire:click="edit({{ $asset->id }})" class="btn btn-flat btn-success btn-sm"><i class="fa fa-edit"></i></a> --}}
                                                         <div class="btn-group">
                                                             {{-- <button type="button" class="btn btn-default btn-sm btn-flat dropdown-toggle" data-toggle="dropdown"> --}}
-                                                            <button type="button" class="btn btn-default btn-flat " data-toggle="dropdown">
+                                                            <button type="button" class="btn btn-default btn-flat " data-toggle="dropdown" data-toggle="dropdown" data-toggle-second="tooltip" data-placement="top" title="More...">
                                                                 <span class="caret"></span><i class="fas fa-ellipsis-vertical"></i>
                                                             </button>
                                                             <ul class="dropdown-menu pull-right">
@@ -136,7 +143,6 @@
                                         <th>Tipe/Model</th>
                                         <th>Pengguna</th>
                                         <th>Aktivitas terakhir</th>
-                                        <th>QR</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </tfoot>
@@ -224,6 +230,8 @@
             $('#modalDelete').modal('hide');
             // $('.modal-backdrop').fadeOut(250);
         })
+
+        $('[data-toggle-second="tooltip"]').tooltip();
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
@@ -250,7 +258,7 @@
             const qrContent = document.getElementById('qrCodeContainer').innerHTML;
             const printWindow = window.open('', '', 'width=800,height=800');
             printWindow.document.write(
-        `<html>
+                `<html>
         <head>
             <title>Cetak QR Aset</title>
             <style>

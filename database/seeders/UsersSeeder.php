@@ -19,7 +19,7 @@ class UsersSeeder extends Seeder
         // DB::table('users')->insert([
         $usersData = [
         [
-            'id' => '1',
+            // 'id' => '1',
             'username' => 'superadmin',
             'email' => 'admin@ppl.ac.id',
             'name' => 'superadmin', 
@@ -30,7 +30,7 @@ class UsersSeeder extends Seeder
             'password' => Hash::make('password'), 
         ],
         [
-            'id' => '2',
+            // 'id' => '2',
             'username' => 'wawan',
             'email' => 'wawan@ppl.ac.id',
             'name' => 'wawan', 
@@ -41,7 +41,7 @@ class UsersSeeder extends Seeder
             'password' => Hash::make('password'), 
         ],
         [
-            'id' => '3',
+            // 'id' => '3',
             'username' => 'kiki',
             'email' => 'kiki@ppl.ac.id',
             'name' => 'kiki', 
@@ -52,7 +52,7 @@ class UsersSeeder extends Seeder
             'password' => Hash::make('password'), 
         ],
         [
-            'id' => '4',
+            // 'id' => '4',
             'username' => 'kadek',
             'email' => 'kadek@ppl.ac.id',
             'name' => 'kadek',
@@ -63,7 +63,7 @@ class UsersSeeder extends Seeder
             'password' => Hash::make('password'),
         ],
         [
-            'id' => '5',
+            // 'id' => '5',
             'username' => 'zakaria',
             'email' => 'zakaria@ppl.ac.id',
             'name' => 'zakaria',
@@ -74,7 +74,18 @@ class UsersSeeder extends Seeder
             'password' => Hash::make('password'),
         ],
         [
-            'id' => '6',
+            // 'id' => '6',
+            'username' => 'pati',
+            'email' => 'pati@ppl.ac.id',
+            'name' => 'pati',
+            'role_to_assign' => 'staf_tik',
+            'client_id' => '1',
+            'title' => 'staf tik',
+            'mobile' => '087777777777',
+            'password' => Hash::make('password'),
+        ],
+        [
+            // 'id' => '7',
             'username' => 'engineering1',
             'email' => 'engineering1@ppl.ac.id',
             'name' => 'engineering1',
@@ -85,7 +96,7 @@ class UsersSeeder extends Seeder
             'password' => Hash::make('password'),
         ],
         [
-            'id' => '7',
+            // 'id' => '8',
             'username' => 'driver1',
             'email' => 'driver1@ppl.ac.id',
             'name' => 'driver1',
@@ -97,7 +108,6 @@ class UsersSeeder extends Seeder
         ],
         ];
         foreach ($usersData as $userData) {
-            // Hapus 'role_id' karena Spatie yang akan mengaturnya
             // Dan jangan gunakan 'id' secara eksplisit di create()
             // Biarkan Laravel membuat ID secara otomatis, atau jika kamu punya alasan kuat
             // untuk menggunakan ID statis, pastikan tabel users dikosongkan terlebih dahulu

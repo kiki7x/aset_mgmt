@@ -59,7 +59,7 @@ class CreateIssue extends Component
                 'duedate' => $this->form->duedate,
                 'description' => $this->form->description,
         ];
-        App\Models\IssuesModel::Create($data);
+        \App\Models\IssuesModel::Create($data);
         // tutup modal
         $this->dispatch('hideModalCreate');
         // Kirim alert toastr
