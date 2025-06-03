@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('maintenances', function (Blueprint $table) {
             $table->id();
             $table->foreignId('asset_id')->nullable();
-            $table->string('maintenance_type'); // 'preventive' atau 'corrective'
-            $table->string('detail'); // Detail pemeliharaan (e.g., 'Ganti Oli Mesin', 'Pembersihan')
-            $table->string('sub_detail')->nullable(); // Untuk 'Other' di Korektif
+            $table->string('name'); // Detail pemeliharaan (e.g., 'Ganti Oli Mesin', 'Pembersihan')
+            $table->string('type'); // 'preventive' atau 'corrective'
+            $table->string('schedule')->nullable(); // 'per_3_bulan', 'per_4_bulan', dst '
             $table->date('maintenance_date')->nullable(); // Tanggal manual untuk Korektif
-            $table->string('preventive_schedule')->nullable(); // 'per_3_bulan', 'per_4_bulan', '
             $table->timestamps();
         });
     }

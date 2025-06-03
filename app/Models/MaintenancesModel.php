@@ -14,10 +14,9 @@ class MaintenancesModel extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'asset_id', 
-        'maintenance_type',
-        'detail',
-        'sub_detail', 
+        'name',
+        'type',
+        'schedule',
         'maintenance_date',
-        'maintenance_description',
     ];
 }

@@ -17,11 +17,8 @@
                 <thead class="table-light">
                     <tr>
                         <th>#</th>
-                        <th>Nama Barang</th>
-                        <th>Tipe Barang</th>
+                        <th>Nama</th>
                         <th>Tipe Pemeliharaan</th>
-                        <th>Detail</th>
-                        <th>Sub Detail (Other)</th>
                         <th>Tanggal Pemeliharaan</th>
                         <th>Jadwal Preventif</th>
                         <th>Aksi</th>
@@ -31,11 +28,11 @@
                     @forelse ($maintenances as $maintenance)
                         <tr id="row_{{ $maintenance->id }}">
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $maintenance->item->name }}</td>
-                            <td>{{ $maintenance->item->type }}</td>
-                            <td>{{ ucfirst($maintenance->maintenance_type) }}</td>
-                            <td>{{ $maintenance->detail }}</td>
-                            <td>{{ $maintenance->sub_detail ?? '-' }}</td>
+                            {{-- nama pemeliharaan eg. inspeksi, pelumasan, pembersihan, dll --}}
+                            <td>{{ $maintenance->name }}</td>
+                            {{-- preventif atau korektif --}}
+                            <td>{{ $maintenance->type }}</td>
+                            <td>{{ ucfirst($maintenance->schedule) }}</td>
                             <td>{{ $maintenance->maintenance_date ? \Carbon\Carbon::parse($maintenance->maintenance_date)->format('d-m-Y') : '-' }}</td>
                             <td>
                                 @if ($maintenance->preventive_schedule)
