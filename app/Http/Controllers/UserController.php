@@ -45,4 +45,10 @@ class UserController extends Controller
             'filterEmail' => $request->input('email'),
         ]);
     }
+
+    public function profil($id)
+    {
+        $user = \App\Models\User::findOrFail($id);
+        return view('admin.userprofil', compact('user'));
+    }
 }

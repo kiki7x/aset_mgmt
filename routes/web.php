@@ -34,8 +34,23 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::middleware(['role:superadmin|admin_rt|staf_driver|staf_engineering'])->group(function() {
         Route::get('/asetrt', App\Livewire\Assets\IndexAsetRt::class)->name('admin.asetrt');
         Route::get('/asetrt/show/{id}/{section?}', App\Livewire\Assets\ShowAsetRt::class)->name('admin.asetrt.show');
+
+        Route::get('/asetrt/{id}', [App\Http\Controllers\ShowAsetRtController::class, 'showDetails'])->name('admin.asetrt.details');
+        Route::get('/asetrt/{id}/overview', [App\Http\Controllers\ShowAsetRtController::class, 'getOverviewContent'])->name('admin.asetrt.overview');
+        Route::get('/asetrt/{id}/pemeliharaan', [App\Http\Controllers\PemeliharaanController::class, 'index'])->name('admin.asetrt.pemeliharaan');
+        Route::get('/asetrt/penjadwalan/create', [App\Http\Controllers\ShowAsetRtController::class, 'createMaintenance'])->name('admin.asetrt.penjadwalan.create');
+        Route::post('/asetrt/penjadwalan/store', [App\Http\Controllers\ShowAsetRtController::class, 'storeMaintenance'])->name('admin.asetrt.penjadwalan.store');
+        Route::get('/asetrt/{id}/penugasan', [App\Http\Controllers\ShowAsetRtController::class, 'getPenugasanContent'])->name('admin.asetrt.penugasan');
+        Route::get('/asetrt/{id}/tickets', [App\Http\Controllers\ShowAsetRtController::class, 'getTicketsContent'])->name('admin.asetrt.tickets');
+        Route::get('/asetrt/{id}/files', [App\Http\Controllers\ShowAsetRtController::class, 'getFilesContent'])->name('admin.asetrt.files');
+        Route::get('/asetrt/{id}/timelog', [App\Http\Controllers\ShowAsetRtController::class, 'getTimeLogContent'])->name('admin.asetrt.timelog');
+        Route::get('/asetrt/{id}/edit', [App\Http\Controllers\ShowAsetRtController::class, 'getEditAssetContent'])->name('admin.asetrt.edit');
         // Route::get('/asetrt/create', App\Livewire\Modal\CreateAsetRt::class)->name('admin.asetrt.create');
     });
+
+    // Route::resource('maintenances', MaintenanceController::class);
+    // Rute untuk mendapatkan detail pemeliharaan berdasarkan tipe item (Ajax)
+    // Route::get('/get-maintenance-details', [MaintenanceController::class, 'getMaintenanceDetails'])->name('maintenances.get_details');
 
     // halaman list Issues
     Route::middleware(['role:superadmin|admin_tik|admin_rt|staf_tik|staf_driver|staf_engineering'])->group(function() {
@@ -79,5 +94,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/setting_attr/lokasi/edit/{id}/{section?}', App\Livewire\Assets\EditLokasi::class)->name('admin.setting_attr.lokasi.edit');
 
     // Route User Manager
+    Route::middleware(['role:superadmin|admin_tik|admin_rt|staf_tik|staf_driver|staf_engineering'])->group(function() {
     Route::get('usermanager', [App\Http\Controllers\UserController::class, 'index'])->name('admin.usermanager');
+    Route::get('usermanager/profil/{id}', [App\Http\Controllers\UserController::class, 'profil'])->name('admin.usermanager.profil');
+    Route::get('usermanager/create', [App\Http\Controllers\UserController::class, 'create'])->name('admin.usermanager.create');
+    Route::get('usermanager/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('admin.usermanager.edit');
+    });
 });

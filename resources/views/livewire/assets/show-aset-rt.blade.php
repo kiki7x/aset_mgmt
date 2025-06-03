@@ -15,7 +15,7 @@
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
                             <a wire:click="switchSection('')" href="{{ route('admin.asetrt.show', ['id' => $id, 'section' => '']) }}" class="nav-link {{ $currentSection === '' ? 'active' : '' }}">
-                                Summary
+                                Overview
                                 <div wire:loading wire:target="switchSection('')" class="spinner-border spinner-border-sm">
                                     <span class="sr-only">Loading...</span>
                                 </div>
@@ -38,9 +38,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a wire:click="switchSection('section-3')" href="{{ route('admin.asetrt.show', ['id' => $id, 'section' => 'section-3']) }}" class="nav-link {{ $currentSection === 'section-3' ? 'active' : '' }}">
+                            <a wire:click="switchSection('tickets')" href="{{ route('admin.asetrt.show', ['id' => $id, 'section' => 'tickets']) }}" class="nav-link {{ $currentSection === 'tickets' ? 'active' : '' }}">
                                 Tickets
-                                <div wire:loading wire:target="switchSection('section-3')" class="spinner-border spinner-border-sm">
+                                <div wire:loading wire:target="switchSection('tickets')" class="spinner-border spinner-border-sm">
                                     <span class="sr-only">Loading...</span>
                                 </div>
                             </a>
@@ -179,9 +179,9 @@
                         </div>
                     @elseif ($currentSection === 'penjadwalan')
                         <div id="penjadwalan" class="tab-pane active">
-                            <p>Content for Penjadwalan.</p>
-                            <div class="container rounded">
-                                <h2 class="mb-4 text-center">Jadwal Maintenance Kendaraan</h2>
+                            {{-- @include('admin.maintenance') --}}
+                            {{-- <div class="container rounded">
+                                <h2 class="mb-4 text-center">Jadwal Pemeliharaan</h2>
                                 <div class="table-responsive rounded">
                                     <table class="table table-hover table-bordered rounded">
                                         <thead class="rounded-top">
@@ -227,17 +227,16 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     @elseif ($currentSection === 'issues')
                         <div id="issues" class="tab-pane active">
                             <p>Content for Penugasan.</p>
                             {{-- @livewire('issues.index-issues'); --}}
                         </div>
-                    @elseif ($currentSection === 'section-3')
-                        <div id="section-3" class="tab-pane active">
-                            <h2>Section 3 Content</h2>
-                            <p>Content for section 3.</p>
+                    @elseif ($currentSection === 'tickets')
+                        <div id="tickets" class="tab-pane active">
+                            <p>Content for Tiket.</p>
                         </div>
                     @elseif ($currentSection === 'files')
                         <div id="files" class="tab-pane active">

@@ -9,45 +9,45 @@ use Illuminate\Support\Facades\Log;
 
 
 // import request
-use App\Http\Requests\AsettiksRequest;
+use App\Http\Requests\AssetRequest;
 
 //import model
-use App\Models\AsettiksModel;
+use App\Models\AssetsModel;
 use App\Models\AssetcategoriesModel;
 use App\Models\AssetclassificationsModel;
 
 //import api resource
-use App\Http\Resources\AsettiksResource;
+use App\Http\Resources\AssetResource;
 use App\Http\Resources\AssetcategoriesResource;
 use App\Http\Resources\AssetclassificationsResource;
 
 
 
-class AsettiksController extends Controller
+class AssetController extends Controller
 {    
     // tampilkan semua data asettiks
     public function index()
     {
         try {
             //get all assets_tiks from table
-            $asettiks = AsettiksModel::latest()->paginate(5);
+            $assets = AssetsModel::latest()->paginate(5);
             return response()->json([
                 'status' => 'success',
                 'message' => 'List Data Aset TIK',
-                'data' => AsettiksResource::collection($asettiks),
+                'data' => AssetResource::collection($assets),
                 'meta' => [
-                    'current_page' => $asettiks->currentPage(),
-                    'from' => $asettiks->firstItem(),
-                    'last_page' => $asettiks->lastPage(),
-                    'per_page' => $asettiks->perPage(),
-                    'to' => $asettiks->lastItem(),
-                    'total' => $asettiks->total(),
+                    'current_page' => $assets->currentPage(),
+                    'from' => $assets->firstItem(),
+                    'last_page' => $assets->lastPage(),
+                    'per_page' => $assets->perPage(),
+                    'to' => $assets->lastItem(),
+                    'total' => $assets->total(),
                 ],
                 'links' => [
-                    'first' => $asettiks->url(1),
-                    'last' => $asettiks->url($asettiks->lastPage()),
-                    'prev' => $asettiks->previousPageUrl(),
-                    'next' => $asettiks->nextPageUrl(),
+                    'first' => $assets->url(1),
+                    'last' => $assets->url($assets->lastPage()),
+                    'prev' => $assets->previousPageUrl(),
+                    'next' => $assets->nextPageUrl(),
                 ],
             ]);
         } catch (Exception $e) {
@@ -61,8 +61,8 @@ class AsettiksController extends Controller
     // tampilkan 1 data berdasarkan ID
     public function show($id)
     {
-        $asettiks = AsettikModel::findOrFail($id);
-        return new ApiResource(true, 'Detail Data Aset TIK', $asettiks);
+        $asset = AssetsModel::findOrFail($id);
+        return new AssetResource(true, 'Detail Data Aset TIK', $asset);
     }
 
     // tambah data
@@ -88,14 +88,14 @@ class AsettiksController extends Controller
             'customfields' => 'nullable|string',
             'qrvalue' => 'nullable|string',
         ]);
-        $asettiks = AsettikModel::create($validated);
-        return new AsettikResource(true, 'Data Asettik Berhasil Ditambahkan', $asettiks);
+        $asset = AssetsModel::create($validated);
+        return new AssetResource(true, 'Data Asettik Berhasil Ditambahkan', $asset);
     }
 
     // update data
     public function update(Request $request, $id)
     {
-        $asettiks = AsettikModel::findOrFail($id);
+        $asset = AssetsModel::findOrFail($id);
         $validated = $request->validate([
             'category_id' => 'required|integer',
             'admin_id' => 'required|integer',
@@ -115,16 +115,16 @@ class AsettiksController extends Controller
             'customfields' => 'nullable|string',
             'qrvalue' => 'nullable|string',
         ]);
-        $asettiks->update($validated);
-        return new AsettikResource(true, 'Data Asettik Berhasil Diupdate', $asettiks); 
+        $asset->update($validated);
+        return new AssetResource(true, 'Data Asettik Berhasil Diupdate', $asset); 
     }
 
     // hapus data
     public function destroy($id)
     {
-        $asettiks = AsettikModel::findOrFail($id);
-        $asettiks->delete();
-        return new AsettikResource(true, 'Data Asettik Berhasil Dihapus', null);
+        $asset = AssetsModel::findOrFail($id);
+        $asset->delete();
+        return new AssetResource(true, 'Data Asettik Berhasil Dihapus', null);
     }
 
 }

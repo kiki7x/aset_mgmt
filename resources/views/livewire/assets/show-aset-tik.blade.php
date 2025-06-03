@@ -15,7 +15,7 @@
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
                             <a wire:click="switchSection('')" href="{{ route('admin.asettik.show', ['id' => $id, 'section' => '']) }}" class="nav-link {{ $currentSection === '' ? 'active' : '' }}">
-                                Summary
+                                Overview
                                 <div wire:loading wire:target="switchSection('')" class="spinner-border spinner-border-sm">
                                     <span class="sr-only">Loading...</span>
                                 </div>
@@ -241,9 +241,8 @@
                         </div>
                     @elseif ($currentSection === 'penjadwalan')
                         <div id="penjadwalan" class="tab-pane active">
-                            <p>Content for Penjadwalan.</p>
                             <div class="container rounded">
-                                <h2 class="mb-4 text-center">Jadwal Maintenance</h2>
+                                <h2 class="mb-4 text-center">Jadwal Pemeliharaan</h2>
                                 <div class="table-responsive rounded">
                                     <table class="table table-hover table-bordered rounded">
                                         <thead class="rounded-top">
@@ -298,12 +297,10 @@
                         </div>
                     @elseif ($currentSection === 'section-3')
                         <div id="section-3" class="tab-pane active">
-                            <h2>Section 3 Content</h2>
-                            <p>Content for section 3.</p>
+                            <p>Content for Tickets.</p>
                         </div>
                     @elseif ($currentSection === 'files')
                         <div id="files" class="tab-pane active">
-                            <h2>Files</h2>
                             <p>Content for Files.</p>
                             <div class="card card-info">
                                 <div class="card-header">
@@ -381,7 +378,6 @@
                         </div>
                     @elseif ($currentSection === 'timelog')
                         <div id="timelog" class="tab-pane active">
-                            <h2>Time Log</h2>
                             <p>Content for Time Log.</p>
                             <div class="container-fluid">
                                 <!-- Timelime example  -->

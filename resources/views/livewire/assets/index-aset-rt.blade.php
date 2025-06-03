@@ -78,10 +78,10 @@
                                                 ];
                                             @endphp
                                             <td>
-                                                <a href="{{ route('admin.asetrt.show', ['id' => $asset->id]) }}">{{ $asset->tag }}</a>
+                                                <a href="{{ route('admin.asetrt.overview', ['id' => $asset->id]) }}">{{ $asset->tag }}</a>
                                             </td>
                                             <td>
-                                                <a href="{{ route('admin.asetrt.show', ['id' => $asset->id]) }}" class="font-weight-bold">{{ $asset->name }}</a>
+                                                <a href="{{ route('admin.asetrt.overview', ['id' => $asset->id]) }}" class="font-weight-bold">{{ $asset->name }}</a>
                                                 <br>
                                                 <span class="text-muted">Serial No: </span><span>{{ $asset->serial }}</span> <br>
                                                 <span class="text-muted">Status: </span><span class="badge" style="background-color: {{ $asset->status->color }}; color: white;">{{ $asset->status->name }}</span>
@@ -98,7 +98,7 @@
                                                 <div class="">
                                                     <div class="btn-group">
                                                         {{-- <a href="{{ route('admin.asetrt.show', ['id' => $asset->id]) }}" class="btn btn-flat btn-primary btn-sm"><i class="fa-regular fa-calendar-check"></i></a> --}}
-                                                        <a href="{{ route('admin.asetrt.show', ['id' => $asset->id]) . '/penjadwalan' }}" type="button" class="btn btn-light"><i class="fa-regular fa-calendar-check" style="color: green" data-toggle="tooltip"
+                                                        <a href="{{ route('admin.asetrt.pemeliharaan', ['id' => $asset->id]) }}" type="button" class="btn btn-light"><i class="fa-regular fa-calendar-check" style="color: green" data-toggle="tooltip"
                                                                data-placement="top" title="Penjadwalan"></i></a>
                                                         <a href="#" type="button" class="btn btn-light" style="color: blue" data-toggle="tooltip" onclick="event.preventDefault(); showQrCodeModal('{{ $asset->tag }}', '{{ $asset->name }}')"
                                                            data-placement="top" title="QR Code">
@@ -110,7 +110,7 @@
                                                                 {{-- <span class="caret"></span><i class="fas fa-ellipsis-vertical"></i> --}}
                                                             </button>
                                                             <ul class="dropdown-menu dropdown-menu-right">
-                                                                <li><a href="{{ route('admin.asetrt.show', ['id' => $asset->id]) . '/edit' }}"><i class="fa fa-trash-o fa-fw"></i>Edit</a></li>
+                                                                <li><a href="{{ route('admin.asetrt.edit', ['id' => $asset->id]) }}"><i class="fa fa-trash-o fa-fw"></i>Edit</a></li>
                                                                 <li><a href="" wire:click="$dispatch('openModalDelete', { id: {{ $asset->id }} })" onclick="event.preventDefault()"><i class="fa fa-trash-o fa-fw"></i>Delete</a></li>
                                                             </ul>
                                                         </div>
