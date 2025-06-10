@@ -5,6 +5,8 @@ namespace App\Livewire\Assets;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Livewire\CreateAsetRt;
+use App\Models\AssetsModel;
+use Exception;
 use Livewire\Attributes\On;
 
 class IndexAsetRt extends Component
@@ -19,26 +21,40 @@ class IndexAsetRt extends Component
     public $editId = '';
     public $showId = '';
 
+    public $category = "Semua";
+    public $isFiltering = false;
 
     #[On('refresh')]
     public function render()
     {
+        $query = \App\Models\AssetsModel::search($this->search)
+            ->whereIn('classification_id', [3, 4])
+            ->with('category', 'status', 'model', 'user')
+            ->latest();
+
+        if ($this->isFiltering && $this->category !== 'Semua') {
+            $query->where('category_id', $this->category);
+        }
+
+
         return view('livewire.assets.index-aset-rt')->with([
-        'totalAssets' => \App\Models\AssetsModel::where('classification_id', 3)->count(),
-        'assets' => \App\Models\AssetsModel::search($this->search)
-        ->whereIn('classification_id', [3, 4])
-        ->with('category', 'status', 'model', 'user')
-        ->latest()
-        ->paginate($this->per_page),
+            'categories' => \App\Models\AssetcategoriesModel::whereIn('classification_id', [3, 4])->get(),
+            'totalAssets' => \App\Models\AssetsModel::where('classification_id', 3)->count(),
+            'assets' => $query->paginate($this->per_page),
         ]);
+    }
+
+    public function updatedCategory()
+    {
+        $this->resetPage();
     }
 
     public function edit($id)
     {
-        $this->dispatch('edit', $id);    
+        $this->dispatch('edit', $id);
     }
 
-    #[On('openModalDelete')] 
+    #[On('openModalDelete')]
     public function openModalDelete($id)
     {
         $this->dispatch('showModalDelete');
@@ -60,10 +76,10 @@ class IndexAsetRt extends Component
             AssetsModel::find($this->deleteId)->delete();
             // $asset->delete();
             $this->closeModalDelete();
-            $this->dispatchToastr('success','Data berhasil dihapus');
+            $this->dispatchToastr('success', 'Data berhasil dihapus');
         } catch (Exception $e) {
             $this->closeModalDelete();
-            $this->dispatchToastr('failed','Data gagal dihapus');
+            $this->dispatchToastr('failed', 'Data gagal dihapus');
         }
     }
 
@@ -74,5 +90,4 @@ class IndexAsetRt extends Component
             'message' => $message,
         ]);
     }
-
 }

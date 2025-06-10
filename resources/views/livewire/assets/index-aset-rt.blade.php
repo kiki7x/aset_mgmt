@@ -13,9 +13,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                            <h3 class="card-title"><i class="fa-solid fa-building"></i> Kelola Aset Rumah Tangga <span class="badge end-0 mr-3 bg-info text-light">{{ $totalAssets }}</span></h3>
-                            <button wire:click="$dispatch('openModalCreate', { component: 'modal.create-aset-rt' })" type="button" class="btn btn-primary" style="margin-left: auto;">
+                        <div class="card-header"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 class="card-title"><i class="fa-solid fa-building"></i> Kelola Aset Rumah Tangga <span
+                                    class="badge end-0 mr-3 bg-info text-light">{{ $totalAssets }}</span></h3>
+                            <button wire:click="$dispatch('openModalCreate', { component: 'modal.create-aset-rt' })"
+                                type="button" class="btn btn-primary" style="margin-left: auto;">
                                 <i class="fas fa-square-plus"></i>
                                 Tambah Data
                             </button>
@@ -34,24 +37,27 @@
                                     Entries
                                 </div>
                                 <div class="col-4 mb-auto mt-auto">
-                                    <form action="" class="d-flex">
-                                        <select name="jenis" class="ml-3 form-control">
+                                    <form wire:submit.prevent="$set('isFiltering', true)" class="d-flex">
+                                        <select wire:model="category" name="jenis" class="ml-3 form-control">
                                             <option value="Semua">Semua Kategori</option>
-                                            <option value="Semua">Kendaraan</option>
-                                            <option value="masuk">Mesin</option>
-                                            <option value="keluar">Peralatan</option>
+                                            @foreach ($categories as $cat)
+                                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                            @endforeach
                                         </select>
-                                        <button type="submit" class="ml-0 btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Filter"><i class="fas fa-filter"></i></button>
+                                        <button type="submit" class="ml-0 btn btn-warning btn-sm" data-toggle="tooltip"
+                                            data-placement="top" title="Filter"><i class="fas fa-filter"></i></button>
                                     </form>
                                 </div>
                                 <div class="col mb-auto mt-auto d-none d-lg-block justify-content-end">
                                     <label for="search" class="col-form-label">Search:</label>
                                 </div>
                                 <div class="col mb-auto mt-auto d-flex">
-                                    <input wire:model.live.debounce.200ms='search' type="text" id="search" class="form-control" placeholder="search nama aset / serial no">
+                                    <input wire:model.live.debounce.200ms='search' type="text" id="search"
+                                        class="form-control" placeholder="search nama aset / serial no">
                                 </div>
                             </div>
-                            <table id="example1" class="table table-bordered table-striped table-hover table-responsive-md">
+                            <table id="example1"
+                                class="table table-bordered table-striped table-hover table-responsive-md">
                                 <thead>
                                     <tr>
                                         <th>Tag</th>
@@ -78,16 +84,21 @@
                                                 ];
                                             @endphp
                                             <td>
-                                                <a href="{{ route('admin.asetrt.overview', ['id' => $asset->id]) }}">{{ $asset->tag }}</a>
+                                                <a
+                                                    href="{{ route('admin.asetrt.overview', ['id' => $asset->id]) }}">{{ $asset->tag }}</a>
                                             </td>
                                             <td>
-                                                <a href="{{ route('admin.asetrt.overview', ['id' => $asset->id]) }}" class="font-weight-bold">{{ $asset->name }}</a>
+                                                <a href="{{ route('admin.asetrt.overview', ['id' => $asset->id]) }}"
+                                                    class="font-weight-bold">{{ $asset->name }}</a>
                                                 <br>
-                                                <span class="text-muted">Serial No: </span><span>{{ $asset->serial }}</span> <br>
-                                                <span class="text-muted">Status: </span><span class="badge" style="background-color: {{ $asset->status->color }}; color: white;">{{ $asset->status->name }}</span>
+                                                <span class="text-muted">Serial No:
+                                                </span><span>{{ $asset->serial }}</span> <br>
+                                                <span class="text-muted">Status: </span><span class="badge"
+                                                    style="background-color: {{ $asset->status->color }}; color: white;">{{ $asset->status->name }}</span>
                                             </td>
                                             <td>
-                                                <span class="badge" style="background-color:#FFF;color:{{ $asset->category->color }};border:1px solid {{ $asset->category->color }}">{{ $asset->category->name }}</span>
+                                                <span class="badge"
+                                                    style="background-color:#FFF;color:{{ $asset->category->color }};border:1px solid {{ $asset->category->color }}">{{ $asset->category->name }}</span>
                                             </td>
                                             <td>
                                                 {{ $asset->model->name }}
@@ -98,20 +109,36 @@
                                                 <div class="">
                                                     <div class="btn-group">
                                                         {{-- <a href="{{ route('admin.asetrt.show', ['id' => $asset->id]) }}" class="btn btn-flat btn-primary btn-sm"><i class="fa-regular fa-calendar-check"></i></a> --}}
-                                                        <a href="{{ route('admin.asetrt.pemeliharaan', ['id' => $asset->id]) }}" type="button" class="btn btn-light"><i class="fa-regular fa-calendar-check" style="color: green" data-toggle="tooltip"
-                                                               data-placement="top" title="Jadwal Pemeliharaan"></i></a>
-                                                        <a href="#" type="button" class="btn btn-light" style="color: blue" data-toggle="tooltip" onclick="event.preventDefault(); showQrCodeModal('{{ $asset->tag }}', '{{ $asset->name }}')"
-                                                           data-placement="top" title="QR Code">
+                                                        <a href="{{ route('admin.asetrt.pemeliharaan', ['id' => $asset->id]) }}"
+                                                            type="button" class="btn btn-light"><i
+                                                                class="fa-regular fa-calendar-check"
+                                                                style="color: green" data-toggle="tooltip"
+                                                                data-placement="top"
+                                                                title="Jadwal Pemeliharaan"></i></a>
+                                                        <a href="#" type="button" class="btn btn-light"
+                                                            style="color: blue" data-toggle="tooltip"
+                                                            onclick="event.preventDefault(); showQrCodeModal('{{ $asset->tag }}', '{{ $asset->name }}')"
+                                                            data-placement="top" title="QR Code">
                                                             <i class="fas fa-qrcode"></i>
                                                         </a>
                                                         <div class="btn-group">
                                                             {{-- <button type="button" class="btn btn-default btn-flat " data-toggle="dropdown"> --}}
-                                                            <button type="button" class="btn btn-light btn-outline dropdown-toggle" data-toggle="dropdown" data-toggle-second="tooltip" data-placement="top" title="More...">
+                                                            <button type="button"
+                                                                class="btn btn-light btn-outline dropdown-toggle"
+                                                                data-toggle="dropdown" data-toggle-second="tooltip"
+                                                                data-placement="top" title="More...">
                                                                 {{-- <span class="caret"></span><i class="fas fa-ellipsis-vertical"></i> --}}
                                                             </button>
                                                             <ul class="dropdown-menu dropdown-menu-right">
-                                                                <li><a href="{{ route('admin.asetrt.edit', ['id' => $asset->id]) }}"><i class="fa fa-trash-o fa-fw"></i>Edit</a></li>
-                                                                <li><a href="" wire:click="$dispatch('openModalDelete', { id: {{ $asset->id }} })" onclick="event.preventDefault()"><i class="fa fa-trash-o fa-fw"></i>Delete</a></li>
+                                                                <li><a
+                                                                        href="{{ route('admin.asetrt.edit', ['id' => $asset->id]) }}"><i
+                                                                            class="fa fa-trash-o fa-fw"></i>Edit</a>
+                                                                </li>
+                                                                <li><a href=""
+                                                                        wire:click="$dispatch('openModalDelete', { id: {{ $asset->id }} })"
+                                                                        onclick="event.preventDefault()"><i
+                                                                            class="fa fa-trash-o fa-fw"></i>Delete</a>
+                                                                </li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -137,12 +164,14 @@
                                 </tfoot>
                             </table>
                             <!-- Modal QR Code -->
-                            <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog"
+                                aria-labelledby="qrCodeModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                                     <div class="modal-content text-center">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="qrCodeModalLabel">QR Code Aset</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
@@ -153,7 +182,8 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button onclick="printQrCode()" class="btn btn-primary">Print</button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Tutup</button>
                                         </div>
                                     </div>
                                 </div>
@@ -172,8 +202,10 @@
                                             Apakah Anda yakin ingin menghapus data ini? {{ $deleteId }}
                                         </div>
                                         <div class="modal-footer">
-                                            <button wire:click="$dispatch('closeModalDelete')" type="button" class="btn btn-secondary">Batal</button>
-                                            <button wire:click="$dispatch('delete', { id: {{ $deleteId }} })" type="button" class="btn btn-danger">Ya, Hapus</button>
+                                            <button wire:click="$dispatch('closeModalDelete')" type="button"
+                                                class="btn btn-secondary">Batal</button>
+                                            <button wire:click="$dispatch('delete', { id: {{ $deleteId }} })"
+                                                type="button" class="btn btn-danger">Ya, Hapus</button>
                                         </div>
                                     </div>
                                 </div>
@@ -184,10 +216,17 @@
                                     {{ $assets->links('vendor.livewire.bootstrap') }}
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="dt-buttons btn-group"><a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="dataTablesFull" href="#"><span>Copy</span></a><a
-                                           class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="dataTablesFull" href="#"><span>CSV</span></a><a class="btn btn-default buttons-excel buttons-html5" tabindex="0"
-                                           aria-controls="dataTablesFull" href="#"><span>Excel</span></a><a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="dataTablesFull" href="#"><span>PDF</span></a><a
-                                           class="btn btn-default buttons-print" tabindex="0" aria-controls="dataTablesFull" href="#"><span>Print</span></a>
+                                    <div class="dt-buttons btn-group"><a
+                                            class="btn btn-default buttons-copy buttons-html5" tabindex="0"
+                                            aria-controls="dataTablesFull" href="#"><span>Copy</span></a><a
+                                            class="btn btn-default buttons-csv buttons-html5" tabindex="0"
+                                            aria-controls="dataTablesFull" href="#"><span>CSV</span></a><a
+                                            class="btn btn-default buttons-excel buttons-html5" tabindex="0"
+                                            aria-controls="dataTablesFull" href="#"><span>Excel</span></a><a
+                                            class="btn btn-default buttons-pdf buttons-html5" tabindex="0"
+                                            aria-controls="dataTablesFull" href="#"><span>PDF</span></a><a
+                                            class="btn btn-default buttons-print" tabindex="0"
+                                            aria-controls="dataTablesFull" href="#"><span>Print</span></a>
                                     </div>
                                 </div>
                             </div>
