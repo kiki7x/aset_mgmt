@@ -94,9 +94,9 @@ class AssetsModel extends Model
         return $this->belongsTo(LocationsModel::class);
     }
 
-    public function maintenances()
+    public function maintenances_schedule()
     {
-        return $this->hasMany(MaintenancesModel::class);
+        return $this->hasMany(Maintenances_scheduleModel::class);
     }
 
 }

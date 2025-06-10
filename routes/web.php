@@ -38,8 +38,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::get('/asetrt/{id}', [App\Http\Controllers\ShowAsetRtController::class, 'showDetails'])->name('admin.asetrt.details');
         Route::get('/asetrt/{id}/overview', [App\Http\Controllers\ShowAsetRtController::class, 'getOverviewContent'])->name('admin.asetrt.overview');
         Route::get('/asetrt/{id}/pemeliharaan', [App\Http\Controllers\PemeliharaanController::class, 'index'])->name('admin.asetrt.pemeliharaan');
-        Route::get('/asetrt/penjadwalan/create', [App\Http\Controllers\ShowAsetRtController::class, 'createMaintenance'])->name('admin.asetrt.penjadwalan.create');
-        Route::post('/asetrt/penjadwalan/store', [App\Http\Controllers\ShowAsetRtController::class, 'storeMaintenance'])->name('admin.asetrt.penjadwalan.store');
+        Route::get('/asetrt/{id}/pemeliharaan/preventifdataTable', [App\Http\Controllers\PemeliharaanController::class, 'preventifdataTable'])->name('admin.asetrt.pemeliharaan.preventifdataTable');
+        Route::post('/asetrt/{id}/pemeliharaan/preventifstore', [App\Http\Controllers\PemeliharaanController::class, 'preventifStore'])->name('admin.asetrt.pemeliharaan.preventifStore');
+        Route::get('/asetrt/{id}/pemeliharaan/korektifdataTable', [App\Http\Controllers\PemeliharaanController::class, 'korektifdataTable'])->name('admin.asetrt.pemeliharaan.korektifdataTable');
+        Route::get('/asetrt/{id}/pemeliharaan/korektifStore', [App\Http\Controllers\PemeliharaanController::class, 'korektifdataTable'])->name('admin.asetrt.pemeliharaan.korektiStpre');
         Route::get('/asetrt/{id}/penugasan', [App\Http\Controllers\ShowAsetRtController::class, 'getPenugasanContent'])->name('admin.asetrt.penugasan');
         Route::get('/asetrt/{id}/tickets', [App\Http\Controllers\ShowAsetRtController::class, 'getTicketsContent'])->name('admin.asetrt.tickets');
         Route::get('/asetrt/{id}/files', [App\Http\Controllers\ShowAsetRtController::class, 'getFilesContent'])->name('admin.asetrt.files');

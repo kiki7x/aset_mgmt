@@ -26,7 +26,7 @@ class IndexAsetRt extends Component
         return view('livewire.assets.index-aset-rt')->with([
         'totalAssets' => \App\Models\AssetsModel::where('classification_id', 3)->count(),
         'assets' => \App\Models\AssetsModel::search($this->search)
-        ->where('classification_id', 3)
+        ->whereIn('classification_id', [3, 4])
         ->with('category', 'status', 'model', 'user')
         ->latest()
         ->paginate($this->per_page),

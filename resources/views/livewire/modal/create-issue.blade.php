@@ -34,7 +34,7 @@
                                 <select wire:model="form.issuetype" x-ref="selecttype" name="issuetype" id="issuetype" class="form-control select2 @error('issuetype') is-invalid @enderror" for="issuetype">
                                     <option name="None" id="None" value="">None</option>
                                     <option name="Task" id="Task" data-icon="fa-square-check fa-fw text-blue" value="Task">Tugas</option>
-                                    <option name="Maintenance" id="Maintenance" data-icon="fa-minus-square fa-fw text-yellow" value="Maintenance">Pemeliharaan</option>
+                                    <option name="Fix" id="Fix" data-icon="fa-minus-square fa-fw text-yellow" value="Fix">Perbaikan</option>
                                     <option name="Bug" id="Bug" data-icon="fa-bug fa-fw text-red" value="Bug">Bug (Celah)</option>
                                     <option name="Improvement" id="Improvement" data-icon="fa-external-link fa-fw text-teal" value="Improvement">Peningkatan</option>
                                     <option name="New_feature" id="New Feature" data-icon="fa-plus-square fa-fw text-green" value="New Feature">Fitur Baru</option>

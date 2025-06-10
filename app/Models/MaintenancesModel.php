@@ -13,10 +13,13 @@ class MaintenancesModel extends Model
     protected $table = 'maintenances';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'asset_id', 
-        'name',
-        'type',
-        'schedule',
+        'maintenance_schedule_id', 
+        'technician_id',
+        'status',
+        'start_date',
+        'end_date',
+        'attachment',
+        'notes',
         'maintenance_date',
     ];
 }

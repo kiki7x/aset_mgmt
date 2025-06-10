@@ -78,51 +78,6 @@ class ShowAsetRtController extends Controller
                ]);
     }
 
-    public function createMaintenance()
-    {
-        $assets = \App\Models\AssetsModel::all();
-        return response()->json([
-            'html' => view('maintenances.form_content', compact('items'))
-                        ->with([
-                            'preventiveVehicleOptions' => $this->preventiveVehicleOptions,
-                            'preventiveElectronicOptions' => $this->preventiveElectronicOptions,
-                            'preventiveScheduleOptions' => $this->preventiveScheduleOptions
-                        ])->render()
-        ]);
-    }
-
-    public function storeMaintenance(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'asset_id' => 'required|exists:assets,id',
-            'maintenance_type' => 'required|in:preventive,corrective',
-            'detail' => 'required_if:maintenance_type,preventive|nullable|string', // Untuk preventif
-            'corrective_detail' => 'required_if:maintenance_type,corrective|nullable|string', // Untuk korektif
-            'sub_detail' => 'nullable|string', // Untuk 'other' di korektif
-            'maintenance_date' => 'required_if:maintenance_type,corrective|nullable|date',
-            'preventive_schedule' => 'required_if:maintenance_type,preventive|nullable|in:per_3_bulan,per_4_bulan,per_6_bulan',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
-        $detail = ($request->maintenance_type == 'preventive') ? $request->detail : $request->corrective_detail;
-        $subDetail = ($detail == 'Other') ? $request->sub_detail : null; // Simpan sub_detail jika detailnya 'Other'
-
-        $maintenance = \App\Models\MaintenanceModel::create([
-            'asset_id' => $request->asset_id,
-            'maintenance_type' => $request->maintenance_type,
-            'detail' => $detail,
-            'sub_detail' => $subDetail,
-            'maintenance_date' => $request->maintenance_type == 'corrective' ? $request->maintenance_date : null,
-            'preventive_schedule' => $request->maintenance_type == 'preventive' ? $request->preventive_schedule : null,
-        ]);
-
-        $maintenance->load('item'); // Load relasi item untuk ditampilkan di tabel
-        return response()->json(['success' => 'Pemeliharaan berhasil ditambahkan.', 'data' => $maintenance]);
-    }
-
     public function getPenugasanContent($id)
     {
         // Logika untuk mengambil data Penugasan berdasarkan $id

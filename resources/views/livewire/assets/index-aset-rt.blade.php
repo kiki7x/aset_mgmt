@@ -99,7 +99,7 @@
                                                     <div class="btn-group">
                                                         {{-- <a href="{{ route('admin.asetrt.show', ['id' => $asset->id]) }}" class="btn btn-flat btn-primary btn-sm"><i class="fa-regular fa-calendar-check"></i></a> --}}
                                                         <a href="{{ route('admin.asetrt.pemeliharaan', ['id' => $asset->id]) }}" type="button" class="btn btn-light"><i class="fa-regular fa-calendar-check" style="color: green" data-toggle="tooltip"
-                                                               data-placement="top" title="Penjadwalan"></i></a>
+                                                               data-placement="top" title="Jadwal Pemeliharaan"></i></a>
                                                         <a href="#" type="button" class="btn btn-light" style="color: blue" data-toggle="tooltip" onclick="event.preventDefault(); showQrCodeModal('{{ $asset->tag }}', '{{ $asset->name }}')"
                                                            data-placement="top" title="QR Code">
                                                             <i class="fas fa-qrcode"></i>

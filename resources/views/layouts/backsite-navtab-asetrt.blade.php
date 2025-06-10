@@ -3,6 +3,9 @@
     'welcome' => 'Detail Aset RT',
     'breadcrumb' => 'Detail Aset RT',
 ])
+@section('script-head')
+@stack('script-head')
+@endsection
 @section('content')
     <div class="container-fluid">
         <section class="content-header">
@@ -70,7 +73,6 @@
     </div>
 @endsection
 
-@section('script-foot')
-@stack('script-foot')
-
-@endsection
+@push('script-foot')
+@yield('script-foot')
+@endpush
