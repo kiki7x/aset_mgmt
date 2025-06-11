@@ -80,7 +80,7 @@
 
 @push('script-foot')
     <script>
-        $('#start_date, #next_date').datepicker({
+        $('#start_date').datepicker({
             changeMonth: true,
             changeYear: true,
             // format: "dd/mm/yyyy"

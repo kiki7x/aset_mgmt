@@ -217,7 +217,6 @@
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.log(jqXHR.responseText);
-                        alert(jqXHR.responseText);
                     }
                 });
             });
