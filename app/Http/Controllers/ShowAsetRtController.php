@@ -133,7 +133,7 @@ class ShowAsetRtController extends Controller
         $asset = \App\Models\AssetsModel::findOrFail($id);
         // Ambil data untuk dropdowns
         $classifications = \App\Models\AssetclassificationsModel::all();
-        $categories = \App\Models\AssetcategoriesModel::where('classification_id', 3)->get();
+        $categories = \App\Models\AssetcategoriesModel::whereIn('classification_id', [3, 4])->get();
         $users = \App\Models\User::all();
         $manufacturers = \App\Models\ManufacturersModel::all();
         $models = \App\Models\ModelsModel::all();
