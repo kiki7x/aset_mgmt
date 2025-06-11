@@ -8,7 +8,8 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                    {{ isset($breadcrumb) ? $breadcrumb : ''}}
+                    <li class="breadcrumb-item">{{ isset($breadcrumb) ? $breadcrumb : ''}}</li>
+                    
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->

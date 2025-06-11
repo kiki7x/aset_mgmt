@@ -1,7 +1,7 @@
 @extends('layouts.backsite', [
     'title' => 'Setting Atribut | SAPA PPL',
-    'welcome' => 'Setting Atribut Aset',
-    'breadcrumb' => ' / Setting Atribut'
+    'welcome' => 'Setting Atribut',
+    'breadcrumb' => 'Setting Atribut'
     ])
 
 <x-slot:title>{{ $title }}</x-slot:title>

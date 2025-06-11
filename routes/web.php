@@ -27,6 +27,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::get('/asettik/show/{id}/{section?}', App\Livewire\Assets\ShowAsetTik::class)->name('admin.asettik.show');
         // Route::get('/asettik/create', App\Livewire\Modal\CreateAsetTik::class)->name('admin.asettik.create');
     });
+    Route::get('/laporan', [App\Http\Controllers\LaporanController::class, 'index'])->name('admin.laporan');
 
     Route::get('/setting_attr', [App\Http\Controllers\SetatributController::class, 'index'])->name('admin.setting_attr');
 

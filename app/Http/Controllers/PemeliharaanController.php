@@ -50,8 +50,8 @@ class PemeliharaanController extends Controller
         ->addIndexColumn()
         ->addColumn('action', function ($row) {
             return '<div>
-                    <button class="btn btn-primary" data-id="' . $row->id .'">Edit</button>
-                    <button class="btn btn-danger" data-id="' . $row->id .'">Delete</button>
+                    <button class="btn btn-primary" data-id="' . $row->id .'"><i class="fa-regular fa-pen-to-square"></i></button>
+                    <button class="btn btn-danger" data-id="' . $row->id .'"><i class="fa-regular fa-trash-can"></i></button>
                     </div>';
         })
         ->make();

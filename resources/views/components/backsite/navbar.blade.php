@@ -146,13 +146,13 @@
                with font-awesome or any other icon font library -->
                   <li class="nav-header">MENU</li>
                   <li class="nav-item">
-                      <a href="{{ route('admin.index') }}" class="nav-link">
+                      <a href="{{ route('admin.index') }}" class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
                           <i class="nav-icon fas fa-tachometer-alt"></i>
                           <p>Dashboard</p>
                       </a>
                   </li>
                   <li class="nav-item menu-open">
-                      <a href="#" class="nav-link active">
+                      <a href="#" class="nav-link {{ request()->is('admin/inventaris*') ? 'active' : '' }}">
                           <i class="nav-icon fa-solid fa-warehouse"></i>
                           <p>
                               Inventaris
@@ -161,28 +161,28 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              <a href="{{ route('admin.asettik') }}" class="nav-link active">
+                              <a href="{{ route('admin.asettik') }}" class="nav-link {{ request()->is('admin/asettik') ? 'active' : '' }}">
                                   <i class="nav-icon fa-solid fa-computer"></i>
                                   <p>Aset TIK</p>
                               </a>
                           </li>
                           <li class="nav-item">
-                              <a href="{{ route('admin.asetrt') }}" class="nav-link">
+                              <a href="{{ route('admin.asetrt') }}" class="nav-link {{ request()->is('admin/asetrt*') ? 'active' : '' }}">
                                   <i class="nav-icon fa-solid fa-building"></i>
-                                  <p>Aset Non TIK</p>
+                                  <p>Aset Rumah Tangga</p>
                               </a>
                           </li>
                           <li class="nav-item">
-                              <a href="{{ route('admin.setting_attr') }}" class="nav-link">
+                              <a href="{{ route('admin.setting_attr') }}" class="nav-link {{ request()->is('admin/setting_attr*') ? 'active' : '' }}">
                                   {{-- <i class="far fa-circle nav-icon"></i> --}}
                                   <i class="nav-icon fa-solid fa-gears"></i>
-                                  <p>Setting Atribut Aset</p>
+                                  <p>Setting Atribut</p>
                               </a>
                           </li>
                       </ul>
                   </li>
                   <li class="nav-item menu-open">
-                      <a href="#" class="nav-link active">
+                      <a href="#" class="nav-link {{ request()->is('admin/pemeliharaan*') ? 'active' : '' }}">
                           <i class="nav-icon fa-solid fa-screwdriver-wrench"></i>
                           <p>
                               Pemeliharaan
@@ -191,46 +191,46 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              <a href="{{ route('admin.issues') }}" class="nav-link active">
+                              <a href="{{ route('admin.issues') }}" class="nav-link {{ request()->is('admin/issues*') ? 'active' : '' }}">
                                   <i class="nav-icon fa-solid fa-list-check"></i>
                                   <p>Penugasan</p>
                               </a>
                           </li>
-                          <li class="nav-item">
-                              <a href="#" class="nav-link">
+                          <li class="nav-item" data-toggle="tooltip" title="coming soon..." data-placement="top">
+                              <a href="#" class="nav-link {{ request()->is('admin/pemeliharaan/tiket') ? 'active' : '' }}">
                                   <i class="nav-icon fa-solid fa-ticket"></i>
                                   <p>Tiket</p>
                               </a>
                           </li>
-                          <li class="nav-item">
-                              <a href="#" class="nav-link">
+                          <li class="nav-item" data-toggle="tooltip" title="coming soon..." data-placement="top">
+                              <a href="#" class="nav-link {{ request()->is('admin/pemeliharaan/proyek') ? 'active' : '' }}">
                                   <i class="nav-icon fa-solid fa-thumbtack"></i>
                                   <p>Proyek</p>
                               </a>
                           </li>
                       </ul>
                   </li>
-                  <li class="nav-item">
-                      <a href="#" class="nav-link">
+                  <li class="nav-item" data-toggle="tooltip" title="coming soon..." data-placement="top">
+                      <a href="#" class="nav-link {{ request()->is('admin/knowledge_base') ? 'active' : '' }}">
                           <i class="nav-icon fa-solid fa-book"></i>
                           <p>Knowledge Base</p>
                       </a>
                   </li>
-                  <li class="nav-item">
-                      <a href="#" class="nav-link">
+                  <li class="nav-item" data-toggle="tooltip" title="coming soon..." data-placement="top">
+                      <a href="#" class="nav-link {{ request()->is('admin/monitoring') ? 'active' : '' }}">
                           <i class="nav-icon fa-solid fa-heart-pulse"></i>
                           <p>Monitoring</p>
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="#" class="nav-link">
+                      <a href="{{route('admin.laporan')}}" class="nav-link {{ request()->is('admin/laporan') ? 'active' : '' }}">
                           <i class="nav-icon fa fa-bar-chart"></i>
                           <p>Laporan</p>
                       </a>
                   </li>
                   <li class="nav-header">SETTING</li>
                   <li class="nav-item menu">
-                      <a href="#" class="nav-link active">
+                      <a href="#" class="nav-link {{ request()->is('admin/setting*') ? 'active' : '' }}">
                           <i class="nav-icon fa-solid fa-gear"></i>
                           <p>
                               Settings
@@ -239,7 +239,7 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              <a href="{{ route('admin.usermanager') }}" class="nav-link active">
+                              <a href="{{ route('admin.usermanager') }}" class="nav-link {{ request()->is('admin/setting/usermanager') ? 'active' : '' }}">
                                   <i class="nav-icon fa-solid fa-users-gear"></i>
                                   <p>User Management</p>
                               </a>

@@ -9,7 +9,7 @@
 @section('content-tab')
     <div class="container-fluid">
         <div class="row align-items-center">
-            <p class="col-12 h4 d-flex justify-content-center text-info">{{ $assets->tag }} - {{ $assets->name }}</p>
+            <p class="col-12 h4 d-flex justify-content-center"><u>{{ $assets->tag }} - {{ $assets->name }}</u></p>
             <p class="col-8 h4">Jadwal Pemeliharaan</p>
             <div class="col d-flex justify-content-end">
                 {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalJadwalPemeliharaan" onclick="showModalCreate()"><i class="fa-regular fa-clock"></i> + Jadwal</button> --}}
@@ -27,7 +27,7 @@
                         <th>#</th>
                         <th>Nama</th>
                         <th>Frekuensi</th>
-                        <th>Tanggal Mulai</th>
+                        <th>Jadwal Mulai</th>
                         <th>Jadwal Berikutnya</th>
                         <th>Status</th>
                         <th>action</th>
@@ -115,15 +115,39 @@
                     },
                     {
                         data: 'frequency',
-                        name: 'frequency'
+                        name: 'frequency',
+                        render: function(data) {
+                            let arr = {
+                                "3": "3 bulan sekali",
+                                "4": "4 bulan sekali",
+                                "6": "6 bulan sekali",
+                                "12": "12 bulan sekali",
+                            };
+                            return arr[data];
+                        }
                     },
                     {
                         data: 'start_date',
-                        name: 'start_date'
+                        name: 'start_date',
+                        render: function(data, type, row) {
+                            let date = new Date(data);
+                            let day = date.getDate();
+                            let month = date.getMonth() + 1;
+                            let year = date.getFullYear();
+                            return `${day < 10 ? '0' + day : day}-${month < 10 ? '0' + month : month}-${year}`;
+                        }
                     },
                     {
                         data: 'next_date',
-                        name: 'next_date'
+                        name: 'next_date',
+                        render: function(data, type, row) {
+                            let date = new Date(data);
+                            let day = date.getDate();
+                            let month = date.getMonth() + 1;
+                            let year = date.getFullYear();
+                            let sisaHari = Math.ceil((new Date(data) - new Date()) / (1000 * 60 * 60 * 24));
+                            return `${day < 10 ? '0' + day : day}-${month < 10 ? '0' + month : month}-${year} <span class="badge badge-info"><i class="fa-regular fa-clock"></i> ${sisaHari} hari lagi</span>`;
+                        }
                     },
                     {
                         data: 'status',

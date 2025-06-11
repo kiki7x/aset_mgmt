@@ -1,4 +1,8 @@
-@extends('layouts.backsite')
+@extends('layouts.backsite', [
+    'title' => 'Laporan | SAPA PPL',
+    'welcome' => 'Laporan',
+    'breadcrumb' => 'Laporan'
+    ])
 
 @section('script-head')
     <!-- Select2 -->
