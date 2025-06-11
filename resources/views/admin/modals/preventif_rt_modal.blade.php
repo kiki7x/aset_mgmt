@@ -3,7 +3,8 @@
 @endpush
 
 <!-- Modal Pemeliharaan Preventif -->
-<div class="modal fade" id="modalJadwalPemeliharaan" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="modalJadwalPemeliharaanLabel" aria-hidden="true">
+<div class="modal fade" id="modalJadwalPemeliharaan" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="modalJadwalPemeliharaanLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -17,7 +18,8 @@
                     {{-- Nama Barang & Hidden Input --}}
                     <div class="form-group">
                         <p class="h5">{{ $assets->tag }} - {{ $assets->name }}</p>
-                        <input type="text" class="form-control d-none" id="asset_id" name="asset_id" value="{{ $assets->id }}">
+                        <input type="text" class="form-control d-none" id="asset_id" name="asset_id"
+                            value="{{ $assets->id }}">
                         <input type="text" class="form-control d-none" id="status" name="status" value="active">
                     </div>
 
@@ -28,12 +30,14 @@
                             <option value="1" @if ($assets->classification_id == 1) selected @endif>None</option>
                             <option value="2" @if ($assets->classification_id == 2) selected @endif>TIK</option>
                             <option value="3" @if ($assets->classification_id == 3) selected @endif>Kendaraan</option>
-                            <option value="4" @if ($assets->classification_id == 4) selected @endif>Mesin/Elektronik</option>
+                            <option value="4" @if ($assets->classification_id == 4) selected @endif>Mesin/Elektronik
+                            </option>
                         </select>
                     </div>
 
                     <div id="radioTik" class="form-group p-3 border rounded mb-3 bg-light">
-                        <label class="text-primary font-weight-normal">Detail Pemeliharaan TIK: <span class="text-danger">*</span></label>
+                        <label class="text-primary font-weight-normal">Detail Pemeliharaan TIK: <span
+                                class="text-danger">*</span></label>
                         <div class="form-group">
                             <label>Tugas:</label>
                             <div class="form-check">
@@ -52,7 +56,8 @@
                     </div>
 
                     <div id="radioKendaraan" class="form-group border p-3 bg-light">
-                        <label for="radioKendaraan" class="text-primary font-weight-normal">Detail Pemeliharaan Kendaraan: <span class="text-danger">*</span></label>
+                        <label for="radioKendaraan" class="text-primary font-weight-normal">Detail Pemeliharaan
+                            Kendaraan: <span class="text-danger">*</span></label>
                         <p class="text-muted small">Pilih tugas pemeliharaan yang relevan.</p>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="name" value="pajak_stnk">
@@ -85,11 +90,13 @@
                     </div>
 
                     <div id="radioMesinElektronik" class="form-group p-3 border rounded mb-3 bg-light">
-                        <label class="text-primary font-weight-normal">Detail Pemeliharaan Elektronik: <span class="text-danger">*</span></label>
+                        <label class="text-primary font-weight-normal">Detail Pemeliharaan Elektronik: <span
+                                class="text-danger">*</span></label>
                         <div class="form-group">
                             <label>Tugas:</label>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="name" value="cek_kebersihan">
+                                <input class="form-check-input" type="radio" name="name"
+                                    value="cek_kebersihan">
                                 <label class="form-check-label" for="cek_kebersihan">1. Cek Kebersihan</label>
                             </div>
                             <div class="form-check">
@@ -119,14 +126,16 @@
                     <div class="form-group">
                         <label for="start_date">Tanggal Mulai <span class="text-danger">*</span></label>
                         <div>
-                            <input id="start_date" width="276" type="text" class="form-control" name="start_date" placeholder="dd/mm/yyyy" />
+                            <input id="start_date" width="276" type="text" class="form-control"
+                                name="start_date" placeholder="dd/mm/yyyy" />
                         </div>
                     </div>
                     <!-- Tanggal Selanjutnya -->
                     <div class="form-group">
                         <label for="next_date">Tanggal Pemeliharaan Selanjutnya</label>
                         <div>
-                            <input id="next_date" width="276" type="text" class="form-control" name="next_date" placeholder="dd/mm/yyyy" />
+                            <input id="next_date" width="276" type="text" class="form-control"
+                                name="next_date" placeholder="dd/mm/yyyy" readonly />
                         </div>
                         @error('next_date')
                             <span class="text-danger">{{ $message }}</span>
@@ -211,6 +220,36 @@
                         alert(jqXHR.responseText);
                     }
                 });
+            });
+
+            function toggleDate(disable) {
+                $('#start_date').prop('disabled', disable)
+            }
+
+            toggleDate(true)
+
+            $('#frequency').on('change', function() {
+                const val = parseInt($(this).val());
+                const now = new Date();
+
+                toggleDate(false)
+
+                $('#start_date').val(now.toISOString().split('T')[0]);
+
+                const futureDate = new Date(now);
+
+                futureDate.setMonth(futureDate.getMonth() + val);
+
+                $('#next_date').val(futureDate.toISOString().split('T')[0]);
+            });
+
+            $('#start_date').on('change', function() {
+                const val = new Date($(this).val());
+
+                const futureDate = new Date(val);
+                futureDate.setMonth(val.getMonth() + parseInt($('#frequency').val()));
+
+                $('#next_date').val(futureDate.toISOString().split('T')[0]);
             });
         });
     </script>
