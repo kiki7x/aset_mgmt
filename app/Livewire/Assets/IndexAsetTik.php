@@ -2,6 +2,10 @@
 
 namespace App\Livewire\Assets;
 
+use App\Models\AssetsModel;
+use App\Models\User;
+use App\Notifications\DeleteAsetTik as NotificationsDeleteAsetTik;
+use Exception;
 use Livewire\Component;
 use Livewire\WithPagination;
 // use App\Livewire\CreateAsetTik;
@@ -18,19 +22,19 @@ class IndexAsetTik extends Component
 
     public $deleteId = '';
     public $editId = '';
-    public $showId = ''; 
+    public $showId = '';
 
 
     #[On('refresh')]
     public function render()
     {
         return view('livewire.assets.index-aset-tik')->with([
-        'totalAssets' => \App\Models\AssetsModel::where('classification_id', 2)->count(),
-        'assets' => \App\Models\AssetsModel::search($this->search)
-        ->where('classification_id', 2)
-        ->with('category', 'status', 'model', 'user')
-        ->latest()
-        ->paginate($this->per_page),
+            'totalAssets' => \App\Models\AssetsModel::where('classification_id', 2)->count(),
+            'assets' => \App\Models\AssetsModel::search($this->search)
+                ->where('classification_id', 2)
+                ->with('category', 'status', 'model', 'user')
+                ->latest()
+                ->paginate($this->per_page),
         ]);
     }
 
@@ -58,13 +62,24 @@ class IndexAsetTik extends Component
     {
         try {
             $this->deleteId = $id;
-            AssetsModel::find($this->deleteId)->delete();
-            // $asset->delete();
+            $aset = AssetsModel::find($this->deleteId);
+            // Kirim notifikasi
+            if ($aset) {
+                $users = User::whereHas('roles', function ($query) {
+                    $query->whereIn('name', ['superadmin', 'admin_tik', 'staf_tik']);
+                })->get();
+
+                foreach ($users as $user) {
+                    $user->notify(new NotificationsDeleteAsetTik($aset));
+                }
+            }
+            // Hapus aset
+            $aset->delete();
             $this->closeModalDelete();
-            $this->dispatchToastr('success','Data berhasil dihapus');
+            $this->dispatchToastr('success', 'Data berhasil dihapus');
         } catch (Exception $e) {
             $this->closeModalDelete();
-            $this->dispatchToastr('failed','Data gagal dihapus');
+            $this->dispatchToastr('failed', 'Data gagal dihapus');
         }
     }
 

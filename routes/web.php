@@ -22,7 +22,7 @@ Route::get('/lacak/show/{id}', [App\Http\Controllers\FrontController::class, 'la
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
     // halaman list Aset TIK
-    Route::middleware(['role:superadmin|admin_tik|staf_tik'])->group(function() {
+    Route::middleware(['role:superadmin|admin_tik|staf_tik'])->group(function () {
         Route::get('/asettik', App\Livewire\Assets\IndexAsetTik::class)->name('admin.asettik');
         Route::get('/asettik/show/{id}/{section?}', App\Livewire\Assets\ShowAsetTik::class)->name('admin.asettik.show');
         // Route::get('/asettik/create', App\Livewire\Modal\CreateAsetTik::class)->name('admin.asettik.create');
@@ -32,7 +32,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/setting_attr', [App\Http\Controllers\SetatributController::class, 'index'])->name('admin.setting_attr');
 
     // halaman list Aset RT
-    Route::middleware(['role:superadmin|admin_rt|staf_driver|staf_engineering'])->group(function() {
+    Route::middleware(['role:superadmin|admin_rt|staf_driver|staf_engineering'])->group(function () {
         Route::get('/asetrt', App\Livewire\Assets\IndexAsetRt::class)->name('admin.asetrt');
         Route::get('/asetrt/show/{id}/{section?}', App\Livewire\Assets\ShowAsetRt::class)->name('admin.asetrt.show');
 
@@ -56,7 +56,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     // Route::get('/get-maintenance-details', [MaintenanceController::class, 'getMaintenanceDetails'])->name('maintenances.get_details');
 
     // halaman list Issues
-    Route::middleware(['role:superadmin|admin_tik|admin_rt|staf_tik|staf_driver|staf_engineering'])->group(function() {
+    Route::middleware(['role:superadmin|admin_tik|admin_rt|staf_tik|staf_driver|staf_engineering'])->group(function () {
         Route::get('/issues', App\Livewire\Issues\IndexIssues::class)->name('admin.issues');
         // Route::get('/issues', App\Livewire\Issues\CreateIssues::class)->name('admin.issues');
     });
@@ -97,13 +97,41 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/setting_attr/lokasi/edit/{id}/{section?}', App\Livewire\Assets\EditLokasi::class)->name('admin.setting_attr.lokasi.edit');
 
     // Route User Manager
-    Route::middleware(['role:superadmin|admin_tik|admin_rt|staf_tik|staf_driver|staf_engineering'])->group(function() {
-    Route::get('usermanager', [App\Http\Controllers\UserController::class, 'index'])->name('admin.usermanager');
-    Route::get('usermanager/profil/{id}', [App\Http\Controllers\UserController::class, 'profil'])->name('admin.usermanager.profil');
-    Route::get('usermanager/create', [App\Http\Controllers\UserController::class, 'create'])->name('admin.usermanager.create');
-    Route::get('usermanager/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('admin.usermanager.edit');
+    Route::middleware(['role:superadmin|admin_tik|admin_rt|staf_tik|staf_driver|staf_engineering'])->group(function () {
+        Route::get('usermanager', [App\Http\Controllers\UserController::class, 'index'])->name('admin.usermanager');
+        Route::get('usermanager/profil/{id}', [App\Http\Controllers\UserController::class, 'profil'])->name('admin.usermanager.profil');
+        Route::get('usermanager/create', [App\Http\Controllers\UserController::class, 'create'])->name('admin.usermanager.create');
+        Route::get('usermanager/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('admin.usermanager.edit');
     });
 
     // Route Notifikasi
     Route::get('/notifikasi', [App\Http\Controllers\NotifikasiController::class, 'index'])->name('admin.notifikasi');
+
+    Route::post('/notifikasi/read/{id}', function ($id) {
+        $notification = auth()->user()->notifications()->find($id);
+
+        if ($notification && is_null($notification->read_at)) {
+            $notification->markAsRead();
+        }
+
+        return back();
+    })->name('notif.read');
+
+    Route::post('/notifikasi/unread/{id}', function ($id) {
+        $notification = auth()->user()->notifications()->findOrFail($id);
+        if ($notification->read()) {
+            $notification->update(['read_at' => null]);
+        }
+        return back();
+    })->name('notif.unread');
+
+    Route::post('/notifikasi/delete/{id}', function ($id) {
+        auth()->user()->notifications()->where('id', $id)->delete();
+        return back();
+    })->name('notif.delete');
+
+    Route::post('/tandai-notifikasi-telah-dibaca', function () {
+        auth()->user()->unreadNotifications->markAsRead();
+        return back();
+    })->name('admin.tandai-notifikasi-telah-dibaca');
 });
