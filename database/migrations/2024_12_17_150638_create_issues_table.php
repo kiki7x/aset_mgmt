@@ -18,9 +18,9 @@ return new class extends Migration
                 table: 'tickets',
                 indexName: 'issues_ticketreply_id'
             );
-            $table->foreignId('technician_id')->nullable()->constrained(
+            $table->foreignId('pic_id')->nullable()->constrained(
                 table: 'users',
-                indexName: 'issues_technician_id'
+                indexName: 'issues_pic_id'
             );
             $table->string('issuetype', 15); // 'tugas', 'perbaikan', 'celah', 'peningkatan', 'fitur baru', 'story(cerita)'
             $table->string('priority', 60);

@@ -27,7 +27,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('maintenance_schedule_id'); // Relasi ke maintenance_schedule
             $table->string('name')->nullable();
-            $table->foreignId('technician_id')->nullable();
+            $table->foreignId('pic_id')->nullable();
             $table->string('status')->nullable();
             $table->date('start_date')->nullable();
             $table->date('finish_date')->nullable();

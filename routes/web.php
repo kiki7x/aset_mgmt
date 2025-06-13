@@ -103,4 +103,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('usermanager/create', [App\Http\Controllers\UserController::class, 'create'])->name('admin.usermanager.create');
     Route::get('usermanager/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('admin.usermanager.edit');
     });
+
+    // Route Notifikasi
+    Route::get('/notifikasi', [App\Http\Controllers\NotifikasiController::class, 'index'])->name('admin.notifikasi');
 });
