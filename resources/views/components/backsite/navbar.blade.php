@@ -83,7 +83,11 @@
                   <a href="#" class="dropdown-item">
                       <i class="fas fa-envelope mr-2"></i> {{ auth()->user()->unreadNotifications->count() }} new
                       messages
-                      <span class="float-right text-muted text-sm">{{ auth()->user()->unreadNotifications->sortByDesc('created_at')->first()->created_at->diffForHumans() }}</span>
+                      <span class="float-right text-muted text-sm">
+                          {{ auth()->user() && auth()->user()->unreadNotifications->isNotEmpty()
+                              ? auth()->user()->unreadNotifications->sortByDesc('created_at')->first()->created_at->diffForHumans()
+                              : '' }}
+                      </span>
                   </a>
                   {{-- <div class="dropdown-divider"></div>
                   <a href="#" class="dropdown-item">

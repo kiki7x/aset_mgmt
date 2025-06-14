@@ -45,8 +45,8 @@ class DeleteAsetTik extends Notification
     public function toDatabase(object $notifiable): array
     {
         return [
-            'message' => 'Aset TIK ' . $this->asettik->name . ' ' . 'baru saja dihapus',
-            'aset_id' => $this->asettik->id,
+            'message' => 'Aset TIK' . ' ' . $this->asettik->name . ' ' . 'baru saja dihapus',
+            'asettik_id' => $this->asettik->id,
             'created_at' => now()->toDateTimeString(),
         ];
     }

@@ -5,6 +5,8 @@ namespace App\Livewire\Modal;
 use Livewire\Component;
 use App\Models\AssetsModel;
 use App\Livewire\Forms\AsetForm;
+use App\Models\User;
+use App\Notifications\CreateAsetRT as NotificationsCreateAsetRT;
 use Livewire\Attributes\On;
 
 class CreateAsetRt extends Component
@@ -51,13 +53,13 @@ class CreateAsetRt extends Component
 
         // validasi input
         $this->form->validate();
-        
+
         // cek kondisi inputan supplier baru
         $ceksupplier = \App\Models\SuppliersModel::find($this->form->supplier);
-        if(!$ceksupplier) {
+        if (!$ceksupplier) {
             $newsupplier = \App\Models\SuppliersModel::create([
                 'name' => $this->form->supplier
-        ]);
+            ]);
             // Gunakan ID supplier baru
             $this->form->supplier = "$newsupplier->id";
         }
@@ -67,7 +69,7 @@ class CreateAsetRt extends Component
         if (!$cekmanufacturer) {
             $newmanufacturer = \App\Models\ManufacturersModel::create([
                 'name' => $this->form->manufacturer
-        ]);
+            ]);
             // Gunakan ID manufacturer baru
             $this->form->manufacturer = $newmanufacturer->id;
         }
@@ -85,30 +87,39 @@ class CreateAsetRt extends Component
 
         // himpun data input dan cocokkan ke database
         $data = [
-                'classification_id' => $this->form->classification,
-                'category_id' => $this->form->category,
-                'admin_id' => $this->form->adminaset,
-                'client_id' => $this->form->clientaset,
-                'user_id' => $this->form->useraset,
-                'manufacturer_id' => $this->form->manufacturer,
-                'model_id' => $this->form->model,
-                'supplier_id' => $this->form->supplier,
-                'status_id' => $this->form->status,
-                'purchase_date' => $this->form->purchase_date,
-                'warranty_months' => $this->form->warranty_months,
-                'tag' => $this->form->tag,
-                'name' => $this->form->name,
-                'serial' => $this->form->serial,
-                'notes' => $this->form->notes,
-                'location_id' => $this->form->location,
-                'customfields' => $this->form->customfields,
-                'qrvalue' => $this->form->qrvalue,
+            'classification_id' => $this->form->classification,
+            'category_id' => $this->form->category,
+            'admin_id' => $this->form->adminaset,
+            'client_id' => $this->form->clientaset,
+            'user_id' => $this->form->useraset,
+            'manufacturer_id' => $this->form->manufacturer,
+            'model_id' => $this->form->model,
+            'supplier_id' => $this->form->supplier,
+            'status_id' => $this->form->status,
+            'purchase_date' => $this->form->purchase_date,
+            'warranty_months' => $this->form->warranty_months,
+            'tag' => $this->form->tag,
+            'name' => $this->form->name,
+            'serial' => $this->form->serial,
+            'notes' => $this->form->notes,
+            'location_id' => $this->form->location,
+            'customfields' => $this->form->customfields,
+            'qrvalue' => $this->form->qrvalue,
         ];
-        AssetsModel::Create($data);
+        $aset = AssetsModel::Create($data);
+        // Kirim notifikasi
+        $users = User::whereHas('roles', function ($query) {
+            $query->whereIn('name', ['superadmin', 'admin_rt']);
+        })->get();
+
+        foreach ($users as $user) {
+            $user->notify(new NotificationsCreateAsetRT($aset));
+        }
+
         // tutup modal
         $this->dispatch('hideModalCreate');
         // Kirim alert toastr
-        $this->dispatchToastr('success','Data berhasil disimpan');
+        $this->dispatchToastr('success', 'Data berhasil disimpan');
         // reset form
         $this->resetInput();
         // refresh index
@@ -150,16 +161,17 @@ class CreateAsetRt extends Component
         return view('livewire.modal.create-aset-rt');
     }
 
-    public function incrementTag() {
+    public function incrementTag()
+    {
         $lastTag = AssetsModel::where('tag', 'like', $this->prefix . '-%')
-                        ->orderBy('tag', 'desc')
-                        ->first();
-      
+            ->orderBy('tag', 'desc')
+            ->first();
+
         if ($lastTag) {
-          $lastSequenceNumber = (int) explode('-', $lastTag->tag)[1];
-          return $lastSequenceNumber + 1;
+            $lastSequenceNumber = (int) explode('-', $lastTag->tag)[1];
+            return $lastSequenceNumber + 1;
         } else {
-          return 1; // Jika belum ada data, mulai dari 1
+            return 1; // Jika belum ada data, mulai dari 1
         }
-      }
+    }
 }

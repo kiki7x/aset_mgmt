@@ -7,18 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class CreateAsetTik extends Notification
+class CreatePemeliharaanAsetRT extends Notification
 {
     use Queueable;
 
-    protected $asettik;
+    protected $maintenance_schedule;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct($asettik)
+    public function __construct($maintenance_schedule)
     {
-        $this->asettik = $asettik;
+        $this->maintenance_schedule = $maintenance_schedule;
     }
 
     /**
@@ -45,11 +45,12 @@ class CreateAsetTik extends Notification
     public function toDatabase(object $notifiable): array
     {
         return [
-            'message' => 'Aset TIK baru ditambahkan: ' . $this->asettik->name,
-            'asettik_id' => $this->asettik->id,
+            'message' => 'Aset RT' . ' ' . $this->maintenance_schedule->asset->name . ' ' . 'dijadwalkan untuk pemeliharaan' . ' ' . $this->maintenance_schedule->name . ' ' . 'rutin setiap' . ' ' . $this->maintenance_schedule->frequency . ' ' . 'bulan sekali. Lalu pemeliharaan selanjutnya akan jatuh tempo pada tanggal' . ' ' . $this->maintenance_schedule->next_date,
+            'maintenance_schedule_id' => $this->maintenance_schedule->id,
             'created_at' => now()->toDateTimeString(),
         ];
     }
+
 
     /**
      * Get the array representation of the notification.

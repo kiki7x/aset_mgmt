@@ -45,7 +45,7 @@ class EditAsetTik extends Notification
     public function toDatabase(object $notifiable): array
     {
         return [
-            'message' => 'Aset TIK ' . $this->asettik->name . ' ' . 'baru saja diedit',
+            'message' => 'Aset TIK' . ' ' . $this->asettik->name . ' ' . 'baru saja diedit',
             'asettik_id' => $this->asettik->id,
             'created_at' => now()->toDateTimeString(),
         ];

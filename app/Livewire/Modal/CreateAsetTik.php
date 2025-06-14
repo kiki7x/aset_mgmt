@@ -7,6 +7,7 @@ use App\Models\AssetsModel;
 use App\Livewire\Forms\AsetForm;
 use App\Models\User;
 use App\Notifications\CreateAsetTik as NotificationsCreateAsetTik;
+use Carbon\Carbon;
 use Livewire\Attributes\On;
 
 
@@ -60,56 +61,58 @@ class CreateAsetTik extends Component
         $this->form->validate();
 
         // cek kondisi inputan supplier baru
-        $ceksupplier = \App\Models\SuppliersModel::find($this->form->supplier);
-        if (!$ceksupplier) {
-            $newsupplier = \App\Models\SuppliersModel::create([
-                'name' => $this->form->supplier
-            ]);
-            // Gunakan ID supplier baru
-            $this->form->supplier = "$newsupplier->id";
-        }
+        $ceksupplier = \App\Models\SuppliersModel::firstOrNew(["id" => (int) $this->form->supplier], ["name" => $this->form->supplier]);
+        $this->form->supplier = $ceksupplier->id;
+        // if (!$ceksupplier) {
+        //     $newsupplier = \App\Models\SuppliersModel::create([
+        //         'name' => $this->form->supplier
+        //     ]);
+        //     // Gunakan ID supplier baru
+        // }
 
         // Cek kondisi inputan manufacturer baru
-        $cekmanufacturer = \App\Models\ManufacturersModel::find($this->form->manufacturer);
-        if (!$cekmanufacturer) {
-            $newmanufacturer = \App\Models\ManufacturersModel::create([
-                'name' => $this->form->manufacturer
-            ]);
-            // Gunakan ID manufacturer baru
-            $this->form->manufacturer = $newmanufacturer->id;
-        }
+        $cekmanufacturer = \App\Models\ManufacturersModel::firstOrNew(["id" => (int) $this->form->manufacturer], ["name" => $this->form->manufacturer]);
+        $this->form->manufacturer = $cekmanufacturer->id;
+        // if (!$cekmanufacturer) {
+        //     $newmanufacturer = \App\Models\ManufacturersModel::create([
+        //         'name' => $this->form->manufacturer
+        //     ]);
+        //     // Gunakan ID manufacturer baru
+        // }
 
         // Cek kondisi inputan model/tipe baru
-        $cekmodel = \App\Models\ModelsModel::find($this->form->model);
-        if (!$cekmodel) {
-            $newmodel = \App\Models\ModelsModel::create([
-                'name' => $this->form->model,
-            ]);
-            // Gunakan ID model baru
-            $this->form->model = $newmodel->id;
-        }
+        $cekmodel = \App\Models\ModelsModel::firstOrNew(["id" => (int) $this->form->model], ["name" => $this->form->model]);
+        $this->form->model = $cekmodel->id;
+        // if (!$cekmodel) {
+        //     $newmodel = \App\Models\ModelsModel::create([
+        //         'name' => $this->form->model,
+        //     ]);
+        //     // Gunakan ID model baru
+        // }
 
         // himpun data input dan cocokkan ke database
         $data = [
-            'classification_id' => $this->classification,
-            'category_id' => $this->form->category,
-            'admin_id' => $this->form->adminaset,
-            'client_id' => $this->form->clientaset,
-            'user_id' => $this->form->useraset,
-            'manufacturer_id' => $this->form->manufacturer,
-            'model_id' => $this->form->model,
-            'supplier_id' => $this->form->supplier,
-            'status_id' => $this->form->status,
-            'purchase_date' => $this->form->purchase_date,
-            'warranty_months' => $this->form->warranty_months,
+            'classification_id' => (int) $this->classification,
+            'category_id' => (int) $this->form->category,
+            'admin_id' => (int) $this->form->adminaset,
+            'client_id' => (int) $this->form->clientaset,
+            'user_id' => (int) $this->form->useraset,
+            'manufacturer_id' => (int) $this->form->manufacturer,
+            'model_id' => (int) $this->form->model,
+            'supplier_id' => (int) $this->form->supplier,
+            'status_id' => (int) $this->form->status,
+            'purchase_date' => Carbon::parse($this->form->purchase_date)->format('Y-m-d'),
+            'warranty_months' => (int) $this->form->warranty_months,
             'tag' => $tagBaru,
             'name' => $this->form->name,
             'serial' => $this->form->serial,
             'notes' => $this->form->notes,
-            'location_id' => $this->form->location,
+            'location_id' => (int) $this->form->location,
             'customfields' => $this->form->customfields,
             'qrvalue' => $this->form->qrvalue,
         ];
+
+        dd($this->form->name, $data);
 
 
         $aset = AssetsModel::Create($data);

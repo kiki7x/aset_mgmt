@@ -7,17 +7,25 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\JadwalPemeliharaanRequest;
-
+use App\Models\User;
+use App\Notifications\CreatePemeliharaanAsetRT;
 
 class PemeliharaanController extends Controller
 {
     // Data untuk dropdown
     private $opsiPreventifKendaraan = [
-        'Pajak STNK', 'Tune Up', 'Pelumasan', 'Inspeksi Radiator', 'Inspeksi Mesin', 'Inspeksi AC', 'Inspeksi Ban'
+        'Pajak STNK',
+        'Tune Up',
+        'Pelumasan',
+        'Inspeksi Radiator',
+        'Inspeksi Mesin',
+        'Inspeksi AC',
+        'Inspeksi Ban'
     ];
 
     private $opsiPreventifElektronik = [
-        'Pembersihan', 'Pengecekan Kondisi'
+        'Pembersihan',
+        'Pengecekan Kondisi'
     ];
 
     private $skejulOpsiPreventif = [
@@ -33,11 +41,11 @@ class PemeliharaanController extends Controller
         $assets = \App\Models\AssetsModel::findOrFail($id); // Untuk dropdown di form tambah
         Log::info("Loading Penjadwalan for asset ID: $id");
         return view('admin.components.pemeliharaan', compact('id', 'maintenances_schedule', 'assets'))
-        ->with([
-                   'opsiPreventifKendaraan' => $this->opsiPreventifKendaraan,
-                   'opsiPreventifElektronik' => $this->opsiPreventifElektronik,
-                   'skejulOpsiPreventif' => $this->skejulOpsiPreventif
-               ]);
+            ->with([
+                'opsiPreventifKendaraan' => $this->opsiPreventifKendaraan,
+                'opsiPreventifElektronik' => $this->opsiPreventifElektronik,
+                'skejulOpsiPreventif' => $this->skejulOpsiPreventif
+            ]);
     }
 
     public function preventifdataTable(Request $request, $id)
@@ -47,14 +55,14 @@ class PemeliharaanController extends Controller
         // $maintenances_schedule = \App\Models\Maintenances_scheduleModel::get(); // Menggunakan model Maintenance::with('item')->latest()->get();
         $maintenances = \App\Models\MaintenancesModel::where('maintenance_schedule_id', $request->id)->get();
         return DataTables::of($maintenances_schedule)
-        ->addIndexColumn()
-        ->addColumn('action', function ($row) {
-            return '<div>
-                    <button class="btn btn-primary" data-id="' . $row->id .'"><i class="fa-regular fa-pen-to-square"></i></button>
-                    <button class="btn btn-danger" data-id="' . $row->id .'"><i class="fa-regular fa-trash-can"></i></button>
+            ->addIndexColumn()
+            ->addColumn('action', function ($row) {
+                return '<div>
+                    <button class="btn btn-primary" data-id="' . $row->id . '"><i class="fa-regular fa-pen-to-square"></i></button>
+                    <button class="btn btn-danger" data-id="' . $row->id . '"><i class="fa-regular fa-trash-can"></i></button>
                     </div>';
-        })
-        ->make();
+            })
+            ->make();
     }
 
     public function preventifStore(JadwalPemeliharaanRequest $request, $id)
@@ -63,7 +71,16 @@ class PemeliharaanController extends Controller
         // $maintenance_schedule = new \App\Models\Maintenances_scheduleModel($data);
         // $maintenance_schedule->asset_id = $id;
         // $maintenance_schedule->save();
-        \App\Models\Maintenances_scheduleModel::create($data);
+        $maintenance_schedule = \App\Models\Maintenances_scheduleModel::create($data);
+
+        // Kirim notifikasi
+        $users = User::whereHas('roles', function ($query) {
+            $query->whereIn('name', ['superadmin', 'admin_rt']);
+        })->get();
+
+        foreach ($users as $user) {
+            $user->notify(new CreatePemeliharaanAsetRT($maintenance_schedule));
+        }
 
         return response()->json([
             'message' => 'Data saved successfully',
@@ -77,20 +94,17 @@ class PemeliharaanController extends Controller
         // $maintenances_schedule = \App\Models\Maintenances_scheduleModel::get(); // Menggunakan model Maintenance::with('item')->latest()->get();
         $maintenances = \App\Models\MaintenancesModel::where('maintenance_schedule_id', $request->id)->get();
         return DataTables::of($maintenances)
-        ->addIndexColumn()
-        ->addColumn('action', function ($row) {
-            return '<div>
-                    <button class="btn btn-primary" data-id="' . $row->id .'">Edit</button>
-                    <button class="btn btn-danger" data-id="' . $row->id .'">Delete</button>
+            ->addIndexColumn()
+            ->addColumn('action', function ($row) {
+                return '<div>
+                    <button class="btn btn-primary" data-id="' . $row->id . '">Edit</button>
+                    <button class="btn btn-danger" data-id="' . $row->id . '">Delete</button>
                     </div>';
-        })
-        ->make();
+            })
+            ->make();
     }
 
-    public function getFormData()
-    {
-        
-    }
+    public function getFormData() {}
 
     public function store(Request $request, $id)
     {

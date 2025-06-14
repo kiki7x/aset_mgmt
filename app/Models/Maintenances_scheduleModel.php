@@ -13,7 +13,7 @@ class Maintenances_scheduleModel extends Model
     protected $table = 'maintenances_schedule';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'asset_id', 
+        'asset_id',
         'name', // nama pemeliharaan berupa 'Ganti Oli Mesin', 'Pembersihan', dll
         'frequency',
         'start_date',
@@ -22,4 +22,9 @@ class Maintenances_scheduleModel extends Model
         'status',
         'customfields'
     ];
+
+    public function asset()
+    {
+        return $this->belongsTo(AssetsModel::class, 'asset_id');
+    }
 }

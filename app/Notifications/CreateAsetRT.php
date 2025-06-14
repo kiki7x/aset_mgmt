@@ -7,18 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class CreateAsetTik extends Notification
+class CreateAsetRT extends Notification
 {
     use Queueable;
 
-    protected $asettik;
+    protected $asetrt;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct($asettik)
+    public function __construct($asetrt)
     {
-        $this->asettik = $asettik;
+        $this->asetrt = $asetrt;
     }
 
     /**
@@ -45,8 +45,8 @@ class CreateAsetTik extends Notification
     public function toDatabase(object $notifiable): array
     {
         return [
-            'message' => 'Aset TIK baru ditambahkan: ' . $this->asettik->name,
-            'asettik_id' => $this->asettik->id,
+            'message' => 'Aset RT baru ditambahkan: ' . $this->asetrt->name,
+            'asettik_id' => $this->asetrt->id,
             'created_at' => now()->toDateTimeString(),
         ];
     }
