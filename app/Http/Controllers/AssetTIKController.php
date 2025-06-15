@@ -71,10 +71,30 @@ class AssetTIKController extends Controller
                 <span class="badge" style="border:1px solid ' . $asset->category->color . ';color:' . $asset->category->color . ';">' . $asset->category->name . '</span>
             </td>
             <td>' . $asset->model->name . '</td>
-            <td>' . $asset->user->name . '</td>
+            <td>' . $asset->user->username . '</td>
             <td>' . $asset->updated_at->format('Y-m-d') . '</td>
             <td>
-                <a href="' . route('admin.asettik.show', $asset->id) . '/edit" class="btn btn-sm btn-primary">Edit</a>
+                <div class="">
+                    <div class="btn-group">
+                        <a href="' . route('admin.asetrt.pemeliharaan', ['id' => $asset->id]) . '" type="button" class="btn btn-light">
+                            <i class="fa-regular fa-calendar-check" style="color: green" data-toggle="tooltip" data-placement="top" title="Jadwal Pemeliharaan"></i>
+                        </a>
+                        <a href="#" type="button" class="btn btn-light" style="color: blue" data-toggle="tooltip" onclick="event.preventDefault(); showQrCodeModal(\'' . $asset->tag . '\', \'' . $asset->name . '\')" data-placement="top" title="QR Code">
+                            <i class="fas fa-qrcode"></i>
+                        </a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-light btn-outline dropdown-toggle" data-toggle="dropdown" data-toggle-second="tooltip" data-placement="top" title="More..."></button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <a class="mx-3" href="' . route('admin.asetrt.edit', ['id' => $asset->id]) . '">Edit</a>
+                                </li>
+                                <li>
+                                    <span class="mx-3" data-toggle="modal" data-target="#deleteModal" data-id="' . $asset->id . '" data-name="' . $asset->name . '" style="color: #007bff; cursor: pointer;">Delete</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </td>
         </tr>';
         }
@@ -148,7 +168,8 @@ class AssetTIKController extends Controller
 
     public function destroy($id)
     {
-        //
+        $asset = AssetsModel::findOrFail($id);
+        $asset->delete();
     }
 
     public function show($id)

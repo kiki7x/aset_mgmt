@@ -149,8 +149,10 @@
     </div>
 </div>
 @push('script-foot')
+    {{-- Initialize --}}
     <script>
         $(document).ready(function() {
+            // Select2
             $('.select2').select2({
                 theme: 'bootstrap4',
                 dropdownParent: $('#createModal'),
@@ -164,17 +166,12 @@
                 maximumSelectionLength: 1,
                 placeholder: 'Pilih atau tambahkan...',
             });
+        });
+    </script>
 
-            $('#btnCloseModal, #btnHeaderCloseModal').on('click', function() {
-                $('#createModal').modal('hide');
-            });
-
-            $('#btnResetForm').on('click', function() {
-                $('#formCreateAsetTIK')[0].reset();
-                $('.select2, .select2tag').val(null).trigger('change');
-                $('.text-danger').text('');
-            });
-
+    {{-- SubmitScript --}}
+    <script>
+        $(document).ready(function() {
             $('#formCreateAsetTIK').on('submit', function(e) {
                 e.preventDefault();
                 let form = $(this);
@@ -193,7 +190,7 @@
                                 message: 'Data berhasil disimpan!'
                             }
                         }));
-                        window.dispatchEvent(new Event('assetCreated'));
+                        window.dispatchEvent(new Event('updateAssets'));
                     },
                     error: function(xhr) {
                         if (xhr.responseJSON?.errors) {
@@ -203,6 +200,21 @@
                         }
                     }
                 });
+            });
+        });
+    </script>
+
+    {{-- ModalManagement --}}
+    <script>
+        $(document).ready(function() {
+            $('#btnCloseModal, #btnHeaderCloseModal').on('click', function() {
+                $('#createModal').modal('hide');
+            });
+
+            $('#btnResetForm').on('click', function() {
+                $('#formCreateAsetTIK')[0].reset();
+                $('.select2, .select2tag').val(null).trigger('change');
+                $('.text-danger').text('');
             });
         });
     </script>

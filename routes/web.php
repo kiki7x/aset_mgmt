@@ -27,6 +27,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::get('/asettik', [App\Http\Controllers\AssetTIKController::class, 'index'])->name('admin.asettik');
         Route::get('/asettik/search', [App\Http\Controllers\AssetTIKController::class, 'search'])->name('admin.asettik.search');
         Route::post('/asettik/store', [App\Http\Controllers\AssetTIKController::class, 'store'])->name('admin.asettik.store');
+        Route::delete('/asettik/destroy/{id}', [App\Http\Controllers\AssetTIKController::class, 'destroy'])->name('admin.asettik.destroy');
         // Route::get('/asettik', App\Livewire\Assets\IndexAsetTik::class)->name('admin.asettik');
         Route::get('/asettik/show/{id}/{section?}', App\Livewire\Assets\ShowAsetTik::class)->name('admin.asettik.show');
         // Route::get('/asettik/create', App\Livewire\Modal\CreateAsetTik::class)->name('admin.asettik.create');

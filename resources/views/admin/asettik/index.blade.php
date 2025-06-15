@@ -174,6 +174,7 @@
         </div>
 
         @include('admin.asettik.partials.create-modal')
+        @include('admin.asettik.partials.delete-modal')
     </section>
 
     @push('script-foot')
@@ -182,6 +183,7 @@
         {{-- Select2 --}}
         <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
 
+        {{-- TableScript --}}
         <script>
             let loading = false;
 
@@ -281,14 +283,7 @@
                 fetchData(page, search, category, per_page);
             });
 
-            // Open Modal
-            $(document).ready(function() {
-                $('#btnOpenCreateModal').on('click', function() {
-                    $('#createModal').modal('show');
-                });
-            });
-
-            window.addEventListener('assetCreated', function() {
+            window.addEventListener('updateAssets', function() {
                 const params = new URLSearchParams(window.location.search);
                 const search = params.get('search') || '';
                 const category = params.get('category') || '';
@@ -296,6 +291,26 @@
                 const page = params.get('page') || 1;
                 $('#search-assets-data').show();
                 fetchData(page, search, category, per_page);
+            });
+        </script>
+
+        {{-- ModalManagement --}}
+        <script>
+            $(document).ready(function() {
+                // Open Modal
+                $('#btnOpenCreateModal').on('click', function() {
+                    $('#createModal').modal('show');
+                });
+
+                // Delete Modal
+                $('#deleteModal').on('show.bs.modal', function(event) {
+                    var button = $(event.relatedTarget);
+                    var id = button.data('id');
+                    var name = button.data('name');
+
+                    var modal = $(this)
+                    modal.find('#assetName').text(name)
+                });
             });
         </script>
     @endpush
