@@ -2,6 +2,12 @@
 
 @section('title', 'Kelola Aset TIK')
 
+@push('script-head')
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+@endpush
+
 @section('content')
     <section class="content">
         <div class="container-fluid">
@@ -11,7 +17,8 @@
                         <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                             <h3 class="card-title"><i class="fa-solid fa-computer"></i> Kelola Aset TIK <span
                                     class="badge end-0 mr-3 bg-info text-light">{{ $totalAssets }}</span></h3>
-                            <button type="button" class="btn btn-primary" style="margin-left: auto;">
+                            <button type="button" id="btnOpenCreateModal" class="btn btn-primary"
+                                style="margin-left: auto;">
                                 <i class="fas fa-square-plus"></i>
                                 Tambah Data
                             </button>
@@ -165,109 +172,132 @@
                 </div>
             </div>
         </div>
+
+        @include('admin.asettik.partials.create-modal')
     </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    @push('script-foot')
+        <!-- InputMask -->
+        <script src="{{ asset('assets/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
+        {{-- Select2 --}}
+        <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
 
-    <script>
-        let loading = false;
+        <script>
+            let loading = false;
 
-        function setLoading(value) {
-            loading = value;
-            if (loading) {
-                $('#loading-indicator').show();
-                $('#search-assets-data').hide();
-            } else {
-                $('#loading-indicator').hide();
-                $('#search-assets-data').show();
-            }
-        }
-
-        // Ambil nilai dari input
-        function getFilters() {
-            return {
-                search: $('#search').val() || '',
-                category: $('#category').val() || '',
-                per_page: $('#per_page').val() || 10
-            };
-        }
-
-        function setUrl(page = 1, search = '', category = '', per_page = 10) {
-            const params = new URLSearchParams();
-            if (search) params.set('search', search);
-            if (category) params.set('category', category);
-            if (per_page) params.set('per_page', per_page);
-            params.set('page', page);
-            history.pushState(null, '', '?' + params.toString());
-        }
-
-        function fetchData(page = 1, search = '', category = '', per_page = 10) {
-            // Update URL
-            setUrl(page, search, category, per_page)
-
-            // AJAX request
-            $.ajax({
-                type: 'GET',
-                url: '{{ route('admin.asettik.search') }}',
-                data: {
-                    search: search,
-                    category: category,
-                    per_page: per_page,
-                    page: page
-                },
-                success: function(data) {
-                    $('#search-assets-data').html(data.html);
-                    $('#pagination-wrapper').html(data.pagination);
-                    setLoading(false);
-                },
-                error: function() {
-                    alert('Gagal memuat data');
-                    setLoading(false);
+            function setLoading(value) {
+                loading = value;
+                if (loading) {
+                    $('#loading-indicator').show();
+                    $('#search-assets-data').hide();
+                } else {
+                    $('#loading-indicator').hide();
+                    $('#search-assets-data').show();
                 }
+            }
+
+            // Ambil nilai dari input
+            function getFilters() {
+                return {
+                    search: $('#search').val() || '',
+                    category: $('#category').val() || '',
+                    per_page: $('#per_page').val() || 10
+                };
+            }
+
+            function setUrl(page = 1, search = '', category = '', per_page = 10) {
+                const params = new URLSearchParams();
+                if (search) params.set('search', search);
+                if (category) params.set('category', category);
+                if (per_page) params.set('per_page', per_page);
+                params.set('page', page);
+                history.pushState(null, '', '?' + params.toString());
+            }
+
+            function fetchData(page = 1, search = '', category = '', per_page = 10) {
+                // Update URL
+                setUrl(page, search, category, per_page)
+
+                // AJAX request
+                $.ajax({
+                    type: 'GET',
+                    url: '{{ route('admin.asettik.search') }}',
+                    data: {
+                        search: search,
+                        category: category,
+                        per_page: per_page,
+                        page: page
+                    },
+                    success: function(data) {
+                        $('#search-assets-data').html(data.html);
+                        $('#pagination-wrapper').html(data.pagination);
+                        setLoading(false);
+                    },
+                    error: function() {
+                        alert('Gagal memuat data');
+                        setLoading(false);
+                    }
+                });
+            }
+
+            // Event: saat input filter berubah
+            $('#search, #category, #per_page').on('keyup change', function() {
+                const {
+                    search,
+                    category,
+                    per_page
+                } = getFilters();
+
+                fetchData(1, search, category, per_page);
             });
-        }
 
-        // Event: saat input filter berubah
-        $('#search, #category, #per_page').on('keyup change', function() {
-            const {
-                search,
-                category,
-                per_page
-            } = getFilters();
+            // Event: klik pagination
+            $(document).on('click', '.pagination a', function(e) {
+                setLoading(true);
+                e.preventDefault();
 
-            fetchData(1, search, category, per_page);
-        });
+                const href = $(this).attr('href');
+                const pageMatch = href.match(/[?&]page=(\d+)/);
+                const page = pageMatch ? pageMatch[1] : 1;
+                const {
+                    search,
+                    category,
+                    per_page
+                } = getFilters();
 
-        // Event: klik pagination
-        $(document).on('click', '.pagination a', function(e) {
-            setLoading(true);
-            e.preventDefault();
+                setUrl(page, search, category, per_page)
+                setLoading(false);
+                window.location.reload();
+            });
 
-            const href = $(this).attr('href');
-            const pageMatch = href.match(/[?&]page=(\d+)/);
-            const page = pageMatch ? pageMatch[1] : 1;
-            const {
-                search,
-                category,
-                per_page
-            } = getFilters();
+            // Saat halaman pertama kali dibuka, sinkronkan nilai input dari URL
+            $(document).ready(function() {
+                const params = new URLSearchParams(window.location.search);
+                const search = params.get('search') || '';
+                const category = params.get('category') || '';
+                const per_page = params.get('per_page') || 10;
+                const page = params.get('page') || 1;
+                $('#search-assets-data').show();
+                fetchData(page, search, category, per_page);
+            });
 
-            setUrl(page, search, category, per_page)
-            setLoading(false);
-            window.location.reload();
-        });
+            // Open Modal
+            $(document).ready(function() {
+                $('#btnOpenCreateModal').on('click', function() {
+                    $('#createModal').modal('show');
+                });
+            });
 
-        // Saat halaman pertama kali dibuka, sinkronkan nilai input dari URL
-        $(document).ready(function() {
-
-            const params = new URLSearchParams(window.location.search);
-            const search = params.get('search') || '';
-            const category = params.get('category') || '';
-            const per_page = params.get('per_page') || 10;
-            const page = params.get('page') || 1;
-            $('#search-assets-data').show();
-            fetchData(page, search, category, per_page);
-        });
-    </script>
+            window.addEventListener('assetCreated', function() {
+                const params = new URLSearchParams(window.location.search);
+                const search = params.get('search') || '';
+                const category = params.get('category') || '';
+                const per_page = params.get('per_page') || 10;
+                const page = params.get('page') || 1;
+                $('#search-assets-data').show();
+                fetchData(page, search, category, per_page);
+            });
+        </script>
+    @endpush
 
 @endsection

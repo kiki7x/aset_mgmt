@@ -2,21 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAssetRequest;
 use App\Models\AssetcategoriesModel;
 use App\Models\AssetsModel;
+use App\Models\LabelsModel;
+use App\Models\LocationsModel;
+use App\Models\ManufacturersModel;
+use App\Models\ModelsModel;
+use App\Models\SuppliersModel;
+use App\Models\User;
+use App\Notifications\CreateAsetTik;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AssetTIKController extends Controller
 {
+    public $prefix = "tik";
+    public $classification_id = "2";
+    public $client_id = 1;
+
     public function index()
     {
+        $manufacturers = ManufacturersModel::get();
+        $models = ModelsModel::get();
+        $suppliers = SuppliersModel::get();
+        $locations = LocationsModel::get();
+        $statuses = LabelsModel::get();
+        $users = User::get();
+
         $categories = AssetcategoriesModel::whereIn('classification_id', [2])->get();
 
         $assets = AssetsModel::with('category', 'status', 'model', 'user')->where('classification_id', 2)->latest()->paginate(10);
 
         $totalAssets = AssetsModel::where('classification_id', 2)->count();
 
-        return view('admin.asettik.index', compact('assets', 'totalAssets', 'categories'));
+        return view('admin.asettik.index', compact('assets', 'totalAssets', 'categories', 'manufacturers', 'models', 'suppliers', 'locations', 'statuses', 'users'));
     }
 
     public function search(Request $request)
@@ -69,12 +89,56 @@ class AssetTIKController extends Controller
         ]);
     }
 
-
-
-
-    public function store(Request $request)
+    public function store(StoreAssetRequest $request)
     {
-        //
+        $admin_id = auth()->user()->id;
+
+        $checkTag = $this->incrementTag();
+        $newTag = $this->prefix . '-' . $checkTag;
+
+        $ceksupplier = SuppliersModel::firstOrNew(["id" => (int) $request->supplier_id[0]], ["name" => $request->supplier_id[0]]);
+        $ceksupplier->save();
+        $request->merge(["supplier_id" => $ceksupplier->id]);
+
+        $cekmanufacturer = ManufacturersModel::firstOrNew(["id" => (int) $request->manufacturer_id[0]], ["name" => $request->manufacturer_id[0]]);
+        $cekmanufacturer->save();
+        $request->merge(["manufacturer_id" => $cekmanufacturer->id]);
+
+        $cekmodel = ModelsModel::firstOrNew(["id" => (int) $request->model_id[0]], ["name" => $request->model_id[0]]);
+        $cekmodel->save();
+        $request->merge(["model_id" => $cekmodel->id]);
+
+        $data = [
+            'classification_id' => (int) $this->classification_id,
+            'category_id' => (int) $request->category_id,
+            'admin_id' => (int) $admin_id,
+            'client_id' => (int) $this->client_id,
+            'user_id' => (int) $request->user_id,
+            'manufacturer_id' => (int) $request->manufacturer_id,
+            'model_id' => (int) $request->model_id,
+            'supplier_id' => (int) $request->supplier_id,
+            'status_id' => (int) $request->status_id,
+            'purchase_date' => Carbon::parse($request->purchase_date)->format('Y-m-d'),
+            'warranty_months' => (int) $request->warranty_months,
+            'tag' => $newTag,
+            'name' => $request->name,
+            'serial' => $request->serial,
+            'notes' => $request->notes,
+            'location_id' => (int) $request->location_id,
+            'customfields' => $request->customfields,
+            'qrvalue' => $request->qrvalue,
+        ];
+
+        $aset = AssetsModel::Create($data);
+
+        // kirim notifikasi
+        $users = User::whereHas('roles', function ($query) {
+            $query->whereIn('name', ['superadmin', 'admin_tik', 'staf_tik']);
+        })->get();
+
+        foreach ($users as $user) {
+            $user->notify(new CreateAsetTik($aset));
+        }
     }
 
     public function update(Request $request, $id)
@@ -90,5 +154,19 @@ class AssetTIKController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function incrementTag()
+    {
+        $lastTag = AssetsModel::where('tag', 'like', $this->prefix . '-%')
+            ->orderByRaw("CAST(SUBSTRING_INDEX(tag, '-', -1) AS UNSIGNED) DESC")
+            ->first();
+
+        if ($lastTag) {
+            $lastSequenceNumber = (int) str_replace($this->prefix . '-', '', $lastTag->tag);
+            return $lastSequenceNumber + 1;
+        } else {
+            return 1;
+        }
     }
 }

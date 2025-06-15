@@ -236,6 +236,7 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                        
                         <!-- Notes -->
                         <div class="form-group col-md-12">
                             <label for="notes">Catatan</label>
