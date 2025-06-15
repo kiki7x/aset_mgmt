@@ -12,6 +12,7 @@ use App\Models\ModelsModel;
 use App\Models\SuppliersModel;
 use App\Models\User;
 use App\Notifications\CreateAsetTik;
+use App\Notifications\DeleteAsetTik;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -169,6 +170,16 @@ class AssetTIKController extends Controller
     public function destroy($id)
     {
         $asset = AssetsModel::findOrFail($id);
+
+        // kirim notifikasi
+        $users = User::whereHas('roles', function ($query) {
+            $query->whereIn('name', ['superadmin', 'admin_tik', 'staf_tik']);
+        })->get();
+
+        foreach ($users as $user) {
+            $user->notify(new DeleteAsetTik($asset));
+        }
+
         $asset->delete();
     }
 
