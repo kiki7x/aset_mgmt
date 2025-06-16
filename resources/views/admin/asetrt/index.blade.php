@@ -1,6 +1,6 @@
 @extends('layouts.backsite')
 
-@section('title', 'Kelola Aset TIK')
+@section('title', 'Kelola Aset RT')
 
 @push('script-head')
     <!-- Select2 -->
@@ -15,7 +15,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                            <h3 class="card-title"><i class="fa-solid fa-computer"></i> Kelola Aset TIK <span
+                            <h3 class="card-title"><i class="fa-solid fa-computer"></i> Kelola Aset RT <span
                                     class="badge end-0 mr-3 bg-info text-light">{{ $totalAssets }}</span></h3>
                             <button type="button" id="btnOpenCreateModal" class="btn btn-primary"
                                 style="margin-left: auto;">
@@ -153,8 +153,8 @@
             </div>
         </div>
 
-        @include('admin.asettik.partials.create-modal')
-        @include('admin.asettik.partials.delete-modal')
+        @include('admin.asetrt.partials.create-modal')
+        @include('admin.asetrt.partials.delete-modal')
     </section>
 
     @push('script-foot')
@@ -203,7 +203,7 @@
                 // AJAX request
                 $.ajax({
                     type: 'GET',
-                    url: '{{ route('admin.asettik.search_tik') }}',
+                    url: '{{ route('admin.asetrt.search_rt') }}',
                     data: {
                         search: search,
                         category: category,

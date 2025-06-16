@@ -3,13 +3,13 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Form Tambah Aset TIK</h4>
+                <h4 class="modal-title">Form Tambah Aset RT</h4>
                 <button type="button" class="close" id="btnHeaderCloseModal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
 
-            <form id="formCreateAsetTIK" method="POST">
+            <form id="formCreateAsetRT" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
@@ -172,12 +172,12 @@
     {{-- SubmitScript --}}
     <script>
         $(document).ready(function() {
-            $('#formCreateAsetTIK').on('submit', function(e) {
+            $('#formCreateAsetRT').on('submit', function(e) {
                 e.preventDefault();
                 let form = $(this);
 
                 $.ajax({
-                    url: "{{ route('admin.asettik.store_tik') }}",
+                    url: "{{ route('admin.asetrt.store_rt') }}",
                     method: "POST",
                     data: form.serialize(),
                     success: function(res) {
@@ -212,7 +212,7 @@
             });
 
             $('#btnResetForm').on('click', function() {
-                $('#formCreateAsetTIK')[0].reset();
+                $('#formCreateAsetRT')[0].reset();
                 $('.select2, .select2tag').val(null).trigger('change');
                 $('.text-danger').text('');
             });
