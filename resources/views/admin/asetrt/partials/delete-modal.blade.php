@@ -38,7 +38,7 @@
                  let form = $(this);
 
                  $.ajax({
-                     url: `{{ route('admin.asettik.destroy', ['id' => '__ID__']) }}`.replace(
+                     url: `{{ route('admin.asetrt.destroy', ['id' => '__ID__']) }}`.replace(
                          '__ID__', id),
                      method: "DELETE",
                      data: form.serialize(),

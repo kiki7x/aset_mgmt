@@ -177,7 +177,7 @@
                 let form = $(this);
 
                 $.ajax({
-                    url: "{{ route('admin.asettik.store') }}",
+                    url: "{{ route('admin.asetrt.store_rt') }}",
                     method: "POST",
                     data: form.serialize(),
                     success: function(res) {

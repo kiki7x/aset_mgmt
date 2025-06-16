@@ -25,11 +25,11 @@ class StoreAssetRequest extends FormRequest
             'name' => 'required|string|max:255',
             'category_id' => 'required|integer|exists:assetcategories,id',
             'manufacturer_id' => 'required|array|min:1|max:1',
-            'manufacturer_id.0' => 'required|integer',
+            'manufacturer_id.0' => 'required',
             'model_id' => 'required|array|min:1|max:1',
-            'model_id.0' => 'required|integer',
+            'model_id.0' => 'required',
             'supplier_id' => 'required|array|min:1|max:1',
-            'supplier_id.0' => 'required|integer',
+            'supplier_id.0' => 'required',
             'serial' => 'nullable|string|max:255',
             'location_id' => 'required|integer|exists:locations,id',
             'status_id' => 'required|integer|exists:labels,id',
@@ -57,7 +57,6 @@ class StoreAssetRequest extends FormRequest
             'manufacturer_id.max' => 'Hanya boleh memilih satu merk/pabrikan.',
 
             'manufacturer_id.0.required' => 'Merk/Pabrikan wajib dipilih.',
-            'manufacturer_id.0.integer' => 'Merk/Pabrikan tidak valid.',
             'manufacturer_id.0.exists' => 'Merk/Pabrikan yang dipilih tidak ditemukan.',
 
             'model_id.required' => 'Tipe/Model wajib dipilih.',
@@ -66,7 +65,6 @@ class StoreAssetRequest extends FormRequest
             'model_id.max' => 'Hanya boleh memilih satu tipe/model.',
 
             'model_id.0.required' => 'Tipe/Model wajib dipilih.',
-            'model_id.0.integer' => 'Tipe/Model tidak valid.',
             'model_id.0.exists' => 'Tipe/Model yang dipilih tidak ditemukan.',
 
             'supplier_id.required' => 'Supplier wajib dipilih.',
@@ -75,7 +73,6 @@ class StoreAssetRequest extends FormRequest
             'supplier_id.max' => 'Hanya boleh memilih satu supplier.',
 
             'supplier_id.0.required' => 'Supplier wajib dipilih.',
-            'supplier_id.0.integer' => 'Supplier tidak valid.',
             'supplier_id.0.exists' => 'Supplier yang dipilih tidak ditemukan.',
 
             'serial.string' => 'Nomor seri harus berupa teks.',

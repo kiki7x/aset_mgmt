@@ -203,7 +203,7 @@
                 // AJAX request
                 $.ajax({
                     type: 'GET',
-                    url: '{{ route('admin.asetrt.search') }}',
+                    url: '{{ route('admin.asetrt.search_rt') }}',
                     data: {
                         search: search,
                         category: category,

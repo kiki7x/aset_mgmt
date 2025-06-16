@@ -11,6 +11,7 @@ use App\Models\ManufacturersModel;
 use App\Models\ModelsModel;
 use App\Models\SuppliersModel;
 use App\Models\User;
+use App\Notifications\CreateAsetRT;
 use App\Notifications\CreateAsetTik;
 use App\Notifications\DeleteAsetTik;
 use Carbon\Carbon;
@@ -18,8 +19,10 @@ use Illuminate\Http\Request;
 
 class AssetController extends Controller
 {
-    public $prefix = "tik";
-    public $classification_id = "2";
+    public $prefix_tik = "tik";
+    public $prefix_rt = "rt";
+    public $classification_tik_id = "2";
+    public $classification_rt_id = "3";
     public $client_id = 1;
 
     public function index_tik()
@@ -198,12 +201,12 @@ class AssetController extends Controller
         ]);
     }
 
-    public function store(StoreAssetRequest $request)
+    public function store_tik(StoreAssetRequest $request)
     {
         $admin_id = auth()->user()->id;
 
-        $checkTag = $this->incrementTag();
-        $newTag = $this->prefix . '-' . $checkTag;
+        $checkTag = $this->incrementTag("tik");
+        $newTag = $this->prefix_tik . '-' . $checkTag;
 
         $ceksupplier = SuppliersModel::firstOrNew(["id" => (int) $request->supplier_id[0]], ["name" => $request->supplier_id[0]]);
         $ceksupplier->save();
@@ -218,7 +221,7 @@ class AssetController extends Controller
         $request->merge(["model_id" => $cekmodel->id]);
 
         $data = [
-            'classification_id' => (int) $this->classification_id,
+            'classification_id' => (int) $this->classification_tik_id,
             'category_id' => (int) $request->category_id,
             'admin_id' => (int) $admin_id,
             'client_id' => (int) $this->client_id,
@@ -250,6 +253,58 @@ class AssetController extends Controller
         }
     }
 
+    public function store_rt(StoreAssetRequest $request)
+    {
+        $admin_id = auth()->user()->id;
+
+        $checkTag = $this->incrementTag("rt");
+        $newTag = $this->prefix_rt . '-' . $checkTag;
+
+        $ceksupplier = SuppliersModel::firstOrNew(["id" => (int) $request->supplier_id[0]], ["name" => $request->supplier_id[0]]);
+        $ceksupplier->save();
+        $request->merge(["supplier_id" => $ceksupplier->id]);
+
+        $cekmanufacturer = ManufacturersModel::firstOrNew(["id" => (int) $request->manufacturer_id[0]], ["name" => $request->manufacturer_id[0]]);
+        $cekmanufacturer->save();
+        $request->merge(["manufacturer_id" => $cekmanufacturer->id]);
+
+        $cekmodel = ModelsModel::firstOrNew(["id" => (int) $request->model_id[0]], ["name" => $request->model_id[0]]);
+        $cekmodel->save();
+        $request->merge(["model_id" => $cekmodel->id]);
+
+        $data = [
+            'classification_id' => (int) $this->classification_rt_id,
+            'category_id' => (int) $request->category_id,
+            'admin_id' => (int) $admin_id,
+            'client_id' => (int) $this->client_id,
+            'user_id' => (int) $request->user_id,
+            'manufacturer_id' => (int) $request->manufacturer_id,
+            'model_id' => (int) $request->model_id,
+            'supplier_id' => (int) $request->supplier_id,
+            'status_id' => (int) $request->status_id,
+            'purchase_date' => Carbon::parse($request->purchase_date)->format('Y-m-d'),
+            'warranty_months' => (int) $request->warranty_months,
+            'tag' => $newTag,
+            'name' => $request->name,
+            'serial' => $request->serial,
+            'notes' => $request->notes,
+            'location_id' => (int) $request->location_id,
+            'customfields' => $request->customfields,
+            'qrvalue' => $request->qrvalue,
+        ];
+
+        $aset = AssetsModel::Create($data);
+
+        // kirim notifikasi
+        $users = User::whereHas('roles', function ($query) {
+            $query->whereIn('name', ['superadmin', 'admin_rt']);
+        })->get();
+
+        foreach ($users as $user) {
+            $user->notify(new CreateAsetRT($aset));
+        }
+    }
+
     public function update(Request $request, $id)
     {
         //
@@ -276,14 +331,22 @@ class AssetController extends Controller
         //
     }
 
-    public function incrementTag()
+    public function incrementTag($classification)
     {
-        $lastTag = AssetsModel::where('tag', 'like', $this->prefix . '-%')
+        if ($classification === 'tik') {
+            $prefix = $this->prefix_tik;
+        }
+
+        if ($classification === 'rt') {
+            $prefix = $this->prefix_rt;
+        }
+
+        $lastTag = AssetsModel::where('tag', 'like', $prefix . '-%')
             ->orderByRaw("CAST(SUBSTRING_INDEX(tag, '-', -1) AS UNSIGNED) DESC")
             ->first();
 
         if ($lastTag) {
-            $lastSequenceNumber = (int) str_replace($this->prefix . '-', '', $lastTag->tag);
+            $lastSequenceNumber = (int) str_replace($prefix . '-', '', $lastTag->tag);
             return $lastSequenceNumber + 1;
         } else {
             return 1;
