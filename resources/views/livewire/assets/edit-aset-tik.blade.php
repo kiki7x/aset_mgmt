@@ -45,7 +45,7 @@
                     selectedSupplier: @entangle('form.supplier'),
                     initSupplier() {
                         // Set nilai awal Select2 saat edit
-                        // inisialisasi select2                                
+                        // inisialisasi select2
                         $(this.$refs.select2supplier).on('change', (e) => {
                             // singkronisasi perubahan ke alpinejs
                             this.selectedSupplier = $(e.target).val() ? $(e.target).val()[0] : null;
@@ -247,7 +247,7 @@
             <!-- Submit Button -->
             <button wire:click="resetInput" type="button" class="btn btn-secondary">Reset</button>
             <a href="{{ route('admin.asettik.show', ['id' => $asset->id]) }}" type="button" class="btn btn-warning">Batal</a>
-            <button wire:click="update" type="submit" class="btn btn-info">Update</button>
+            <button type="submit" class="btn btn-info">Update</button>
         </div>
     </div>
 </form>

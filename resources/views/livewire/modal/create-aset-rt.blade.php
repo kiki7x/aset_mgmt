@@ -99,7 +99,7 @@
                             <div x-data="{
                                 selectedSupplier: @entangle('form.supplier'),
                                 initSupplier() {
-                                    // inisialisasi select2                                
+                                    // inisialisasi select2
                                     $(this.$refs.select2supplier).on('change', (e) => {
                                         // singkronisasi perubahan ke alpinejs
                                         this.selectedSupplier = $(e.target).val() ? $(e.target).val()[0] : null;

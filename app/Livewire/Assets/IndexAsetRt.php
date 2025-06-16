@@ -6,6 +6,8 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Livewire\CreateAsetRt;
 use App\Models\AssetsModel;
+use App\Models\User;
+use App\Notifications\DeleteAsetRT;
 use Exception;
 use Livewire\Attributes\On;
 
@@ -73,8 +75,20 @@ class IndexAsetRt extends Component
     {
         try {
             $this->deleteId = $id;
-            AssetsModel::find($this->deleteId)->delete();
-            // $asset->delete();
+            $aset = AssetsModel::find($this->deleteId);
+
+            // Kirim notifikasi
+            if ($aset) {
+                $users = User::whereHas('roles', function ($query) {
+                    $query->whereIn('name', ['superadmin', 'admin_rt']);
+                })->get();
+
+                foreach ($users as $user) {
+                    $user->notify(new DeleteAsetRT($aset));
+                }
+            }
+
+            $aset->delete();
             $this->closeModalDelete();
             $this->dispatchToastr('success', 'Data berhasil dihapus');
         } catch (Exception $e) {
