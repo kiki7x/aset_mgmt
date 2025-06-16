@@ -205,7 +205,7 @@
                                 <select wire:model="form.useraset" x-ref="selectuseraset" name="useraset" id="useraset" class="form-control select2 @error('form.useraset') is-invalid @enderror">
                                     <option name="useraset" id="useraset" value="">None</option>
                                     @foreach ($users as $user)
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        <option value="{{ $user->id }}">{{ $user->username }}</option>
                                     @endforeach
                                 </select>
                             </div>
