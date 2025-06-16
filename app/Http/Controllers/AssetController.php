@@ -324,6 +324,7 @@ class AssetController extends Controller
         }
 
         $asset->delete();
+        
     }
 
     public function show($id)
