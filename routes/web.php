@@ -25,9 +25,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     // halaman list Aset TIK
     Route::middleware(['role:superadmin|admin_tik|staf_tik'])->group(function () {
         Route::get('/asettik', [App\Http\Controllers\AssetController::class, 'index_tik'])->name('admin.asettik');
-        Route::get('/asettik/search', [App\Http\Controllers\AssetController::class, 'search_tik'])->name('admin.asettik.search_tik');
-        Route::post('/asettik/store', [App\Http\Controllers\AssetController::class, 'store_tik'])->name('admin.asettik.store_tik');
-        Route::delete('/asettik/destroy/{id}', [App\Http\Controllers\AssetController::class, 'destroy'])->name('admin.asettik.destroy');
+        Route::get('/asettik/get_assets', [App\Http\Controllers\AssetController::class, 'get_assets'])->name('admin.asettik.get_assets');
+        Route::post('/asettik/store/{classification}', [App\Http\Controllers\AssetController::class, 'store'])->name('admin.asettik.store');
+        Route::delete('/asettik/destroy/{id}/{classification}', [App\Http\Controllers\AssetController::class, 'destroy'])->name('admin.asettik.destroy');
+        Route::get('/asettik/{id}/edit', [App\Http\Controllers\ShowAsetRtController::class, 'getEditAssetContent'])->name('admin.asettik.edit');
 
         Route::get('/asettik/show/{id}/{section?}', App\Livewire\Assets\ShowAsetTik::class)->name('admin.asettik.show');
         // Route::get('/asettik/create', App\Livewire\Modal\CreateAsetTik::class)->name('admin.asettik.create');

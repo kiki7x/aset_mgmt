@@ -38,8 +38,9 @@
                  let form = $(this);
 
                  $.ajax({
-                     url: `{{ route('admin.asettik.destroy', ['id' => '__ID__']) }}`.replace(
-                         '__ID__', id),
+                     url: `{{ route('admin.asettik.destroy', ['id' => '__ID__', 'classification' => '__CLASS__']) }}`
+                         .replace('__ID__', id)
+                         .replace('__CLASS__', 'tik'),
                      method: "DELETE",
                      data: form.serialize(),
                      success: function(res) {
@@ -52,7 +53,7 @@
                              }
                          }));
 
-                         window.dispatchEvent(new Event('updateAssets'));
+                         $('#tableAsettik').DataTable().ajax.reload();
                      },
                      error: function() {
                          window.dispatchEvent(new CustomEvent('alert', {

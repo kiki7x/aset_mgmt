@@ -177,7 +177,7 @@
                 let form = $(this);
 
                 $.ajax({
-                    url: "{{ route('admin.asettik.store_tik') }}",
+                    url: "{{ route('admin.asettik.store', ['classification' => 'tik']) }}",
                     method: "POST",
                     data: form.serialize(),
                     success: function(res) {
@@ -190,7 +190,8 @@
                                 message: 'Data berhasil disimpan!'
                             }
                         }));
-                        window.dispatchEvent(new Event('updateAssets'));
+
+                        $('#tableAsettik').DataTable().ajax.reload();
                     },
                     error: function(xhr) {
                         if (xhr.responseJSON?.errors) {

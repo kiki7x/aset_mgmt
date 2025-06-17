@@ -58,41 +58,24 @@
                                 <input type="text" id="search" name="search" value="{{ request('search') }}"
                                     class="form-control col-3" placeholder="nama / serial no">
                             </div>
-                            <table id="example1"
-                                class="table table-bordered table-striped table-hover table-responsive-md">
-                                <thead>
-                                    <tr>
-                                        <th>Tag</th>
-                                        <th>Nama Aset</th>
-                                        <th>Kategori</th>
-                                        <th>Tipe/Model</th>
-                                        <th>Pengguna</th>
-                                        <th>Aktivitas terakhir</th>
-                                        <th>Opsi</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="search-assets-data"></tbody>
-                                <tbody id="loading-indicator">
-                                    <tr id="loading-row">
-                                        <td colspan="7" class="text-center p-5">
-                                            <div class="spinner-border text-primary p-3" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Tag</th>
-                                        <th>Nama Aset</th>
-                                        <th>Kategori</th>
-                                        <th>Tipe/Model</th>
-                                        <th>Pengguna</th>
-                                        <th>Aktivitas terakhir</th>
-                                        <th>Opsi</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover" id="tableAsetrt">
+                                    <thead>
+                                        <tr>
+                                            <th>Tag</th>
+                                            <th>Nama Aset</th>
+                                            <th>Kategori</th>
+                                            <th>Tipe/Model</th>
+                                            <th>Pengguna</th>
+                                            <th>Aktivitas Terakhir</th>
+                                            <th>Opsi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <!-- Modal QR Code -->
                             <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog"
@@ -133,9 +116,9 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <div class="dt-buttons btn-group"><a
-                                            class="btn btn-default buttons-copy buttons-html5" tabindex="0"
-                                            aria-controls="dataTablesFull" href="#"><span>Copy</span></a><a
+                                    <div class="dt-buttons btn-group"><a class="btn btn-default buttons-copy buttons-html5"
+                                            tabindex="0" aria-controls="dataTablesFull"
+                                            href="#"><span>Copy</span></a><a
                                             class="btn btn-default buttons-csv buttons-html5" tabindex="0"
                                             aria-controls="dataTablesFull" href="#"><span>CSV</span></a><a
                                             class="btn btn-default buttons-excel buttons-html5" tabindex="0"
@@ -165,113 +148,55 @@
 
         {{-- TableScript --}}
         <script>
-            let loading = false;
-
-            function setLoading(value) {
-                loading = value;
-                if (loading) {
-                    $('#loading-indicator').show();
-                    $('#search-assets-data').hide();
-                } else {
-                    $('#loading-indicator').hide();
-                    $('#search-assets-data').show();
-                }
-            }
-
-            // Ambil nilai dari input
-            function getFilters() {
-                return {
-                    search: $('#search').val() || '',
-                    category: $('#category').val() || '',
-                    per_page: $('#per_page').val() || 10
-                };
-            }
-
-            function setUrl(page = 1, search = '', category = '', per_page = 10) {
-                const params = new URLSearchParams();
-                if (search) params.set('search', search);
-                if (category) params.set('category', category);
-                if (per_page) params.set('per_page', per_page);
-                params.set('page', page);
-                history.pushState(null, '', '?' + params.toString());
-            }
-
-            function fetchData(page = 1, search = '', category = '', per_page = 10) {
-                // Update URL
-                setUrl(page, search, category, per_page)
-
-                // AJAX request
-                $.ajax({
-                    type: 'GET',
-                    url: '{{ route('admin.asetrt.search_rt') }}',
-                    data: {
-                        search: search,
-                        category: category,
-                        per_page: per_page,
-                        page: page
+            function initTableAsetrt() {
+                $('#tableAsetrt').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    responsive: true,
+                    ajax: {
+                        url: "{{ route('admin.asettik.get_assets') }}",
+                        data: function(d) {
+                            d.classification =
+                                'rt';
+                        }
                     },
-                    success: function(data) {
-                        $('#search-assets-data').html(data.html);
-                        $('#pagination-wrapper').html(data.pagination);
-                        setLoading(false);
-                    },
-                    error: function() {
-                        alert('Gagal memuat data');
-                        setLoading(false);
-                    }
+                    columns: [{
+                            data: 'tag',
+                            name: 'tag'
+                        },
+                        {
+                            data: 'name',
+                            name: 'name'
+                        },
+                        {
+                            data: 'category',
+                            name: 'category'
+                        },
+                        {
+                            data: 'model',
+                            name: 'model'
+                        },
+                        {
+                            data: 'user',
+                            name: 'user'
+                        },
+                        {
+                            data: 'updated_at',
+                            name: 'updated_at'
+                        },
+                        {
+                            data: 'action',
+                            name: 'action',
+                            orderable: false,
+                            searchable: false
+                        },
+                    ],
                 });
             }
 
-            // Event: saat input filter berubah
-            $('#search, #category, #per_page').on('keyup change', function() {
-                const {
-                    search,
-                    category,
-                    per_page
-                } = getFilters();
-
-                fetchData(1, search, category, per_page);
-            });
-
-            // Event: klik pagination
-            $(document).on('click', '.pagination a', function(e) {
-                setLoading(true);
-                e.preventDefault();
-
-                const href = $(this).attr('href');
-                const pageMatch = href.match(/[?&]page=(\d+)/);
-                const page = pageMatch ? pageMatch[1] : 1;
-                const {
-                    search,
-                    category,
-                    per_page
-                } = getFilters();
-
-                setUrl(page, search, category, per_page)
-                setLoading(false);
-                window.location.reload();
-            });
-
-            // Saat halaman pertama kali dibuka, sinkronkan nilai input dari URL
             $(document).ready(function() {
-                const params = new URLSearchParams(window.location.search);
-                const search = params.get('search') || '';
-                const category = params.get('category') || '';
-                const per_page = params.get('per_page') || 10;
-                const page = params.get('page') || 1;
-                $('#search-assets-data').show();
-                fetchData(page, search, category, per_page);
-            });
-
-            window.addEventListener('updateAssets', function() {
-                const params = new URLSearchParams(window.location.search);
-                const search = params.get('search') || '';
-                const category = params.get('category') || '';
-                const per_page = params.get('per_page') || 10;
-                const page = params.get('page') || 1;
-                $('#search-assets-data').show();
-                fetchData(page, search, category, per_page);
-            });
+                initTableAsetrt();
+            })
         </script>
 
         {{-- ModalManagement --}}
