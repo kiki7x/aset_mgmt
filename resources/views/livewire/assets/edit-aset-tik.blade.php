@@ -179,7 +179,7 @@
                     <select wire:model="form.useraset" x-ref="selectuseraset" name="useraset" id="useraset" class="form-control select2">
                         <option name="useraset" id="useraset" value="">Pilih...</option>
                         @foreach ($users as $user)
-                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            <option value="{{ $user->id }}">{{ $user->username }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -203,7 +203,7 @@
                     <select wire:model="form.adminaset" x-ref="selectadminaset" name="adminaset" id="adminaset" class="form-control select2">
                         <option name="adminaset" id="adminaset" value="">Pilih...</option>
                         @foreach ($users as $user)
-                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            <option value="{{ $user->id }}">{{ $user->username }}</option>
                         @endforeach
                     </select>
                 </div>

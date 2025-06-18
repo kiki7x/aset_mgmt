@@ -38,21 +38,21 @@
                  let form = $(this);
 
                  $.ajax({
-                     url: `{{ route('admin.asettik.destroy', ['id' => '__ID__']) }}`.replace(
-                         '__ID__', id),
+                     url: `{{ route('admin.asettik.destroy', ['id' => '__ID__', 'classification' => '__CLASS__']) }}`
+                         .replace('__ID__', id)
+                         .replace('__CLASS__', 'tik'),
                      method: "DELETE",
                      data: form.serialize(),
                      success: function(res) {
                          $('#deleteModal').modal('hide');
 
-                         window.dispatchEvent(new CustomEvent('alert', {
-                             detail: {
-                                 type: 'success',
-                                 message: 'Aset berhasil dihapus!'
-                             }
-                         }));
+                         Swal.fire({
+                             icon: 'success',
+                             title: 'Berhasil!',
+                             text: 'Aset berhasil dihapus!',
+                         })
 
-                         window.dispatchEvent(new Event('updateAssets'));
+                         $('#tableAsettik').DataTable().ajax.reload();
                      },
                      error: function() {
                          window.dispatchEvent(new CustomEvent('alert', {

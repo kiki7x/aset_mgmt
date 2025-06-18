@@ -177,20 +177,21 @@
                 let form = $(this);
 
                 $.ajax({
-                    url: "{{ route('admin.asetrt.store_rt') }}",
+                    url: "{{ route('admin.asetrt.store', ['classification' => 'rt']) }}",
                     method: "POST",
                     data: form.serialize(),
                     success: function(res) {
                         $('#createModal').modal('hide');
                         form[0].reset();
                         $('.select2, .select2tag').val(null).trigger('change');
-                        window.dispatchEvent(new CustomEvent('alert', {
-                            detail: {
-                                type: 'success',
-                                message: 'Data berhasil disimpan!'
-                            }
-                        }));
-                        window.dispatchEvent(new Event('updateAssets'));
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil!',
+                            text: 'Data berhasil disimpan!',
+                        })
+
+                        $('#tableAsetrt').DataTable().ajax.reload();
                     },
                     error: function(xhr) {
                         if (xhr.responseJSON?.errors) {
