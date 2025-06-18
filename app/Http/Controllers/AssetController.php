@@ -64,6 +64,14 @@ class AssetController extends Controller
         $category = $request->category;
         $classification = $request->classification;
 
+        if ($classification === "tik") {
+            $routePrefix = "asettik";
+        }
+
+        if ($classification === "rt") {
+            $routePrefix = "asetrt";
+        }
+
         $assets = AssetsModel::with('category', 'status', 'model', 'user')
             ->when($classification === 'tik', fn($q) => $q->where('classification_id', 2))
             ->when($classification === 'rt', fn($q) => $q->whereIn('classification_id', [3, 4]))
@@ -78,9 +86,9 @@ class AssetController extends Controller
                         ->orWhere('serial', 'like', "%{$keyword}%");
                 });
             })
-            ->addColumn('name', function ($asset) {
+            ->addColumn('name', function ($asset) use ($routePrefix) {
                 return '
-                <a href="' . route('admin.asetrt.show', $asset->id) . '" class="font-weight-bold">' . e($asset->name) . '</a><br>
+                <a href="' . route("admin.$routePrefix.show", ['id' => $asset->id]) . '" class="font-weight-bold">' . e($asset->name) . '</a><br>
                 <span class="text-muted">Serial No: </span>' . e($asset->serial) . '<br>
                 <span class="text-muted">Status: </span>
                 <span class="badge" style="background-color: ' . e($asset->status->color ?? '#999') . '; color: white;">' . e($asset->status->name ?? '-') . '</span>
@@ -105,13 +113,6 @@ class AssetController extends Controller
                 return $asset->updated_at->format('Y-m-d');
             })
             ->addColumn('action', function ($asset) use ($classification) {
-                if ($classification === "tik") {
-                    $routeEdit = "asettik";
-                }
-
-                if ($classification === "rt") {
-                    $routeEdit = "asetrt";
-                }
                 return '
                 <div class="btn-group">
                     <a href="' . route('admin.asetrt.pemeliharaan', ['id' => $asset->id]) . '" class="btn btn-light">
@@ -123,7 +124,13 @@ class AssetController extends Controller
                     <div class="btn-group">
                         <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" title="More..."></button>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a class="mx-3" href="' . route("admin.$routeEdit.edit", ['id' => $asset->id]) . '">Edit</a></li>
+                            <li>
+                    <a class="mx-3" href="' . (
+                    $classification === 'tik'
+                    ? route('admin.asettik.show', ['id' => $asset->id, 'section' => 'edit'])
+                    : route("admin.asetrt.edit", ['id' => $asset->id])
+                ) . '">Edit</a>
+                </li>
                             <li><span class="mx-3" data-toggle="modal" data-target="#deleteModal" data-id="' . $asset->id . '" data-name="' . e($asset->name) . '" style="cursor: pointer; color: #007bff;">Delete</span></li>
                         </ul>
                     </div>

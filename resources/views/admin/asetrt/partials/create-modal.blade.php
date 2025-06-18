@@ -177,7 +177,7 @@
                 let form = $(this);
 
                 $.ajax({
-                    url: "{{ route('admin.asetrt.store_rt') }}",
+                    url: "{{ route('admin.asetrt.store', ['classification' => 'rt']) }}",
                     method: "POST",
                     data: form.serialize(),
                     success: function(res) {
@@ -190,7 +190,8 @@
                                 message: 'Data berhasil disimpan!'
                             }
                         }));
-                        window.dispatchEvent(new Event('updateAssets'));
+
+                        $('#tableAsetrt').DataTable().ajax.reload();
                     },
                     error: function(xhr) {
                         if (xhr.responseJSON?.errors) {

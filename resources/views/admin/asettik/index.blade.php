@@ -190,7 +190,6 @@
                     var name = button.data('name');
 
                     var modal = $(this)
-                    // modal.find('#assetName').text(name)
                 });
             });
         </script>

@@ -83,7 +83,7 @@
                 <select name="user_id" id="useraset" class="form-control select2">
                     <option value="">Pilih...</option>
                     @foreach ($users as $user)
-                        <option value="{{ $user->id }}" {{ (isset($asset->user_id) && $asset->user_id == $user->id) ? 'selected' : '' }}>{{ $user->name }}</option>
+                        <option value="{{ $user->id }}" {{ (isset($asset->user_id) && $asset->user_id == $user->id) ? 'selected' : '' }}>{{ $user->username }}</option>
                     @endforeach
                 </select>
                 <div id="user_id-error" class="text-danger text-sm mt-1"></div>
@@ -93,7 +93,7 @@
                 <select name="admin_id" id="adminaset" class="form-control select2">
                     <option value="">Pilih...</option>
                     @foreach ($users as $user)
-                        <option value="{{ $user->id }}" {{ (isset($asset->admin_id) && $asset->admin_id == $user->id) ? 'selected' : '' }}>{{ $user->name }}</option>
+                        <option value="{{ $user->id }}" {{ (isset($asset->admin_id) && $asset->admin_id == $user->id) ? 'selected' : '' }}>{{ $user->username }}</option>
                     @endforeach
                 </select>
                 <div id="admin_id-error" class="text-danger text-sm mt-1"></div>

@@ -1,11 +1,15 @@
-@extends('layouts.backsite')
-
-@section('title', 'Kelola Aset RT')
+@extends('layouts.backsite', [
+    'title' => 'AsetRT | SAPA PPL',
+    'welcome' => 'Kelola Aset RT',
+])
 
 @push('script-head')
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+
+    {{-- DataTable Css --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.bootstrap4.css" />
 @endpush
 
 @section('content')
@@ -14,7 +18,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="card-header"
+                            style="display: flex; justify-content: space-between; align-items: center;">
                             <h3 class="card-title"><i class="fa-solid fa-computer"></i> Kelola Aset RT <span
                                     class="badge end-0 mr-3 bg-info text-light">{{ $totalAssets }}</span></h3>
                             <button type="button" id="btnOpenCreateModal" class="btn btn-primary"
@@ -25,20 +30,9 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <div class="row form-group">
-                                <div class="col-3 mt-auto">
-                                    Show
-                                    <select id="per_page" class="form-select">
-                                        <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
-                                        <option value="20" {{ request('per_page') == 20 ? 'selected' : '' }}>20</option>
-                                        <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
-                                        <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100
-                                        </option>
-                                    </select>
-                                    Entries
-                                </div>
+                            <div class="row">
                                 <div class="col-4 mt-auto">
-                                    <div class="d-flex">
+                                    <div class="px-2 d-flex">
                                         <select id="category" name="jenis" class="ml-0 form-control mr-2">
                                             <option value="">Semua Kategori</option>
                                             @foreach ($categories as $cat)
@@ -52,12 +46,8 @@
                                             data-placement="top" title="Filter"><i class="fas fa-filter"></i></button>
                                     </div>
                                 </div>
-                                <div class="col-2 d-flex justify-content-end">
-                                    <label for="search" class="col-form-label">Search:</label>
-                                </div>
-                                <input type="text" id="search" name="search" value="{{ request('search') }}"
-                                    class="form-control col-3" placeholder="nama / serial no">
                             </div>
+
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover" id="tableAsetrt">
                                     <thead>
@@ -77,44 +67,7 @@
                                 </table>
                             </div>
 
-                            <!-- Modal QR Code -->
-                            <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog"
-                                aria-labelledby="qrCodeModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-                                    <div class="modal-content text-center">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="qrCodeModalLabel">QR Code Aset</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body" id="qrCodeContainer">
-                                            <div id="qrCodeName" class="d-flex justify-content-center mb-2"></div>
-                                            <div id="qrcode" class="d-flex justify-content-center"></div>
-                                            <p class="mt-2" id="qrTagLabel"></p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button onclick="printQrCode()" class="btn btn-primary">Print</button>
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Tutup</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="row">
-                                <!-- Pagination -->
-                                <div class="col-md-12">
-                                    <div class="d-flex justify-content-between align-items-center flex-wrap">
-                                        <small>
-                                            Menampilkan {{ $assets->firstItem() ?? 0 }} sampai
-                                            {{ $assets->lastItem() ?? 0 }}
-                                            dari total {{ $assets->total() }} entri
-                                        </small>
-                                        <div id="pagination-wrapper"></div>
-                                    </div>
-                                </div>
-
                                 <div class="col-md-12">
                                     <div class="dt-buttons btn-group"><a class="btn btn-default buttons-copy buttons-html5"
                                             tabindex="0" aria-controls="dataTablesFull"
@@ -138,6 +91,7 @@
 
         @include('admin.asetrt.partials.create-modal')
         @include('admin.asetrt.partials.delete-modal')
+        @include('admin.asetrt.partials.qrcode-modal')
     </section>
 
     @push('script-foot')
@@ -150,12 +104,20 @@
         <script>
             function initTableAsetrt() {
                 $('#tableAsetrt').DataTable({
+                    layout: {
+                        topEnd: {
+                            search: {
+                                placeholder: 'nama / serial no'
+                            }
+                        }
+                    },
                     processing: true,
                     serverSide: true,
                     responsive: true,
                     ajax: {
-                        url: "{{ route('admin.asettik.get_assets') }}",
+                        url: "{{ route('admin.asetrt.get_assets') }}",
                         data: function(d) {
+                            d.category = $('#category').val();
                             d.classification =
                                 'rt';
                         }
@@ -194,6 +156,10 @@
                 });
             }
 
+            $('#category').on('change', function() {
+                $('#tableAsetrt').DataTable().ajax.reload();
+            });
+
             $(document).ready(function() {
                 initTableAsetrt();
             })
@@ -202,7 +168,7 @@
         {{-- ModalManagement --}}
         <script>
             $(document).ready(function() {
-                // Open Modal
+                // Create Modal
                 $('#btnOpenCreateModal').on('click', function() {
                     $('#createModal').modal('show');
                 });
@@ -215,6 +181,15 @@
 
                     var modal = $(this)
                     modal.find('#assetName').text(name)
+                });
+
+                // QR Code Modal
+                $('#qrCodeModal').on('show.bs.modal', function(event) {
+                    var button = $(event.relatedTarget);
+                    var id = button.data('id');
+                    var name = button.data('name');
+
+                    var modal = $(this)
                 });
             });
         </script>
