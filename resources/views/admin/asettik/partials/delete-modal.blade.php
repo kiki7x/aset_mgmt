@@ -46,12 +46,11 @@
                      success: function(res) {
                          $('#deleteModal').modal('hide');
 
-                         window.dispatchEvent(new CustomEvent('alert', {
-                             detail: {
-                                 type: 'success',
-                                 message: 'Aset berhasil dihapus!'
-                             }
-                         }));
+                         Swal.fire({
+                             icon: 'success',
+                             title: 'Berhasil!',
+                             text: 'Aset berhasil dihapus!',
+                         })
 
                          $('#tableAsettik').DataTable().ajax.reload();
                      },

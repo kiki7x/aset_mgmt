@@ -184,12 +184,12 @@
                         $('#createModal').modal('hide');
                         form[0].reset();
                         $('.select2, .select2tag').val(null).trigger('change');
-                        window.dispatchEvent(new CustomEvent('alert', {
-                            detail: {
-                                type: 'success',
-                                message: 'Data berhasil disimpan!'
-                            }
-                        }));
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil!',
+                            text: 'Data berhasil disimpan!',
+                        })
 
                         $('#tableAsetrt').DataTable().ajax.reload();
                     },
