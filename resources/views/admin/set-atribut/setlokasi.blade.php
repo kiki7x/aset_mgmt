@@ -54,7 +54,6 @@
                 </div>
                 <form action="" method="POST" id="formEditGedung">
                     @csrf
-                    @method('PATCH')
                     <input type="hidden" id="edit_building_id" name="building_id" />
                     <div class="modal-body">
                         <div class="form-group">
@@ -84,7 +83,6 @@
                 </div>
                 <form action="" method="POST" id="formEditRuangan">
                     @csrf
-                    @method('PATCH')
                     <input type="hidden" id="edit_room_id" name="room_id" />
                     <div class="modal-body">
                         <div class="form-group">
@@ -180,7 +178,6 @@
                 <!-- Modal body -->
                 <form action="" method="POST" id="formEditLokasi">
                     @csrf
-                    @method('PATCH')
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="edit_name">Nama Lokasi</label>

@@ -92,7 +92,6 @@
                 <!-- Modal body -->
                 <form action="" method="POST" id="formEditKlasifikasi">
                     @csrf
-                    @method('PATCH')
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="edit_name">Nama Klasifikasi</label>

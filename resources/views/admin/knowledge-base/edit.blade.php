@@ -20,7 +20,6 @@
                     <!-- /.card-header -->
                     <form action="{{ route('admin.knowledge-base.update', $article->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        @method('PATCH') {{-- Menggunakan metode PATCH untuk update --}}
                         @php
                             $contentForEdit = old('content', $article->content);
                             $contentForEdit = preg_replace('/<div[^>]*data-kb-featured="1"[^>]*>.*?<\/div>\s*/is', '', $contentForEdit) ?? $contentForEdit;

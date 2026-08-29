@@ -11,7 +11,6 @@
             <div class="modal-body">
                 <form id="formEditJadwalPemeliharaan">
                     @csrf
-                    @method('PATCH')
                     {{-- Nama Barang & Hidden Input --}}
                     <div class="form-group">
                         <p class="h5">{{ $asset->tag }} - {{ $asset->name }}</p>

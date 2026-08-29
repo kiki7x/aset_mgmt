@@ -10,7 +10,6 @@
             </div>
             <form id="formEditPemeliharaan">
                 @csrf
-                @method('PUT')
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-group col-md-12">
@@ -167,7 +166,6 @@
             e.preventDefault();
             var id = $('#edit-pemeliharaan').data('id');
             var formData = new FormData(this);
-            formData.append('_method', 'PUT');
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

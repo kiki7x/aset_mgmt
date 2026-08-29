@@ -10,7 +10,6 @@
 @section('content-tab')
     <form id="formEditLicense">
         @csrf
-        @method('PATCH')
         <div class="card-body">
             <div class="row form-group">
                 <input type="hidden" name="id" value="{{ $license->id }}">

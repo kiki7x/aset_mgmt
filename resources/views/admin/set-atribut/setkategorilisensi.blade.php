@@ -90,7 +90,6 @@
                 </div>
                 <form action="" method="POST" id="formEditKategorilisensi">
                     @csrf
-                    @method('PATCH')
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="edit_name">Nama Kategori</label>

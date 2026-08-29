@@ -157,7 +157,6 @@
 
                 <form action="" id="formEditUser" method="POST">
                     @csrf
-                    @method('PATCH')
                     <div class="modal-body">
                         <div class="row">
                             {{-- Full Name --}}

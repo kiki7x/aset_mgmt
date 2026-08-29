@@ -76,7 +76,6 @@
                                             <li>
                                                 <form action="{{ route('admin.knowledge-base.destroy', $article->id) }}" method="POST" class="d-inline">
                                                     @csrf
-                                                    @method('DELETE')
                                                     <span class="mx-3 btn-delete-article" style="cursor:pointer;color:#007bff;" data-id="{{ $article->id }}">Delete</span>
                                                 </form>
                                             </li>
@@ -177,7 +176,7 @@
 
             // Handle Article Delete
             $(document).on('click', '.btn-delete-article', function() {
-                const form = $(this).closest('form');
+                var id = $(this).data('id');
                 Swal.fire({
                     title: 'Apakah Anda yakin?',
                     text: "Artikel ini akan dihapus secara permanen!",
@@ -189,7 +188,20 @@
                     cancelButtonText: 'Batal'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        form.submit();
+                        $.ajax({
+                            url: `/admin/knowledge-base/${id}`,
+                            method: "DELETE",
+                            data: {
+                                _token: "{{ csrf_token() }}"
+                            },
+                            success: function(response) {
+                                Swal.fire('Berhasil!', response.message, 'success');
+                                location.reload();
+                            },
+                            error: function(response) {
+                                Swal.fire('Error!', response.responseJSON.message || 'Terjadi kesalahan!', 'error');
+                            }
+                        });
                     }
                 });
             });

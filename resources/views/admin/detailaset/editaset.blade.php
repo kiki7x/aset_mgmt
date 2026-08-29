@@ -220,7 +220,7 @@
 
                 $.ajax({
                     url: "{{ route('admin.asettik.update', $id) }}",
-                    method: "POST", // Laravel interprets @method('PUT') when using POST
+                    method: "POST",
                     data: formData,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

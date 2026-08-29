@@ -49,7 +49,6 @@
                 </div>
                 <form id="formPermission">
                     @csrf
-                    @method('PATCH')
                     <div class="modal-body">
                         <div class="row">
                             @foreach($permissions as $group => $items)
@@ -232,7 +231,6 @@
             url: `{{ url('/admin/settings/permission') }}/${id}/update`,
             type: 'POST',
             data: {
-                _method: 'PATCH',
                 permissions: permissions
             },
             success: function(response) {
@@ -280,10 +278,6 @@
         var mode = $(this).attr('data-mode');
         var id = $(this).data('id');
         var formData = new FormData(this);
-
-        if (mode === 'edit') {
-            formData.append('_method', 'PATCH');
-        }
 
         $.ajax({
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },

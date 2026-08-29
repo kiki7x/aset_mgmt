@@ -87,12 +87,12 @@ Route::prefix('admin')->middleware(['auth', 'readonly_user'])->group(function ()
     Route::get('/aset/{id}/pemeliharaan/scheduleDataTable', [App\Http\Controllers\PemeliharaanController::class, 'scheduledataTable'])->name('admin.aset.pemeliharaan.scheduleDataTable');
     Route::post('/aset/{id}/pemeliharaan/schedulestore', [App\Http\Controllers\PemeliharaanController::class, 'scheduleStore'])->name('admin.aset.pemeliharaan.scheduleStore');
     Route::get('/aset/{id}/pemeliharaan/scheduleEdit/', [App\Http\Controllers\PemeliharaanController::class, 'scheduleEdit'])->name('admin.aset.pemeliharaan.scheduleEdit');
-    Route::patch('/aset/{id}/pemeliharaan/scheduleUpdate', [App\Http\Controllers\PemeliharaanController::class, 'scheduleUpdate'])->name('admin.aset.pemeliharaan.scheduleUpdate');
+    Route::match(['post', 'patch'], '/aset/{id}/pemeliharaan/scheduleUpdate', [App\Http\Controllers\PemeliharaanController::class, 'scheduleUpdate'])->name('admin.aset.pemeliharaan.scheduleUpdate');
     Route::delete('/aset/{id}/pemeliharaan/scheduleDelete', [App\Http\Controllers\PemeliharaanController::class, 'scheduleDelete'])->name('admin.aset.pemeliharaan.scheduleDelete');
     Route::get('/aset/{id}/pemeliharaan/preventifAdd', [App\Http\Controllers\PemeliharaanController::class, 'preventifAdd'])->name('admin.aset.pemeliharaan.preventifAdd');
     Route::post('/aset/{id}/pemeliharaan/preventifStore', [App\Http\Controllers\PemeliharaanController::class, 'preventifStore'])->name('admin.aset.pemeliharaan.preventifStore');
     Route::get('/aset/{id}/pemeliharaan/preventifEdit', [App\Http\Controllers\PemeliharaanController::class, 'preventifEdit'])->name('admin.aset.pemeliharaan.preventifEdit');
-    Route::patch('/aset/{id}/pemeliharaan/preventifUpdate', [App\Http\Controllers\PemeliharaanController::class, 'preventifUpdate'])->name('admin.aset.pemeliharaan.preventifUpdate');
+    Route::match(['post', 'patch'], '/aset/{id}/pemeliharaan/preventifUpdate', [App\Http\Controllers\PemeliharaanController::class, 'preventifUpdate'])->name('admin.aset.pemeliharaan.preventifUpdate');
     Route::delete('/aset/{id}/pemeliharaan/preventifDelete', [App\Http\Controllers\PemeliharaanController::class, 'preventifDelete'])->name('admin.aset.pemeliharaan.preventifDelete');
     Route::get('/aset/{id}/pemeliharaan/preventifDataTable', [App\Http\Controllers\PemeliharaanController::class, 'preventifDataTable'])->name('admin.aset.pemeliharaan.preventifDataTable');
     Route::get('/aset/{id}/pemeliharaan/korektif', [App\Http\Controllers\PemeliharaanController::class, 'korektif'])->name('admin.aset.pemeliharaan.korektif');
@@ -107,9 +107,9 @@ Route::prefix('admin')->middleware(['auth', 'readonly_user'])->group(function ()
         Route::get('/pemeliharaan-korektif/pemeliharaanDataTableSelesai', [App\Http\Controllers\PemeliharaanKorektifController::class, 'pemeliharaanKorektifDataTableSelesai'])->name('admin.pemeliharaan-korektif.pemeliharaanDataTableSelesai');
         Route::post('/pemeliharaan-korektif/store', [App\Http\Controllers\PemeliharaanKorektifController::class, 'store'])->name('admin.pemeliharaan-korektif.store');
         Route::get('/pemeliharaan-korektif/edit/{id}', [App\Http\Controllers\PemeliharaanKorektifController::class, 'edit'])->name('admin.pemeliharaan-korektif.edit');
-        Route::patch('/pemeliharaan-korektif/ubahstatus/{id}', [App\Http\Controllers\PemeliharaanKorektifController::class, 'ubahStatus'])->name('admin.pemeliharaan-korektif.ubahstatus');
-        Route::patch('/pemeliharaan-korektif/tindaklanjut/{id}', [App\Http\Controllers\PemeliharaanKorektifController::class, 'tindakLanjut'])->name('admin.pemeliharaan-korektif.tindaklanjut');
-        Route::put('/pemeliharaan-korektif/update/{id}', [App\Http\Controllers\PemeliharaanKorektifController::class, 'update'])->name('admin.pemeliharaan-korektif.update');
+        Route::match(['post', 'patch'], '/pemeliharaan-korektif/ubahstatus/{id}', [App\Http\Controllers\PemeliharaanKorektifController::class, 'ubahStatus'])->name('admin.pemeliharaan-korektif.ubahstatus');
+        Route::match(['post', 'patch'], '/pemeliharaan-korektif/tindaklanjut/{id}', [App\Http\Controllers\PemeliharaanKorektifController::class, 'tindakLanjut'])->name('admin.pemeliharaan-korektif.tindaklanjut');
+        Route::match(['post', 'put'], '/pemeliharaan-korektif/update/{id}', [App\Http\Controllers\PemeliharaanKorektifController::class, 'update'])->name('admin.pemeliharaan-korektif.update');
         Route::delete('/pemeliharaan-korektif/delete/{id}', [App\Http\Controllers\PemeliharaanKorektifController::class, 'destroy'])->name('admin.pemeliharaan-korektif.destroy');
     });
 
@@ -134,7 +134,7 @@ Route::prefix('admin')->middleware(['auth', 'readonly_user'])->group(function ()
         Route::post('/license/store', [App\Http\Controllers\LicensesController::class, 'store'])->name('admin.license.store');
         Route::get('/license/{id}/overview', [App\Http\Controllers\LicensesController::class, 'overview'])->name('admin.license.overview');
         Route::get('/license/{id}/edit', [App\Http\Controllers\LicensesController::class, 'editDetail'])->name('admin.license.edit');
-        Route::patch('/license/update/{id}', [App\Http\Controllers\LicensesController::class, 'update'])->name('admin.license.update');
+        Route::match(['post', 'patch'], '/license/update/{id}', [App\Http\Controllers\LicensesController::class, 'update'])->name('admin.license.update');
         Route::delete('/license/delete/{id}', [App\Http\Controllers\LicensesController::class, 'destroy'])->name('admin.license.delete');
         Route::get('/license/{id}/get-assets', [App\Http\Controllers\LicensesController::class, 'getAssignedAssets'])->name('admin.license.get_assigned_assets');
         Route::get('/license/{id}/available-assets', [App\Http\Controllers\LicensesController::class, 'availableAssets'])->name('admin.license.available_assets');
@@ -151,49 +151,49 @@ Route::prefix('admin')->middleware(['auth', 'readonly_user'])->group(function ()
         Route::get('/setting_attr/klasifikasi/get_klasifikasi', [App\Http\Controllers\SetatributController::class, 'getKlasifikasi'])->name('admin.setting_attr.klasifikasi.get_klasifikasi');
         Route::post('/setting_attr/klasifikasi/store', [App\Http\Controllers\SetatributController::class, 'storeKlasifikasi'])->name('admin.setting_attr.klasifikasi.store');
         Route::get('/setting_attr/klasifikasi/edit/{id}', [App\Http\Controllers\SetatributController::class, 'editKlasifikasi'])->name('admin.setting_attr.klasifikasi.edit');
-        Route::patch('/setting_attr/klasifikasi/update/{id}', [App\Http\Controllers\SetatributController::class, 'updateKlasifikasi'])->name('admin.setting_attr.klasifikasi.update');
+        Route::match(['post', 'patch'], '/setting_attr/klasifikasi/update/{id}', [App\Http\Controllers\SetatributController::class, 'updateKlasifikasi'])->name('admin.setting_attr.klasifikasi.update');
         Route::delete('/setting_attr/klasifikasi/delete/{id}', [App\Http\Controllers\SetatributController::class, 'deleteKlasifikasi'])->name('admin.setting_attr.klasifikasi.delete');
         // Route Setting Kategori
         Route::get('/setting_attr/kategori', [App\Http\Controllers\SetatributController::class, 'kategori'])->name('admin.setting_attr.kategori');
         Route::get('/setting_attr/kategori/get_kategori', [App\Http\Controllers\SetatributController::class, 'getKategori'])->name('admin.setting_attr.kategori.get_kategori');
         Route::post('/setting_attr/kategori/store', [App\Http\Controllers\SetatributController::class, 'storeKategori'])->name('admin.setting_attr.kategori.store');
         Route::get('/setting_attr/kategori/edit/{id}', [App\Http\Controllers\SetatributController::class, 'editKategori'])->name('admin.setting_attr.kategori.edit');
-        Route::patch('/setting_attr/kategori/update/{id}', [App\Http\Controllers\SetatributController::class, 'updateKategori'])->name('admin.setting_attr.kategori.update');
+        Route::match(['post', 'patch'], '/setting_attr/kategori/update/{id}', [App\Http\Controllers\SetatributController::class, 'updateKategori'])->name('admin.setting_attr.kategori.update');
         Route::delete('/setting_attr/kategori/delete/{id}', [App\Http\Controllers\SetatributController::class, 'deleteKategori'])->name('admin.setting_attr.kategori.delete');
         // Route Setting Merk
         Route::get('/setting_attr/merk', [App\Http\Controllers\SetatributController::class, 'merk'])->name('admin.setting_attr.merk');
         Route::get('/setting_attr/merk/get_merk', [App\Http\Controllers\SetatributController::class, 'getMerk'])->name('admin.setting_attr.merk.get_merk');
         Route::post('/setting_attr/merk/store', [App\Http\Controllers\SetatributController::class, 'storeMerk'])->name('admin.setting_attr.merk.store');
         Route::get('/setting_attr/merk/edit/{id}', [App\Http\Controllers\SetatributController::class, 'editMerk'])->name('admin.setting_attr.merk.edit');
-        Route::patch('/setting_attr/merk/update/{id}', [App\Http\Controllers\SetatributController::class, 'updateMerk'])->name('admin.setting_attr.merk.update');
+        Route::match(['post', 'patch'], '/setting_attr/merk/update/{id}', [App\Http\Controllers\SetatributController::class, 'updateMerk'])->name('admin.setting_attr.merk.update');
         Route::delete('/setting_attr/merk/delete/{id}', [App\Http\Controllers\SetatributController::class, 'deleteMerk'])->name('admin.setting_attr.merk.delete');
         // Route Setting Model
         Route::get('/setting_attr/model', [App\Http\Controllers\SetatributController::class, 'model'])->name('admin.setting_attr.model');
         Route::get('/setting_attr/model/get_model', [App\Http\Controllers\SetatributController::class, 'getModel'])->name('admin.setting_attr.model.get_model');
         Route::post('/setting_attr/model/store', [App\Http\Controllers\SetatributController::class, 'storeModel'])->name('admin.setting_attr.model.store');
         Route::get('/setting_attr/model/edit/{id}', [App\Http\Controllers\SetatributController::class, 'editModel'])->name('admin.setting_attr.model.edit');
-        Route::patch('/setting_attr/model/update/{id}', [App\Http\Controllers\SetatributController::class, 'updateModel'])->name('admin.setting_attr.model.update');
+        Route::match(['post', 'patch'], '/setting_attr/model/update/{id}', [App\Http\Controllers\SetatributController::class, 'updateModel'])->name('admin.setting_attr.model.update');
         Route::delete('/setting_attr/model/delete/{id}', [App\Http\Controllers\SetatributController::class, 'deleteModel'])->name('admin.setting_attr.model.delete');
         // Route Setting Supplier
         Route::get('/setting_attr/supplier', [App\Http\Controllers\SetatributController::class, 'supplier'])->name('admin.setting_attr.supplier');
         Route::get('/setting_attr/supplier/get_supplier', [App\Http\Controllers\SetatributController::class, 'getSupplier'])->name('admin.setting_attr.supplier.get_supplier');
         Route::post('/setting_attr/supplier/store', [App\Http\Controllers\SetatributController::class, 'storeSupplier'])->name('admin.setting_attr.supplier.store');
         Route::get('/setting_attr/supplier/edit/{id}', [App\Http\Controllers\SetatributController::class, 'editSupplier'])->name('admin.setting_attr.supplier.edit');
-        Route::patch('/setting_attr/supplier/update/{id}', [App\Http\Controllers\SetatributController::class, 'updateSupplier'])->name('admin.setting_attr.supplier.update');
+        Route::match(['post', 'patch'], '/setting_attr/supplier/update/{id}', [App\Http\Controllers\SetatributController::class, 'updateSupplier'])->name('admin.setting_attr.supplier.update');
         Route::delete('/setting_attr/supplier/delete/{id}', [App\Http\Controllers\SetatributController::class, 'deleteSupplier'])->name('admin.setting_attr.supplier.delete');
         // Route Setting Label
         Route::get('/setting_attr/label/', [App\Http\Controllers\SetatributController::class, 'label'])->name('admin.setting_attr.label');
         Route::get('/setting_attr/label/get_label', [App\Http\Controllers\SetatributController::class, 'getLabel'])->name('admin.setting_attr.label.get_label');
         Route::post('/setting_attr/label/store', [App\Http\Controllers\SetatributController::class, 'storeLabel'])->name('admin.setting_attr.label.store');
         Route::get('/setting_attr/label/edit/{id}', [App\Http\Controllers\SetatributController::class, 'editLabel'])->name('admin.setting_attr.label.edit');
-        Route::patch('/setting_attr/label/update/{id}', [App\Http\Controllers\SetatributController::class, 'updateLabel'])->name('admin.setting_attr.label.update');
+        Route::match(['post', 'patch'], '/setting_attr/label/update/{id}', [App\Http\Controllers\SetatributController::class, 'updateLabel'])->name('admin.setting_attr.label.update');
         Route::delete('/setting_attr/label/delete/{id}', [App\Http\Controllers\SetatributController::class, 'deleteLabel'])->name('admin.setting_attr.label.delete');
         // Route Setting Kategori Lisensi
         Route::get('/setting_attr/kategorilisensi', [App\Http\Controllers\SetatributController::class, 'kategorilisensi'])->name('admin.setting_attr.kategorilisensi');
         Route::get('/setting_attr/kategorilisensi/get_kategorilisensi', [App\Http\Controllers\SetatributController::class, 'getKategorilisensi'])->name('admin.setting_attr.kategorilisensi.get_kategorilisensi');
         Route::post('/setting_attr/kategorilisensi/store', [App\Http\Controllers\SetatributController::class, 'storeKategorilisensi'])->name('admin.setting_attr.kategorilisensi.store');
         Route::get('/setting_attr/kategorilisensi/edit/{id}', [App\Http\Controllers\SetatributController::class, 'editKategorilisensi'])->name('admin.setting_attr.kategorilisensi.edit');
-        Route::patch('/setting_attr/kategorilisensi/update/{id}', [App\Http\Controllers\SetatributController::class, 'updateKategorilisensi'])->name('admin.setting_attr.kategorilisensi.update');
+        Route::match(['post', 'patch'], '/setting_attr/kategorilisensi/update/{id}', [App\Http\Controllers\SetatributController::class, 'updateKategorilisensi'])->name('admin.setting_attr.kategorilisensi.update');
         Route::delete('/setting_attr/kategorilisensi/delete/{id}', [App\Http\Controllers\SetatributController::class, 'deleteKategorilisensi'])->name('admin.setting_attr.kategorilisensi.delete');
         // Route Setting Lokasi
         Route::get('/setting_attr/lokasi', [App\Http\Controllers\SetatributController::class, 'lokasi'])->name('admin.setting_attr.lokasi');
@@ -202,8 +202,8 @@ Route::prefix('admin')->middleware(['auth', 'readonly_user'])->group(function ()
         Route::post('/setting_attr/lokasi/room/store', [App\Http\Controllers\SetatributController::class, 'storeRoom'])->name('admin.setting_attr.lokasi.room.store');
         Route::post('/setting_attr/lokasi/store', [App\Http\Controllers\SetatributController::class, 'storeLokasi'])->name('admin.setting_attr.lokasi.store');
         Route::get('/setting_attr/lokasi/edit/{id}', [App\Http\Controllers\SetatributController::class, 'editLokasi'])->name('admin.setting_attr.lokasi.edit');
-        Route::patch('/setting_attr/lokasi/update/{id}', [App\Http\Controllers\SetatributController::class, 'updateLokasi'])->name('admin.setting_attr.lokasi.update');
-        Route::patch('/setting_attr/lokasi/building/update/{id}', [App\Http\Controllers\SetatributController::class, 'updateBuilding'])->name('admin.setting_attr.lokasi.building.update');
+        Route::match(['post', 'patch'], '/setting_attr/lokasi/update/{id}', [App\Http\Controllers\SetatributController::class, 'updateLokasi'])->name('admin.setting_attr.lokasi.update');
+        Route::match(['post', 'patch'], '/setting_attr/lokasi/building/update/{id}', [App\Http\Controllers\SetatributController::class, 'updateBuilding'])->name('admin.setting_attr.lokasi.building.update');
         Route::delete('/setting_attr/lokasi/building/delete/{id}', [App\Http\Controllers\SetatributController::class, 'deleteBuilding'])->name('admin.setting_attr.lokasi.building.delete');
         Route::delete('/setting_attr/lokasi/delete/{id}', [App\Http\Controllers\SetatributController::class, 'deleteLokasi'])->name('admin.setting_attr.lokasi.delete');
     });
@@ -222,12 +222,12 @@ Route::prefix('admin')->middleware(['auth', 'readonly_user'])->group(function ()
         Route::get('/knowledge-base/create', [App\Http\Controllers\KnowledgeBaseController::class, 'create'])->name('admin.knowledge-base.create');
         Route::post('/knowledge-base', [App\Http\Controllers\KnowledgeBaseController::class, 'store'])->name('admin.knowledge-base.store');
         Route::get('/knowledge-base/{article}/edit', [App\Http\Controllers\KnowledgeBaseController::class, 'edit'])->name('admin.knowledge-base.edit');
-        Route::patch('/knowledge-base/{article}', [App\Http\Controllers\KnowledgeBaseController::class, 'update'])->name('admin.knowledge-base.update');
+        Route::match(['post', 'patch'], '/knowledge-base/{article}', [App\Http\Controllers\KnowledgeBaseController::class, 'update'])->name('admin.knowledge-base.update');
         Route::delete('/knowledge-base/{article}', [App\Http\Controllers\KnowledgeBaseController::class, 'destroy'])->name('admin.knowledge-base.destroy');
 
         // Rute untuk manajemen kategori Knowledge Base (via AJAX)
         Route::post('/knowledge-base/categories', [App\Http\Controllers\KnowledgeBaseController::class, 'categoryStore'])->name('admin.knowledge-base.categories.store');
-        Route::patch('/knowledge-base/categories/{category}', [App\Http\Controllers\KnowledgeBaseController::class, 'categoryUpdate'])->name('admin.knowledge-base.categories.update');
+        Route::match(['post', 'patch'], '/knowledge-base/categories/{category}', [App\Http\Controllers\KnowledgeBaseController::class, 'categoryUpdate'])->name('admin.knowledge-base.categories.update');
         Route::delete('/knowledge-base/categories/{category}', [App\Http\Controllers\KnowledgeBaseController::class, 'categoryDestroy'])->name('admin.knowledge-base.categories.destroy');
 
         // Rute untuk Summernote Image Upload
@@ -240,7 +240,7 @@ Route::prefix('admin')->middleware(['auth', 'readonly_user'])->group(function ()
         Route::get('/monitoring/data', [App\Http\Controllers\MonitoringController::class, 'data'])->name('admin.monitoring.data');
         Route::post('/monitoring/store', [App\Http\Controllers\MonitoringController::class, 'store'])->name('admin.monitoring.store');
         Route::get('/monitoring/{id}/edit', [App\Http\Controllers\MonitoringController::class, 'edit'])->name('admin.monitoring.edit');
-        Route::patch('/monitoring/{id}/update', [App\Http\Controllers\MonitoringController::class, 'update'])->name('admin.monitoring.update');
+        Route::match(['post', 'patch'], '/monitoring/{id}/update', [App\Http\Controllers\MonitoringController::class, 'update'])->name('admin.monitoring.update');
         Route::delete('/monitoring/{id}/destroy', [App\Http\Controllers\MonitoringController::class, 'destroy'])->name('admin.monitoring.destroy');
         Route::post('/monitoring/{id}/check', [App\Http\Controllers\MonitoringController::class, 'checkNow'])->name('admin.monitoring.check');
         Route::get('/monitoring/{id}/chart', [App\Http\Controllers\MonitoringController::class, 'chartData'])->name('admin.monitoring.chart');
@@ -265,7 +265,7 @@ Route::prefix('admin')->middleware(['auth', 'readonly_user'])->group(function ()
         Route::get('settings/permission/get_roles', [App\Http\Controllers\PermissionController::class, 'getRoles'])->name('admin.settings.permission.get_roles');
         Route::post('settings/permission/store', [App\Http\Controllers\PermissionController::class, 'store'])->name('admin.settings.permission.store');
         Route::get('settings/permission/{id}/edit', [App\Http\Controllers\PermissionController::class, 'edit'])->name('admin.settings.permission.edit');
-        Route::patch('settings/permission/{id}/update', [App\Http\Controllers\PermissionController::class, 'update'])->name('admin.settings.permission.update');
+        Route::match(['post', 'patch'], 'settings/permission/{id}/update', [App\Http\Controllers\PermissionController::class, 'update'])->name('admin.settings.permission.update');
         Route::delete('settings/permission/{id}/destroy', [App\Http\Controllers\PermissionController::class, 'destroy'])->name('admin.settings.permission.destroy');
     });
 
@@ -276,7 +276,7 @@ Route::prefix('admin')->middleware(['auth', 'readonly_user'])->group(function ()
         Route::get('settings/usermanager/get_users', [App\Http\Controllers\UserController::class, 'getUsers'])->name('admin.settings.usermanager.get_users');
         Route::post('settings/usermanager/store', [App\Http\Controllers\UserController::class, 'store'])->name('admin.settings.usermanager.store');
         Route::get('settings/usermanager/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('admin.settings.usermanager.edit');
-        Route::patch('settings/usermanager/update/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('admin.settings.usermanager.update');
+        Route::match(['post', 'patch'], 'settings/usermanager/update/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('admin.settings.usermanager.update');
         Route::delete('settings/usermanager/delete/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('admin.settings.usermanager.delete');
         Route::get('settings/usermanager/profil/{id}', [App\Http\Controllers\UserController::class, 'profil'])->name('admin.settings.usermanager.profil');
         // Route Import

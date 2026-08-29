@@ -121,7 +121,6 @@
                 <!-- Modal body -->
                 <form action="" method="POST" id="formEditSupplier">
                     @csrf
-                    @method('PATCH')
                     <div class="modal-body">
                         <div class="row form-group">
                             <div class="form-group col-4">

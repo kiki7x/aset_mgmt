@@ -9,7 +9,6 @@
             </div>
             <form id="formUbahStatus" method="POST" enctype="multipart/form-data">
                 @csrf
-                @method('PATCH')
                 <div class="modal-body">
                     {{-- form ubah status --}}
                     <div class="form-group">
@@ -49,7 +48,6 @@
             </div>
             <form id="formTindakLanjut" method="POST" enctype="multipart/form-data">
                 @csrf
-                @method('PATCH')
                 <div class="modal-body">
                     {{-- Bukti dukung --}}
                     <div class="form-group">
