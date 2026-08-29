@@ -223,7 +223,7 @@ Route::prefix('admin')->middleware(['auth', 'readonly_user'])->group(function ()
         Route::post('/knowledge-base', [App\Http\Controllers\KnowledgeBaseController::class, 'store'])->name('admin.knowledge-base.store');
         Route::get('/knowledge-base/{article}/edit', [App\Http\Controllers\KnowledgeBaseController::class, 'edit'])->name('admin.knowledge-base.edit');
         Route::match(['post', 'patch'], '/knowledge-base/{article}', [App\Http\Controllers\KnowledgeBaseController::class, 'update'])->name('admin.knowledge-base.update');
-        Route::delete('/knowledge-base/{article}', [App\Http\Controllers\KnowledgeBaseController::class, 'destroy'])->name('admin.knowledge-base.destroy');
+        Route::match(['post', 'delete'], '/knowledge-base/{article}/delete', [App\Http\Controllers\KnowledgeBaseController::class, 'destroy'])->name('admin.knowledge-base.destroy');
 
         // Rute untuk manajemen kategori Knowledge Base (via AJAX)
         Route::post('/knowledge-base/categories', [App\Http\Controllers\KnowledgeBaseController::class, 'categoryStore'])->name('admin.knowledge-base.categories.store');

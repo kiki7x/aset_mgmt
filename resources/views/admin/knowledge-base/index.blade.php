@@ -74,9 +74,9 @@
                                         <ul class="dropdown-menu dropdown-menu-right">
                                             <li><a class="mx-3" href="{{ route('admin.knowledge-base.edit', $article->id) }}" data-crud="true">Edit</a></li>
                                             <li>
-                                                <form action="{{ route('admin.knowledge-base.destroy', $article->id) }}" method="POST" class="d-inline">
+                                                <form action="{{ route('admin.knowledge-base.destroy', $article->id) }}" method="POST" class="d-inline btn-delete-article-form">
                                                     @csrf
-                                                    <span class="mx-3 btn-delete-article" style="cursor:pointer;color:#007bff;" data-id="{{ $article->id }}">Delete</span>
+                                                    <button type="submit" class="dropdown-item btn-delete-article" style="color:#007bff;">Delete</button>
                                                 </form>
                                             </li>
                                         </ul>
@@ -166,17 +166,23 @@
 
     <script>
         $(function() {
-            // Initialize DataTables
-            $("#articlesTable").DataTable({
+            var table = $("#articlesTable").DataTable({
                 "responsive": true,
                 "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#articlesTable_wrapper .col-md-6:eq(0)');
+                "autoWidth": false
+            });
+            if ($.fn.DataTable && $.fn.DataTable.buttons) {
+                table.buttons().container().appendTo('#articlesTable_wrapper .col-md-6:eq(0)');
+            }
+        });
+    </script>
+    <script>
+        // Delete Artikel — handler mandiri, id diambil dari action form (render server)
+        $(document).on('submit', 'form.btn-delete-article-form', function(e) {
+            e.preventDefault();
+            var form = this;
 
-            // Handle Article Delete
-            $(document).on('click', '.btn-delete-article', function() {
-                var id = $(this).data('id');
+            if (window.Swal) {
                 Swal.fire({
                     title: 'Apakah Anda yakin?',
                     text: "Artikel ini akan dihapus secara permanen!",
@@ -186,25 +192,14 @@
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Ya, hapus!',
                     cancelButtonText: 'Batal'
-                }).then((result) => {
+                }).then(function(result) {
                     if (result.isConfirmed) {
-                        $.ajax({
-                            url: `/admin/knowledge-base/${id}`,
-                            method: "DELETE",
-                            data: {
-                                _token: "{{ csrf_token() }}"
-                            },
-                            success: function(response) {
-                                Swal.fire('Berhasil!', response.message, 'success');
-                                location.reload();
-                            },
-                            error: function(response) {
-                                Swal.fire('Error!', response.responseJSON.message || 'Terjadi kesalahan!', 'error');
-                            }
-                        });
+                        form.submit();
                     }
                 });
-            });
+            } else if (confirm('Artikel ini akan dihapus secara permanen!')) {
+                form.submit();
+            }
         });
     </script>
     <script>
