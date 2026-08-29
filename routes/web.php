@@ -40,7 +40,7 @@ Route::prefix('admin')->middleware(['auth', 'readonly_user'])->group(function ()
         Route::get('/asettik/get_assets', [App\Http\Controllers\AssetController::class, 'get_assets'])->name('admin.asettik.get_assets');
         Route::post('/asettik/store/{classification}', [App\Http\Controllers\AssetController::class, 'store'])->name('admin.asettik.store');
         Route::get('/asettik/{id}/edit', [App\Http\Controllers\ShowAsetController::class, 'getEditAssetContent'])->name('admin.asettik.edit');
-        Route::patch('/asettik/{id}/update', [App\Http\Controllers\AssetController::class, 'update'])->name('admin.asettik.update');
+        Route::match(['post', 'patch'], '/asettik/{id}/update', [App\Http\Controllers\AssetController::class, 'update'])->name('admin.asettik.update');
         Route::delete('/asettik/destroy/{id}/{classification}', [App\Http\Controllers\AssetController::class, 'destroy'])->name('admin.asettik.destroy');
         Route::get('/asettik/export', [App\Http\Controllers\AssetController::class, 'exportExcelTik'])->name('admin.asettik.export');
         Route::get('/asettik/{id}/overview', [App\Http\Controllers\ShowAsetController::class, 'getOverviewContent'])->name('admin.asettik.overview');

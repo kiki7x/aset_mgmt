@@ -12,7 +12,6 @@
 @section('content-tab')
     <form id="formEditAsset" enctype="multipart/form-data">
         @csrf
-        @method('PATCH') {{-- Gunakan PUT atau PATCH sesuai dengan definisi rute Anda di Laravel --}}
         <div class="card-body">
             <div class="row form-group">
                 <input type="text" name="id" value="{{ $asset->id }}" hidden>
@@ -223,6 +222,9 @@
                     url: "{{ route('admin.asettik.update', $id) }}",
                     method: "POST", // Laravel interprets @method('PUT') when using POST
                     data: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     contentType: false,
                     processData: false,
                     success: function(res) {
@@ -253,6 +255,13 @@
                                 icon: 'error',
                                 title: 'Oops...',
                                 text: xhr.responseJSON.message,
+                            });
+                        } else if (xhr.status === 400 || xhr.status === 413 || xhr.status === 419) {
+                            let msg = (xhr.responseJSON && (xhr.responseJSON.message || xhr.responseJSON.error)) || xhr.responseText || 'Terjadi kesalahan (HTTP ' + xhr.status + ').';
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error (' + xhr.status + ')',
+                                text: msg,
                             });
                         } else {
                             Swal.fire({
